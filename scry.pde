@@ -1,7 +1,9 @@
 import java.util.Calendar;
 
+
 PImage baseImage;
-PImage houseTemp;
+
+//non-interactable icons
 PImage cloudy;
 PImage partlyCloudy;
 PImage storm;
@@ -11,6 +13,12 @@ PImage sunny;
 PImage night;
 PImage snow;
 PImage wind;
+PImage houseTemp;
+
+//interactable icons
+PImage powerIcon;
+PImage lockIcon;
+PImage gridIcon;
 
 PFont font;
 
@@ -81,6 +89,18 @@ void setup()
   //House Temperature Icon
   houseTemp = loadImage("houseTempIcon.png");
   houseTemp.loadPixels();
+  
+//*************************************************
+//**The following implements the interactable icons
+//*************************************************
+  powerIcon = loadImage("powerIcon.png");
+  powerIcon.loadPixels();
+  
+  lockIcon = loadImage("lockIcon.png");
+  lockIcon.loadPixels();
+  
+  gridIcon = loadImage("gridIcon.png");
+  gridIcon.loadPixels();
 }
 
 
@@ -217,7 +237,7 @@ void draw()
   textFont(font, 45);
   text("68°F", 2515, 255);
   textFont(font, 50);
-  text(curDate, 2050, 90);
+  text(curDate, 2075, 90);
   //textFont(font, 50);
   //text(greet, 960, 68);
 //****************************************
@@ -297,6 +317,17 @@ void draw()
   }
 //**************************************************
 //**************************************************
+
+//**************************************************
+//**The following Implements the interactable icons 
+//** and icon bar
+//**************************************************
+  image(powerIcon, 50, 400);
+  image(lockIcon, 2275, 415);
+  image(gridIcon, 2475, 400);
+//**************************************************
+//**************************************************
+
   
 
 }
