@@ -39,26 +39,23 @@ void setup()
   cursor(HAND);
   smooth();
   
-//*********************************************
-//**Create size of canvas and load base image
-//**Initialize Font - Avenir
-//*********************************************
+  //*********************************************
+  //**Create size of canvas and load base image
+  //**Initialize Font - Avenir
+  //*********************************************
    size(2732, 1536);
    baseImage = loadImage("mirror.jpg");
    baseImage.loadPixels();
    
    font = createFont("Avenir", 32, true);
-//*********************************************
-//*********************************************
 
-
-//*********************************************
-//**The following retreives weather data from 
-//**Yahoo using yahoo xml files through the 
-//**url. Also, retreives temp, and forecast
-//**description and initializes images for
-//**forecast.
-//*********************************************
+  //*********************************************
+  //**The following retreives weather data from 
+  //**Yahoo using yahoo xml files through the 
+  //**url. Also, retreives temp, and forecast
+  //**description and initializes images for
+  //**forecast.
+  //*********************************************
 
   //retreives yahoo url, loads weather data into xml file
   String url = "http://query.yahooapis.com/v1/public/yql?format=xml&q=select+*+from+weather.forecast+where+woeid=" + woeid + "+and+u='F'";
@@ -90,16 +87,15 @@ void setup()
   snow.loadPixels();
   wind = loadImage("wind.png");
   wind.loadPixels();
-//*********************************************
-//*********************************************
+  
+  //*********************************************
+  //*********************************************
   
   //House Temperature Icon
   houseTemp = loadImage("houseTempIcon.png");
   houseTemp.loadPixels();
   
-//*************************************************
-//**The following implements the interactable icons
-//*************************************************
+  //The following implements the interactable icons
   powerIcon = loadImage("powerIcon.png");
   powerIcon.loadPixels();
   
@@ -195,48 +191,41 @@ void draw()
   }   
   translate(centerX,centerY);
 
-//*********************************
-//**Draw the mirror base Image
-//*********************************
+  //Draw the mirror base Image
   //background(0);
   noStroke();
   baseImage.resize(2732, 1536);
   image(baseImage, 0, 0);
-//*********************************
-//*********************************
 
   if(mirrorMode == 0)
   {
-    
+    //language screen
   }
   else if(mirrorMode == 1)
   {
-    
+    //wi-fi network screen
   }
   else if(mirrorMode == 2)
   {
-    
+    //date and time screen
   }
   else if(mirrorMode == 3)
   {
-    
+    //password screen
   }
   else if(mirrorMode == 4)
   {
-    //guest screen interface
+    //guest screen
     drawTopInterface();
     image(powerIcon, 50, 1275);
     image(guestIcon, 2425, 1250);
   }
   else if (mirrorMode == 5)
   {
-    //user screen interface
+    //user screen 
     drawTopInterface();
     
-  //**************************************************
-  //**The following Implements the interactable icons 
-  //** and icon bar
-  //**************************************************
+    //The following Implements the interactable icons and icon bar
     image(powerIcon, 50, 1275);
     image(lockIcon, 2275, 1290);
     image(gridIcon, 2475, 1275);
@@ -275,18 +264,12 @@ void draw()
     image(facebookIcon, 1750, 1275);
     image(rightArrowIcon, 2000, 1290);
     */
-    
-  //**************************************************
-  //**************************************************
   }
 }
 
-void drawTopInterface()
+//The following implements the Time, Date, and Greeting
+void displayTime()
 {
-//****************************************
-//**The following implements the Time,
-//**Date, and Greeting
-//****************************************
   Calendar c;
   int dayName;
   c = Calendar.getInstance();
@@ -310,31 +293,19 @@ void drawTopInterface()
   
   //logic of am, pm
   if(hr >= 12)
-  {
     am = "PM";
-  }
   else
-  {
     am = "AM";
-  }
   
   if(min < 10)
-  {
     b = "0";
-  }
   else
-  {
     b = "";
-  }
   
   if(sec < 10)
-  {
     b1 = "0";
-  }
   else
-  {
     b1 = "";
-  }
   
   switch(dayName)
   {
@@ -364,13 +335,9 @@ void drawTopInterface()
   curDate = curDate + " " + monthString[mon] + " " + dy + " " + yer;
   
   if(hour() > 12)
-  {
     hr -= 12;
-  }
   else
-  {
     hr = hour();
-  }
   
   if( hr < 10)
     time = "0" + hr + ":" + b + min;
@@ -404,14 +371,11 @@ void drawTopInterface()
   text(curDate, 2075, 90);
   //textFont(font, 50);
   //text(greet, 960, 68);
-//****************************************
-//****************************************
+}
 
-//**************************************************
-//**The following Implements the weather including 
-//**temperature, description, and picture
-//**************************************************
-
+//The following Implements the weather including temperature, description, and picture  
+void displayWeather()
+{
   //display temp and description
   textFont(font, 50);
   text(temp + "°F", 72, 250);
@@ -473,12 +437,13 @@ void drawTopInterface()
     image(night, 66, 50);
   }
   else
-  {
-    //nada
     text("N/A", 66, 50);
-  }
-//**************************************************
-//**************************************************
+}
+
+void drawTopInterface()
+{
+  displayTime();
+  displayWeather();
 }
 
 //just to check bottom side of window, comment out after use
