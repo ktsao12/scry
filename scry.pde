@@ -1,55 +1,21 @@
 import java.util.Calendar;
 
-//just to check bottom side of window, comment out after use
-//int centerX = 0, centerY = 0, offsetX = 0, offsetY = 0;
-
 PImage baseImage;
 
 //non-interactable icons
-PImage cloudy;
-PImage partlyCloudy;
-PImage storm;
-PImage hail;
-PImage rain;
-PImage sunny;
-PImage night;
-PImage snow;
-PImage wind;
-PImage houseTemp;
+PImage cloudy, partlyCloudy, storm, hail, rain, sunny, night, snow, wind, houseTemp;
 
 //interactable icons
-PImage powerIcon;
-PImage leftArrowIcon;
-PImage rightArrowIcon;
-PImage lockIcon;
-PImage gridIcon;
+PImage languageIcon, unavailableArrowIcon, powerIcon, leftArrowIcon, rightArrowIcon, lockIcon, gridIcon, guestIcon;
 
 //primary app icons
-PImage timerIcon;
-PImage backgroundIcon;
-PImage weatherIcon;
-PImage calendarIcon;
-PImage lightIcon;
-PImage utilitiesIcon;
-PImage settingsIcon;
+PImage timerIcon, backgroundIcon, weatherIcon, calendarIcon, lightIcon, utilitiesIcon, settingsIcon;
 
 //secondary app icons
-PImage appstoreIcon;
-PImage drawIcon;
-PImage notesIcon;
-PImage videosIcon;
-PImage musicIcon;
-PImage newsIcon;
-PImage healthIcon;
+PImage appstoreIcon, drawIcon, notesIcon, videosIcon, musicIcon, newsIcon, healthIcon;
 
 //tertiary app icons
-PImage tumblrIcon;
-PImage instagramIcon;
-PImage pinterestIcon;
-PImage linkedinIcon;
-PImage twitterIcon;
-PImage googleplusIcon;
-PImage facebookIcon;
+PImage tumblrIcon, instagramIcon, pinterestIcon, linkedinIcon, twitterIcon, googleplusIcon, facebookIcon;
 
 PFont font;
 
@@ -60,35 +26,36 @@ String woeid = "12784261";
 
 int temp = 0;
 int code = 3200;
+int mirrorMode = 0;
+
+//just to check bottom side of window, comment out after use
+int centerX = 0, centerY = 0, offsetX = 0, offsetY = 0;
 
 void setup()
 {
   //just to check bottom side of window, comment out after use
-  /*centerX = 0;
+  centerX = 0;
   centerY = 0;  
   cursor(HAND);
-  smooth();*/
+  smooth();
   
-//*********************************************
-//**Create size of canvas and load base image
-//**Initialize Font - Avenir
-//*********************************************
+  //*********************************************
+  //**Create size of canvas and load base image
+  //**Initialize Font - Avenir
+  //*********************************************
    size(2732, 1536);
    baseImage = loadImage("mirror.jpg");
    baseImage.loadPixels();
    
    font = createFont("Avenir", 32, true);
-//*********************************************
-//*********************************************
 
-
-//*********************************************
-//**The following retreives weather data from 
-//**Yahoo using yahoo xml files through the 
-//**url. Also, retreives temp, and forecast
-//**description and initializes images for
-//**forecast.
-//*********************************************
+  //*********************************************
+  //**The following retreives weather data from 
+  //**Yahoo using yahoo xml files through the 
+  //**url. Also, retreives temp, and forecast
+  //**description and initializes images for
+  //**forecast.
+  //*********************************************
 
   //retreives yahoo url, loads weather data into xml file
   String url = "http://query.yahooapis.com/v1/public/yql?format=xml&q=select+*+from+weather.forecast+where+woeid=" + woeid + "+and+u='F'";
@@ -120,16 +87,21 @@ void setup()
   snow.loadPixels();
   wind = loadImage("wind.png");
   wind.loadPixels();
-//*********************************************
-//*********************************************
+  
+  //*********************************************
+  //*********************************************
   
   //House Temperature Icon
   houseTemp = loadImage("houseTempIcon.png");
   houseTemp.loadPixels();
   
-//*************************************************
-//**The following implements the interactable icons
-//*************************************************
+  //The following implements the interactable icons
+  languageIcon = loadImage("languageIcon.png");
+  languageIcon.loadPixels();
+  
+  unavailableArrowIcon = loadImage("unavailableArrowIcon.png");
+  unavailableArrowIcon.loadPixels();
+  
   powerIcon = loadImage("powerIcon.png");
   powerIcon.loadPixels();
   
@@ -144,6 +116,9 @@ void setup()
   
   gridIcon = loadImage("gridIcon.png");
   gridIcon.loadPixels();
+  
+  guestIcon = loadImage("guestIcon.png");
+  guestIcon.loadPixels();
   
   //primary app icons
   timerIcon = loadImage("timerIcon.png");
@@ -216,28 +191,109 @@ void setup()
 void draw()
 {
   //just to check bottom side of window, comment out after use
-    /*if (mousePressed == true) {
-    centerX = mouseX-offsetX;
-    centerY = mouseY-offsetY;
-    }   
-    translate(centerX,centerY);*/
+  if (mousePressed == true) {
+  centerX = mouseX-offsetX;
+  centerY = mouseY-offsetY;
+  }   
+  translate(centerX,centerY);
 
-//*********************************
-//**Draw the mirror base Image
-//*********************************
+  //Draw the mirror base Image
   //background(0);
   noStroke();
   baseImage.resize(2732, 1536);
   image(baseImage, 0, 0);
-//*********************************
-//*********************************
 
+  if(mirrorMode == 0)
+  {
+    //language screen
+    image(languageIcon, 600, 200);
+    textFont(font, 108);
+    text("Choose your Language", 840, 315);
+    
+    textFont(font, 72);
+    text("English", 600, 600);
+    text("Español", 600, 800);
+    text("日本語", 600, 1000);
+    
+    text("繁體中文", 1200, 600);
+    text("العربية", 1200, 800);
+    text("Português", 1200, 1000);
+    
+    text("Français", 1800, 600);
+    text("Русский язык", 1800, 800);
+    text("Deutsche", 1800, 1000);
+    
+    image(unavailableArrowIcon, 1250, 1150);
+  }
+  else if(mirrorMode == 1)
+  {
+    //wi-fi network screen
+  }
+  else if(mirrorMode == 2)
+  {
+    //date and time screen
+  }
+  else if(mirrorMode == 3)
+  {
+    //password screen
+  }
+  else if(mirrorMode == 4)
+  {
+    //guest screen
+    drawTopInterface();
+    image(powerIcon, 50, 1275);
+    image(guestIcon, 2425, 1250);
+  }
+  else if (mirrorMode == 5)
+  {
+    //user screen 
+    drawTopInterface();
+    
+    //The following Implements the interactable icons and icon bar
+    image(powerIcon, 50, 1275);
+    image(lockIcon, 2275, 1290);
+    image(gridIcon, 2475, 1275);
+    
+    //primary app icon set
+    image(leftArrowIcon, 300, 1290);
+    image(timerIcon, 550, 1275);
+    image(backgroundIcon, 750, 1275);
+    image(weatherIcon, 950, 1275);
+    image(calendarIcon, 1150, 1275);
+    image(lightIcon, 1350, 1275);
+    image(utilitiesIcon, 1550, 1275);
+    image(settingsIcon, 1750, 1275);
+    
+    //secondary icon set
+    /*
+    image(leftArrowIcon, 300, 1290);
+    image(appstoreIcon, 550, 1275);
+    image(drawIcon, 750, 1275);
+    image(notesIcon, 950, 1275);
+    image(videosIcon, 1150, 1275);
+    image(musicIcon, 1350, 1275);
+    image(newsIcon, 1550, 1275);
+    image(healthIcon, 1750, 1275);
+    image(rightArrowIcon, 2000, 1290);
+    */
+    
+    //tertiary icon set
+    /*
+    image(tumblrIcon, 550, 1275);
+    image(instagramIcon, 750, 1275);
+    image(pinterestIcon, 950, 1275);
+    image(linkedinIcon, 1150, 1275);
+    image(twitterIcon, 1350, 1275);
+    image(googleplusIcon, 1550, 1275);
+    image(facebookIcon, 1750, 1275);
+    image(rightArrowIcon, 2000, 1290);
+    */
+  }
+}
 
-
-//****************************************
-//**The following implements the Time,
-//**Date, and Greeting
-//****************************************
+//The following implements the Time, Date, and Greeting
+void displayTime()
+{
   Calendar c;
   int dayName;
   c = Calendar.getInstance();
@@ -261,31 +317,19 @@ void draw()
   
   //logic of am, pm
   if(hr >= 12)
-  {
     am = "PM";
-  }
   else
-  {
     am = "AM";
-  }
   
   if(min < 10)
-  {
     b = "0";
-  }
   else
-  {
     b = "";
-  }
   
   if(sec < 10)
-  {
     b1 = "0";
-  }
   else
-  {
     b1 = "";
-  }
   
   switch(dayName)
   {
@@ -315,13 +359,9 @@ void draw()
   curDate = curDate + " " + monthString[mon] + " " + dy + " " + yer;
   
   if(hour() > 12)
-  {
     hr -= 12;
-  }
   else
-  {
     hr = hour();
-  }
   
   if( hr < 10)
     time = "0" + hr + ":" + b + min;
@@ -355,16 +395,11 @@ void draw()
   text(curDate, 2075, 90);
   //textFont(font, 50);
   //text(greet, 960, 68);
-//****************************************
-//****************************************
+}
 
-
-
-//**************************************************
-//**The following Implements the weather including 
-//**temperature, description, and picture
-//**************************************************
-
+//The following Implements the weather including temperature, description, and picture  
+void displayWeather()
+{
   //display temp and description
   textFont(font, 50);
   text(temp + "°F", 72, 250);
@@ -426,64 +461,17 @@ void draw()
     image(night, 66, 50);
   }
   else
-  {
-    //nada
     text("N/A", 66, 50);
-  }
-//**************************************************
-//**************************************************
+}
 
-//**************************************************
-//**The following Implements the interactable icons 
-//** and icon bar
-//**************************************************
-  image(powerIcon, 50, 1275);
-  image(lockIcon, 2275, 1290);
-  image(gridIcon, 2475, 1275);
-  
-  //primary app icon set
-  image(leftArrowIcon, 300, 1290);
-  image(timerIcon, 550, 1275);
-  image(backgroundIcon, 750, 1275);
-  image(weatherIcon, 950, 1275);
-  image(calendarIcon, 1150, 1275);
-  image(lightIcon, 1350, 1275);
-  image(utilitiesIcon, 1550, 1275);
-  image(settingsIcon, 1750, 1275);
-  
-  //secondary icon set
-  /*
-  image(leftArrowIcon, 300, 1290);
-  image(appstoreIcon, 550, 1275);
-  image(drawIcon, 750, 1275);
-  image(notesIcon, 950, 1275);
-  image(videosIcon, 1150, 1275);
-  image(musicIcon, 1350, 1275);
-  image(newsIcon, 1550, 1275);
-  image(healthIcon, 1750, 1275);
-  image(rightArrowIcon, 2000, 1290);
-  */
-  
-  //tertiary icon set
-  /*
-  image(tumblrIcon, 550, 1275);
-  image(instagramIcon, 750, 1275);
-  image(pinterestIcon, 950, 1275);
-  image(linkedinIcon, 1150, 1275);
-  image(twitterIcon, 1350, 1275);
-  image(googleplusIcon, 1550, 1275);
-  image(facebookIcon, 1750, 1275);
-  image(rightArrowIcon, 2000, 1290);
-  */
-  
-//**************************************************
-//**************************************************
-
+void drawTopInterface()
+{
+  displayTime();
+  displayWeather();
 }
 
 //just to check bottom side of window, comment out after use
-/*
 void mousePressed(){
   offsetX = mouseX-centerX;
   offsetY = mouseY-centerY;
-}*/
+}
