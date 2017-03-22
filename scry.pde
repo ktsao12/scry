@@ -1,55 +1,21 @@
 import java.util.Calendar;
 
-//just to check bottom side of window, comment out after use
-//int centerX = 0, centerY = 0, offsetX = 0, offsetY = 0;
-
 PImage baseImage;
 
 //non-interactable icons
-PImage cloudy;
-PImage partlyCloudy;
-PImage storm;
-PImage hail;
-PImage rain;
-PImage sunny;
-PImage night;
-PImage snow;
-PImage wind;
-PImage houseTemp;
+PImage cloudy, partlyCloudy, storm, hail, rain, sunny, night, snow, wind, houseTemp;
 
 //interactable icons
-PImage powerIcon;
-PImage leftArrowIcon;
-PImage rightArrowIcon;
-PImage lockIcon;
-PImage gridIcon;
+PImage powerIcon, leftArrowIcon, rightArrowIcon, lockIcon, gridIcon, guestIcon;
 
 //primary app icons
-PImage timerIcon;
-PImage backgroundIcon;
-PImage weatherIcon;
-PImage calendarIcon;
-PImage lightIcon;
-PImage utilitiesIcon;
-PImage settingsIcon;
+PImage timerIcon, backgroundIcon, weatherIcon, calendarIcon, lightIcon, utilitiesIcon, settingsIcon;
 
 //secondary app icons
-PImage appstoreIcon;
-PImage drawIcon;
-PImage notesIcon;
-PImage videosIcon;
-PImage musicIcon;
-PImage newsIcon;
-PImage healthIcon;
+PImage appstoreIcon, drawIcon, notesIcon, videosIcon, musicIcon, newsIcon, healthIcon;
 
 //tertiary app icons
-PImage tumblrIcon;
-PImage instagramIcon;
-PImage pinterestIcon;
-PImage linkedinIcon;
-PImage twitterIcon;
-PImage googleplusIcon;
-PImage facebookIcon;
+PImage tumblrIcon, instagramIcon, pinterestIcon, linkedinIcon, twitterIcon, googleplusIcon, facebookIcon;
 
 PFont font;
 
@@ -60,14 +26,18 @@ String woeid = "12784261";
 
 int temp = 0;
 int code = 3200;
+int mirrorMode = 4;
+
+//just to check bottom side of window, comment out after use
+int centerX = 0, centerY = 0, offsetX = 0, offsetY = 0;
 
 void setup()
 {
   //just to check bottom side of window, comment out after use
-  /*centerX = 0;
+  centerX = 0;
   centerY = 0;  
   cursor(HAND);
-  smooth();*/
+  smooth();
   
 //*********************************************
 //**Create size of canvas and load base image
@@ -145,6 +115,9 @@ void setup()
   gridIcon = loadImage("gridIcon.png");
   gridIcon.loadPixels();
   
+  guestIcon = loadImage("guestIcon.png");
+  guestIcon.loadPixels();
+  
   //primary app icons
   timerIcon = loadImage("timerIcon.png");
   timerIcon.loadPixels();
@@ -216,11 +189,11 @@ void setup()
 void draw()
 {
   //just to check bottom side of window, comment out after use
-    /*if (mousePressed == true) {
-    centerX = mouseX-offsetX;
-    centerY = mouseY-offsetY;
-    }   
-    translate(centerX,centerY);*/
+  if (mousePressed == true) {
+  centerX = mouseX-offsetX;
+  centerY = mouseY-offsetY;
+  }   
+  translate(centerX,centerY);
 
 //*********************************
 //**Draw the mirror base Image
@@ -232,8 +205,84 @@ void draw()
 //*********************************
 //*********************************
 
+  if(mirrorMode == 0)
+  {
+    
+  }
+  else if(mirrorMode == 1)
+  {
+    
+  }
+  else if(mirrorMode == 2)
+  {
+    
+  }
+  else if(mirrorMode == 3)
+  {
+    
+  }
+  else if(mirrorMode == 4)
+  {
+    //guest screen interface
+    drawTopInterface();
+    image(powerIcon, 50, 1275);
+    image(guestIcon, 2425, 1250);
+  }
+  else if (mirrorMode == 5)
+  {
+    //user screen interface
+    drawTopInterface();
+    
+  //**************************************************
+  //**The following Implements the interactable icons 
+  //** and icon bar
+  //**************************************************
+    image(powerIcon, 50, 1275);
+    image(lockIcon, 2275, 1290);
+    image(gridIcon, 2475, 1275);
+    
+    //primary app icon set
+    image(leftArrowIcon, 300, 1290);
+    image(timerIcon, 550, 1275);
+    image(backgroundIcon, 750, 1275);
+    image(weatherIcon, 950, 1275);
+    image(calendarIcon, 1150, 1275);
+    image(lightIcon, 1350, 1275);
+    image(utilitiesIcon, 1550, 1275);
+    image(settingsIcon, 1750, 1275);
+    
+    //secondary icon set
+    /*
+    image(leftArrowIcon, 300, 1290);
+    image(appstoreIcon, 550, 1275);
+    image(drawIcon, 750, 1275);
+    image(notesIcon, 950, 1275);
+    image(videosIcon, 1150, 1275);
+    image(musicIcon, 1350, 1275);
+    image(newsIcon, 1550, 1275);
+    image(healthIcon, 1750, 1275);
+    image(rightArrowIcon, 2000, 1290);
+    */
+    
+    //tertiary icon set
+    /*
+    image(tumblrIcon, 550, 1275);
+    image(instagramIcon, 750, 1275);
+    image(pinterestIcon, 950, 1275);
+    image(linkedinIcon, 1150, 1275);
+    image(twitterIcon, 1350, 1275);
+    image(googleplusIcon, 1550, 1275);
+    image(facebookIcon, 1750, 1275);
+    image(rightArrowIcon, 2000, 1290);
+    */
+    
+  //**************************************************
+  //**************************************************
+  }
+}
 
-
+void drawTopInterface()
+{
 //****************************************
 //**The following implements the Time,
 //**Date, and Greeting
@@ -358,8 +407,6 @@ void draw()
 //****************************************
 //****************************************
 
-
-
 //**************************************************
 //**The following Implements the weather including 
 //**temperature, description, and picture
@@ -432,58 +479,10 @@ void draw()
   }
 //**************************************************
 //**************************************************
-
-//**************************************************
-//**The following Implements the interactable icons 
-//** and icon bar
-//**************************************************
-  image(powerIcon, 50, 1275);
-  image(lockIcon, 2275, 1290);
-  image(gridIcon, 2475, 1275);
-  
-  //primary app icon set
-  image(leftArrowIcon, 300, 1290);
-  image(timerIcon, 550, 1275);
-  image(backgroundIcon, 750, 1275);
-  image(weatherIcon, 950, 1275);
-  image(calendarIcon, 1150, 1275);
-  image(lightIcon, 1350, 1275);
-  image(utilitiesIcon, 1550, 1275);
-  image(settingsIcon, 1750, 1275);
-  
-  //secondary icon set
-  /*
-  image(leftArrowIcon, 300, 1290);
-  image(appstoreIcon, 550, 1275);
-  image(drawIcon, 750, 1275);
-  image(notesIcon, 950, 1275);
-  image(videosIcon, 1150, 1275);
-  image(musicIcon, 1350, 1275);
-  image(newsIcon, 1550, 1275);
-  image(healthIcon, 1750, 1275);
-  image(rightArrowIcon, 2000, 1290);
-  */
-  
-  //tertiary icon set
-  /*
-  image(tumblrIcon, 550, 1275);
-  image(instagramIcon, 750, 1275);
-  image(pinterestIcon, 950, 1275);
-  image(linkedinIcon, 1150, 1275);
-  image(twitterIcon, 1350, 1275);
-  image(googleplusIcon, 1550, 1275);
-  image(facebookIcon, 1750, 1275);
-  image(rightArrowIcon, 2000, 1290);
-  */
-  
-//**************************************************
-//**************************************************
-
 }
 
 //just to check bottom side of window, comment out after use
-/*
 void mousePressed(){
   offsetX = mouseX-centerX;
   offsetY = mouseY-centerY;
-}*/
+}
