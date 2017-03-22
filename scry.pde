@@ -6,7 +6,7 @@ PImage baseImage;
 PImage cloudy, partlyCloudy, storm, hail, rain, sunny, night, snow, wind, houseTemp;
 
 //interactable icons
-PImage powerIcon, leftArrowIcon, rightArrowIcon, lockIcon, gridIcon, guestIcon;
+PImage languageIcon, unavailableArrowIcon, powerIcon, leftArrowIcon, rightArrowIcon, lockIcon, gridIcon, guestIcon;
 
 //primary app icons
 PImage timerIcon, backgroundIcon, weatherIcon, calendarIcon, lightIcon, utilitiesIcon, settingsIcon;
@@ -26,7 +26,7 @@ String woeid = "12784261";
 
 int temp = 0;
 int code = 3200;
-int mirrorMode = 4;
+int mirrorMode = 0;
 
 //just to check bottom side of window, comment out after use
 int centerX = 0, centerY = 0, offsetX = 0, offsetY = 0;
@@ -96,6 +96,12 @@ void setup()
   houseTemp.loadPixels();
   
   //The following implements the interactable icons
+  languageIcon = loadImage("languageIcon.png");
+  languageIcon.loadPixels();
+  
+  unavailableArrowIcon = loadImage("unavailableArrowIcon.png");
+  unavailableArrowIcon.loadPixels();
+  
   powerIcon = loadImage("powerIcon.png");
   powerIcon.loadPixels();
   
@@ -200,6 +206,24 @@ void draw()
   if(mirrorMode == 0)
   {
     //language screen
+    image(languageIcon, 600, 200);
+    textFont(font, 108);
+    text("Choose your Language", 840, 315);
+    
+    textFont(font, 72);
+    text("English", 600, 600);
+    text("Español", 600, 800);
+    text("日本語", 600, 1000);
+    
+    text("繁體中文", 1200, 600);
+    text("العربية", 1200, 800);
+    text("Português", 1200, 1000);
+    
+    text("Français", 1800, 600);
+    text("Русский язык", 1800, 800);
+    text("Deutsche", 1800, 1000);
+    
+    image(unavailableArrowIcon, 1250, 1150);
   }
   else if(mirrorMode == 1)
   {
