@@ -6,8 +6,8 @@ PImage baseImage;
 PImage cloudy, partlyCloudy, storm, hail, rain, sunny, night, snow, wind, houseTemp;
 
 //interactable icons
-PImage languageIcon, unavailableArrowIcon, wifiIcon, backArrowIcon, powerIcon, 
-leftArrowIcon, rightArrowIcon, lockIcon, gridIcon, guestIcon;
+PImage languageIcon, unavailableArrowIcon, wifiIcon, backArrowIcon, datetimeIcon, 
+powerIcon, leftArrowIcon, rightArrowIcon, lockIcon, gridIcon, guestIcon;
 
 //primary app icons
 PImage timerIcon, backgroundIcon, weatherIcon, calendarIcon, lightIcon, utilitiesIcon, settingsIcon;
@@ -108,6 +108,9 @@ void setup()
   
   backArrowIcon = loadImage("backArrowIcon.png");
   backArrowIcon.loadPixels();
+  
+  datetimeIcon = loadImage("datetimeIcon.png");
+  datetimeIcon.loadPixels();
   
   powerIcon = loadImage("powerIcon.png");
   powerIcon.loadPixels();
@@ -267,7 +270,21 @@ void draw()
   else if(mirrorMode == 2)
   {
     //date and time screen
-    
+    image(datetimeIcon, 600, 200);
+    textFont(font, 108);
+    text("Choose Date and Time", 840, 300);
+    textFont(font, 72);
+    text("Date: mm/dd/yy", 600, 500);
+    text("Time: 00:00", 600, 650);
+    text("OR", 1250, 750);
+    textFont(font, 108);
+    text("AM", 1600, 650);
+    text("PM", 1850, 650);
+    textFont(font, 72);
+    text("Turn On Location Services for Date/Time", 750, 850);
+    image(backArrowIcon, 600, 900);
+    image(unavailableArrowIcon, 1900, 900); 
+    //need numpad
   }
   else if(mirrorMode == 3)
   {
