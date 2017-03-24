@@ -6,7 +6,8 @@ PImage baseImage;
 PImage cloudy, partlyCloudy, storm, hail, rain, sunny, night, snow, wind, houseTemp;
 
 //interactable icons
-PImage languageIcon, unavailableArrowIcon, powerIcon, leftArrowIcon, rightArrowIcon, lockIcon, gridIcon, guestIcon;
+PImage languageIcon, unavailableArrowIcon, wifiIcon, backArrowIcon, datetimeIcon,
+passwordIcon, powerIcon, leftArrowIcon, rightArrowIcon, lockIcon, gridIcon, guestIcon;
 
 //primary app icons
 PImage timerIcon, backgroundIcon, weatherIcon, calendarIcon, lightIcon, utilitiesIcon, settingsIcon;
@@ -26,7 +27,7 @@ String woeid = "12784261";
 
 int temp = 0;
 int code = 3200;
-int mirrorMode = 0;
+int mirrorMode = 3;
 
 //just to check bottom side of window, comment out after use
 int centerX = 0, centerY = 0, offsetX = 0, offsetY = 0;
@@ -101,6 +102,18 @@ void setup()
   
   unavailableArrowIcon = loadImage("unavailableArrowIcon.png");
   unavailableArrowIcon.loadPixels();
+  
+  wifiIcon = loadImage("wifiIcon.png");
+  wifiIcon.loadPixels();
+  
+  backArrowIcon = loadImage("backArrowIcon.png");
+  backArrowIcon.loadPixels();
+  
+  datetimeIcon = loadImage("datetimeIcon.png");
+  datetimeIcon.loadPixels();
+  
+  passwordIcon = loadImage("passwordIcon.png");
+  passwordIcon.loadPixels();
   
   powerIcon = loadImage("powerIcon.png");
   powerIcon.loadPixels();
@@ -228,14 +241,97 @@ void draw()
   else if(mirrorMode == 1)
   {
     //wi-fi network screen
+    image(wifiIcon, 600, 200);
+    textFont(font, 108);
+    text("Connect to Wi-fi Network", 840, 330);
+    textFont(font, 72);
+    text("Looking for Networks...", 640, 430);
+    fill(255,255,255);
+    ellipse(600, 460, 50, 50);
+    ellipse(2025, 460, 50, 50);
+    rect(600, 435, 1425, 50);
+    text("PotatoWifi", 700, 550);
+    text("CatWifi", 700, 650);
+    image(lockIcon, 1850, 500, 75, 75);
+    image(lockIcon, 1850, 600, 75, 75);
+    rect(1990, 510, 50, 130); 
+    ellipse(2015, 510, 50, 50);
+    ellipse(2015, 640, 50, 50);
+    fill(190,190,190);
+    ellipse(2015, 570, 50, 50);
+    fill(255,255,255);
+    ellipse(600, 700, 50, 50);
+    ellipse(2025, 700, 50, 50);
+    rect(600, 675, 1425, 50); 
+    text("Password: ", 575, 800);
+    text("Show Password?", 1500, 800);
+    image(backArrowIcon, 575, 850);
+    text("Skip this step.", 1100, 950);
+    image(unavailableArrowIcon, 1850, 850);
+    //need keyboard
   }
   else if(mirrorMode == 2)
   {
     //date and time screen
+    image(datetimeIcon, 600, 200);
+    textFont(font, 108);
+    text("Choose Date and Time", 840, 300);
+    textFont(font, 72);
+    text("Date: mm/dd/yy", 600, 500);
+    text("Time: 00:00", 600, 650);
+    text("OR", 1250, 750);
+    textFont(font, 108);
+    text("AM", 1600, 650);
+    text("PM", 1850, 650);
+    textFont(font, 72);
+    text("Turn On Location Services for Date/Time", 750, 850);
+    image(backArrowIcon, 600, 900);
+    image(unavailableArrowIcon, 1900, 900); 
+    //need numpad
   }
   else if(mirrorMode == 3)
   {
     //password screen
+    image(passwordIcon, 600, 200);
+    textFont(font, 108);
+    text("Choose your Password", 840, 325);
+    textFont(font, 72);
+    text("Invent a swip pattern to lock and access your account. Simply drag", 300, 500);
+    text("your finger across the mirror to create your swipe password.", 400, 600);
+    text("Choose Your Swipe", 425, 750);
+    text("Confirm Your Swipe", 1700, 750);
+    fill(255,255,255);
+    //first grid of circles
+    ellipse(1325, 700, 50, 50);
+    ellipse(1325, 1350, 50, 50);
+    rect(1300, 700, 50, 650); 
+    ellipse(450, 900, 75, 75);
+    ellipse(750, 900, 75, 75);
+    ellipse(1025, 900, 75, 75);
+    
+    ellipse(450, 1050, 75, 75);
+    ellipse(750, 1050, 75, 75);
+    ellipse(1025, 1050, 75, 75);
+    
+    ellipse(450, 1200, 75, 75);
+    ellipse(750, 1200, 75, 75);
+    ellipse(1025, 1200, 75, 75);
+    
+    //second grid of circles
+    ellipse(1725, 900, 75, 75);
+    ellipse(2025, 900, 75, 75);
+    ellipse(2300, 900, 75, 75);
+    
+    ellipse(1725, 1050, 75, 75);
+    ellipse(2025, 1050, 75, 75);
+    ellipse(2300, 1050, 75, 75);
+    
+    ellipse(1725, 1200, 75, 75);
+    ellipse(2025, 1200, 75, 75);
+    ellipse(2300, 1200, 75, 75);
+    
+    image(backArrowIcon, 675, 1275);
+    image(unavailableArrowIcon, 1925, 1275); 
   }
   else if(mirrorMode == 4)
   {
