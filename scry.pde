@@ -6,7 +6,8 @@ PImage baseImage;
 PImage cloudy, partlyCloudy, storm, hail, rain, sunny, night, snow, wind, houseTemp;
 
 //interactable icons
-PImage languageIcon, unavailableArrowIcon, powerIcon, leftArrowIcon, rightArrowIcon, lockIcon, gridIcon, guestIcon;
+PImage languageIcon, unavailableArrowIcon, wifiIcon, backArrowIcon, powerIcon, 
+leftArrowIcon, rightArrowIcon, lockIcon, gridIcon, guestIcon;
 
 //primary app icons
 PImage timerIcon, backgroundIcon, weatherIcon, calendarIcon, lightIcon, utilitiesIcon, settingsIcon;
@@ -26,7 +27,7 @@ String woeid = "12784261";
 
 int temp = 0;
 int code = 3200;
-int mirrorMode = 0;
+int mirrorMode = 2;
 
 //just to check bottom side of window, comment out after use
 int centerX = 0, centerY = 0, offsetX = 0, offsetY = 0;
@@ -101,6 +102,12 @@ void setup()
   
   unavailableArrowIcon = loadImage("unavailableArrowIcon.png");
   unavailableArrowIcon.loadPixels();
+  
+  wifiIcon = loadImage("wifiIcon.png");
+  wifiIcon.loadPixels();
+  
+  backArrowIcon = loadImage("backArrowIcon.png");
+  backArrowIcon.loadPixels();
   
   powerIcon = loadImage("powerIcon.png");
   powerIcon.loadPixels();
@@ -228,10 +235,39 @@ void draw()
   else if(mirrorMode == 1)
   {
     //wi-fi network screen
+    image(wifiIcon, 600, 200);
+    textFont(font, 108);
+    text("Connect to Wi-fi Network", 840, 330);
+    textFont(font, 72);
+    text("Looking for Networks...", 640, 430);
+    fill(255,255,255);
+    ellipse(600, 460, 50, 50);
+    ellipse(2025, 460, 50, 50);
+    rect(600, 435, 1425, 50);
+    text("PotatoWifi", 700, 550);
+    text("CatWifi", 700, 650);
+    image(lockIcon, 1850, 500, 75, 75);
+    image(lockIcon, 1850, 600, 75, 75);
+    rect(1990, 510, 50, 130); 
+    ellipse(2015, 510, 50, 50);
+    ellipse(2015, 640, 50, 50);
+    fill(190,190,190);
+    ellipse(2015, 570, 50, 50);
+    fill(255,255,255);
+    ellipse(600, 700, 50, 50);
+    ellipse(2025, 700, 50, 50);
+    rect(600, 675, 1425, 50); 
+    text("Password: ", 575, 800);
+    text("Show Password?", 1500, 800);
+    image(backArrowIcon, 575, 850);
+    text("Skip this step.", 1100, 950);
+    image(unavailableArrowIcon, 1850, 850);
+    //need keyboard
   }
   else if(mirrorMode == 2)
   {
     //date and time screen
+    
   }
   else if(mirrorMode == 3)
   {
