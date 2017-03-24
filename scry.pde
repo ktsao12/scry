@@ -1,5 +1,7 @@
+//calendar for finding the day, may possibly cause problems with web application
 import java.util.Calendar;
 
+//mirror background image
 PImage baseImage;
 
 //non-interactable icons
@@ -27,7 +29,7 @@ String woeid = "12784261";
 
 int temp = 0;
 int code = 3200;
-int mirrorMode = 3;
+int mirrorMode = 0;
 
 //just to check bottom side of window, comment out after use
 int centerX = 0, centerY = 0, offsetX = 0, offsetY = 0;
@@ -200,108 +202,119 @@ void setup()
   facebookIcon.loadPixels();  
 }
 
-
-void draw()
+//draw elements for language choosing screen
+void drawLanguageScreen()
 {
-  //just to check bottom side of window, comment out after use
-  if (mousePressed == true) {
-  centerX = mouseX-offsetX;
-  centerY = mouseY-offsetY;
-  }   
-  translate(centerX,centerY);
-
-  //Draw the mirror base Image
-  //background(0);
-  noStroke();
-  baseImage.resize(2732, 1536);
-  image(baseImage, 0, 0);
-
-  if(mirrorMode == 0)
-  {
-    //language screen
     image(languageIcon, 600, 200);
     textFont(font, 108);
     text("Choose your Language", 840, 315);
     
+    //first column of languages in order: English, Spanish, Japanese
     textFont(font, 72);
     text("English", 600, 600);
     text("Español", 600, 800);
     text("日本語", 600, 1000);
     
+    //second column of languages in order: Chinese, Arabic, Portuguese
     text("繁體中文", 1200, 600);
     text("العربية", 1200, 800);
     text("Português", 1200, 1000);
     
+    //third column of languages in order: French, Russian, German
     text("Français", 1800, 600);
     text("Русский язык", 1800, 800);
     text("Deutsche", 1800, 1000);
     
     image(unavailableArrowIcon, 1250, 1150);
-  }
-  else if(mirrorMode == 1)
-  {
-    //wi-fi network screen
+}
+
+//draw elements for wi-fi network choosing screen
+void drawWifiScreen()
+{
     image(wifiIcon, 600, 200);
     textFont(font, 108);
     text("Connect to Wi-fi Network", 840, 330);
+    
     textFont(font, 72);
     text("Looking for Networks...", 640, 430);
+    
+    //top bar
     fill(255,255,255);
     ellipse(600, 460, 50, 50);
     ellipse(2025, 460, 50, 50);
     rect(600, 435, 1425, 50);
+    
+    //wifi networks
     text("PotatoWifi", 700, 550);
     text("CatWifi", 700, 650);
     image(lockIcon, 1850, 500, 75, 75);
     image(lockIcon, 1850, 600, 75, 75);
+    
+    //scroll bar
     rect(1990, 510, 50, 130); 
     ellipse(2015, 510, 50, 50);
     ellipse(2015, 640, 50, 50);
+    
+    //scroll circle
     fill(190,190,190);
     ellipse(2015, 570, 50, 50);
+    
+    //bottom bar
     fill(255,255,255);
     ellipse(600, 700, 50, 50);
     ellipse(2025, 700, 50, 50);
     rect(600, 675, 1425, 50); 
+    
     text("Password: ", 575, 800);
     text("Show Password?", 1500, 800);
+    
     image(backArrowIcon, 575, 850);
     text("Skip this step.", 1100, 950);
     image(unavailableArrowIcon, 1850, 850);
-    //need keyboard
-  }
-  else if(mirrorMode == 2)
-  {
-    //date and time screen
+}
+
+//draw elements for date and time setting screen
+void drawDateAndTimeScreen()
+{
     image(datetimeIcon, 600, 200);
+    
     textFont(font, 108);
     text("Choose Date and Time", 840, 300);
+    
     textFont(font, 72);
     text("Date: mm/dd/yy", 600, 500);
     text("Time: 00:00", 600, 650);
     text("OR", 1250, 750);
+    
     textFont(font, 108);
     text("AM", 1600, 650);
     text("PM", 1850, 650);
+    
     textFont(font, 72);
     text("Turn On Location Services for Date/Time", 750, 850);
+    
     image(backArrowIcon, 600, 900);
     image(unavailableArrowIcon, 1900, 900); 
-    //need numpad
-  }
-  else if(mirrorMode == 3)
-  {
-    //password screen
+}
+
+//draw elements for password selecting screen
+void drawPasswordScreen()
+{
     image(passwordIcon, 600, 200);
+    
     textFont(font, 108);
     text("Choose your Password", 840, 325);
+    
     textFont(font, 72);
     text("Invent a swip pattern to lock and access your account. Simply drag", 300, 500);
     text("your finger across the mirror to create your swipe password.", 400, 600);
+    
     text("Choose Your Swipe", 425, 750);
     text("Confirm Your Swipe", 1700, 750);
+    
     fill(255,255,255);
-    //first grid of circles
+    
+    //first grid of circles, choose swipe
     ellipse(1325, 700, 50, 50);
     ellipse(1325, 1350, 50, 50);
     rect(1300, 700, 50, 650); 
@@ -317,7 +330,7 @@ void draw()
     ellipse(750, 1200, 75, 75);
     ellipse(1025, 1200, 75, 75);
     
-    //second grid of circles
+    //second grid of circles, confirm swipe
     ellipse(1725, 900, 75, 75);
     ellipse(2025, 900, 75, 75);
     ellipse(2300, 900, 75, 75);
@@ -332,62 +345,9 @@ void draw()
     
     image(backArrowIcon, 675, 1275);
     image(unavailableArrowIcon, 1925, 1275); 
-  }
-  else if(mirrorMode == 4)
-  {
-    //guest screen
-    drawTopInterface();
-    image(powerIcon, 50, 1275);
-    image(guestIcon, 2425, 1250);
-  }
-  else if (mirrorMode == 5)
-  {
-    //user screen 
-    drawTopInterface();
-    
-    //The following Implements the interactable icons and icon bar
-    image(powerIcon, 50, 1275);
-    image(lockIcon, 2275, 1290);
-    image(gridIcon, 2475, 1275);
-    
-    //primary app icon set
-    image(leftArrowIcon, 300, 1290);
-    image(timerIcon, 550, 1275);
-    image(backgroundIcon, 750, 1275);
-    image(weatherIcon, 950, 1275);
-    image(calendarIcon, 1150, 1275);
-    image(lightIcon, 1350, 1275);
-    image(utilitiesIcon, 1550, 1275);
-    image(settingsIcon, 1750, 1275);
-    
-    //secondary icon set
-    /*
-    image(leftArrowIcon, 300, 1290);
-    image(appstoreIcon, 550, 1275);
-    image(drawIcon, 750, 1275);
-    image(notesIcon, 950, 1275);
-    image(videosIcon, 1150, 1275);
-    image(musicIcon, 1350, 1275);
-    image(newsIcon, 1550, 1275);
-    image(healthIcon, 1750, 1275);
-    image(rightArrowIcon, 2000, 1290);
-    */
-    
-    //tertiary icon set
-    /*
-    image(tumblrIcon, 550, 1275);
-    image(instagramIcon, 750, 1275);
-    image(pinterestIcon, 950, 1275);
-    image(linkedinIcon, 1150, 1275);
-    image(twitterIcon, 1350, 1275);
-    image(googleplusIcon, 1550, 1275);
-    image(facebookIcon, 1750, 1275);
-    image(rightArrowIcon, 2000, 1290);
-    */
-  }
 }
 
-//The following implements the Time, Date, and Greeting
+//The following implements the time, date, and greeting
 void displayTime()
 {
   Calendar c;
@@ -409,7 +369,7 @@ void displayTime()
   String b1 = "";
   String time = "";
   String curDate = "";
-  String greet = "";
+  //String greet = "";
   
   //logic of am, pm
   if(hr >= 12)
@@ -493,7 +453,7 @@ void displayTime()
   //text(greet, 960, 68);
 }
 
-//The following Implements the weather including temperature, description, and picture  
+//The following implements the weather including temperature, description, and picture  
 void displayWeather()
 {
   //display temp and description
@@ -560,10 +520,103 @@ void displayWeather()
     text("N/A", 66, 50);
 }
 
+//draw top half of interface for guest and user screen
 void drawTopInterface()
 {
   displayTime();
   displayWeather();
+}
+
+void draw()
+{
+  //just to check bottom side of window, comment out after use
+  if (mousePressed == true) {
+  centerX = mouseX-offsetX;
+  centerY = mouseY-offsetY;
+  }   
+  translate(centerX,centerY);
+
+  //Draw the mirror base Image
+  //background(0);
+  noStroke();
+  baseImage.resize(2732, 1536);
+  image(baseImage, 0, 0);
+
+  if(mirrorMode == 0)
+  {
+    //language screen
+    drawLanguageScreen();
+  }
+  else if(mirrorMode == 1)
+  {
+    //wi-fi network screen
+    drawWifiScreen();
+    //need keyboard
+  }
+  else if(mirrorMode == 2)
+  {
+    //date and time screen
+    drawDateAndTimeScreen();
+    //need checkmarkbox
+    //need numpad
+  }
+  else if(mirrorMode == 3)
+  {
+    //password screen
+    drawPasswordScreen();
+  }
+  else if(mirrorMode == 4)
+  {
+    //guest screen
+    drawTopInterface();
+    image(powerIcon, 50, 1275);
+    image(guestIcon, 2425, 1250);
+  }
+  else if (mirrorMode == 5)
+  {
+    //user screen 
+    drawTopInterface();
+    
+    //The following Implements the interactable icons and icon bar
+    image(powerIcon, 50, 1275);
+    image(lockIcon, 2275, 1290);
+    image(gridIcon, 2475, 1275);
+    
+    //primary app icon set
+    image(leftArrowIcon, 300, 1290);
+    image(timerIcon, 550, 1275);
+    image(backgroundIcon, 750, 1275);
+    image(weatherIcon, 950, 1275);
+    image(calendarIcon, 1150, 1275);
+    image(lightIcon, 1350, 1275);
+    image(utilitiesIcon, 1550, 1275);
+    image(settingsIcon, 1750, 1275);
+    
+    //secondary icon set
+    /*
+    image(leftArrowIcon, 300, 1290);
+    image(appstoreIcon, 550, 1275);
+    image(drawIcon, 750, 1275);
+    image(notesIcon, 950, 1275);
+    image(videosIcon, 1150, 1275);
+    image(musicIcon, 1350, 1275);
+    image(newsIcon, 1550, 1275);
+    image(healthIcon, 1750, 1275);
+    image(rightArrowIcon, 2000, 1290);
+    */
+    
+    //tertiary icon set
+    /*
+    image(tumblrIcon, 550, 1275);
+    image(instagramIcon, 750, 1275);
+    image(pinterestIcon, 950, 1275);
+    image(linkedinIcon, 1150, 1275);
+    image(twitterIcon, 1350, 1275);
+    image(googleplusIcon, 1550, 1275);
+    image(facebookIcon, 1750, 1275);
+    image(rightArrowIcon, 2000, 1290);
+    */
+  }
 }
 
 //just to check bottom side of window, comment out after use
