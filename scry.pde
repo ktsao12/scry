@@ -6,8 +6,8 @@ PImage baseImage;
 PImage cloudy, partlyCloudy, storm, hail, rain, sunny, night, snow, wind, houseTemp;
 
 //interactable icons
-PImage languageIcon, unavailableArrowIcon, wifiIcon, backArrowIcon, datetimeIcon, 
-powerIcon, leftArrowIcon, rightArrowIcon, lockIcon, gridIcon, guestIcon;
+PImage languageIcon, unavailableArrowIcon, wifiIcon, backArrowIcon, datetimeIcon,
+passwordIcon, powerIcon, leftArrowIcon, rightArrowIcon, lockIcon, gridIcon, guestIcon;
 
 //primary app icons
 PImage timerIcon, backgroundIcon, weatherIcon, calendarIcon, lightIcon, utilitiesIcon, settingsIcon;
@@ -27,7 +27,7 @@ String woeid = "12784261";
 
 int temp = 0;
 int code = 3200;
-int mirrorMode = 2;
+int mirrorMode = 3;
 
 //just to check bottom side of window, comment out after use
 int centerX = 0, centerY = 0, offsetX = 0, offsetY = 0;
@@ -111,6 +111,9 @@ void setup()
   
   datetimeIcon = loadImage("datetimeIcon.png");
   datetimeIcon.loadPixels();
+  
+  passwordIcon = loadImage("passwordIcon.png");
+  passwordIcon.loadPixels();
   
   powerIcon = loadImage("powerIcon.png");
   powerIcon.loadPixels();
@@ -289,6 +292,46 @@ void draw()
   else if(mirrorMode == 3)
   {
     //password screen
+    image(passwordIcon, 600, 200);
+    textFont(font, 108);
+    text("Choose your Password", 840, 325);
+    textFont(font, 72);
+    text("Invent a swip pattern to lock and access your account. Simply drag", 300, 500);
+    text("your finger across the mirror to create your swipe password.", 400, 600);
+    text("Choose Your Swipe", 425, 750);
+    text("Confirm Your Swipe", 1700, 750);
+    fill(255,255,255);
+    //first grid of circles
+    ellipse(1325, 700, 50, 50);
+    ellipse(1325, 1350, 50, 50);
+    rect(1300, 700, 50, 650); 
+    ellipse(450, 900, 75, 75);
+    ellipse(750, 900, 75, 75);
+    ellipse(1025, 900, 75, 75);
+    
+    ellipse(450, 1050, 75, 75);
+    ellipse(750, 1050, 75, 75);
+    ellipse(1025, 1050, 75, 75);
+    
+    ellipse(450, 1200, 75, 75);
+    ellipse(750, 1200, 75, 75);
+    ellipse(1025, 1200, 75, 75);
+    
+    //second grid of circles
+    ellipse(1725, 900, 75, 75);
+    ellipse(2025, 900, 75, 75);
+    ellipse(2300, 900, 75, 75);
+    
+    ellipse(1725, 1050, 75, 75);
+    ellipse(2025, 1050, 75, 75);
+    ellipse(2300, 1050, 75, 75);
+    
+    ellipse(1725, 1200, 75, 75);
+    ellipse(2025, 1200, 75, 75);
+    ellipse(2300, 1200, 75, 75);
+    
+    image(backArrowIcon, 675, 1275);
+    image(unavailableArrowIcon, 1925, 1275); 
   }
   else if(mirrorMode == 4)
   {
