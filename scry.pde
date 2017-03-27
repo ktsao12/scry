@@ -8,8 +8,9 @@ PImage baseImage;
 PImage cloudy, partlyCloudy, storm, hail, rain, sunny, night, snow, wind, houseTemp;
 
 //interactable icons
-PImage languageIcon, unavailableArrowIcon, wifiIcon, backArrowIcon, datetimeIcon,
-passwordIcon, powerIcon, leftArrowIcon, rightArrowIcon, lockIcon, gridIcon, guestIcon;
+PImage languageIcon, unavailableArrowIcon, forwardArrowIcon, wifiIcon, backArrowIcon, 
+datetimeIcon, passwordIcon, powerIcon, leftArrowIcon, rightArrowIcon, lockIcon, 
+gridIcon, guestIcon;
 
 //primary app icons
 PImage timerIcon, backgroundIcon, weatherIcon, calendarIcon, lightIcon, utilitiesIcon, settingsIcon;
@@ -32,15 +33,15 @@ int code = 3200;
 int mirrorMode = 0;
 
 //just to check bottom side of window, comment out after use
-int centerX = 0, centerY = 0, offsetX = 0, offsetY = 0;
+//int centerX = 0, centerY = 0, offsetX = 0, offsetY = 0;
 
 void setup()
 {
   //just to check bottom side of window, comment out after use
-  centerX = 0;
+  /*centerX = 0;
   centerY = 0;  
   cursor(HAND);
-  smooth();
+  smooth();*/
   
   //*********************************************
   //**Create size of canvas and load base image
@@ -104,6 +105,9 @@ void setup()
   
   unavailableArrowIcon = loadImage("unavailableArrowIcon.png");
   unavailableArrowIcon.loadPixels();
+  
+  forwardArrowIcon = loadImage("forwardArrowIcon.png");
+  forwardArrowIcon.loadPixels();
   
   wifiIcon = loadImage("wifiIcon.png");
   wifiIcon.loadPixels();
@@ -211,21 +215,19 @@ void drawLanguageScreen()
     
     //first column of languages in order: English, Spanish, Japanese
     textFont(font, 72);
-    text("English", 600, 600);
+    text("English", 615, 600);
     text("Español", 600, 800);
-    text("日本語", 600, 1000);
+    text("日本語", 615, 1000);
     
     //second column of languages in order: Chinese, Arabic, Portuguese
     text("繁體中文", 1200, 600);
-    text("العربية", 1200, 800);
-    text("Português", 1200, 1000);
+    text("العربية", 1275, 800);
+    text("Português", 1175, 1000);
     
     //third column of languages in order: French, Russian, German
-    text("Français", 1800, 600);
-    text("Русский язык", 1800, 800);
-    text("Deutsche", 1800, 1000);
-    
-    image(unavailableArrowIcon, 1250, 1150);
+    text("Français", 1825, 600);
+    text("Русский язык", 1750, 800);
+    text("Deutsche", 1815, 1000);
 }
 
 //draw elements for wi-fi network choosing screen
@@ -527,17 +529,24 @@ void drawTopInterface()
   displayWeather();
 }
 
+//language screen variables
+int[][] languageScreenButtons = {{585, 510, 300, 150} ,{580, 710, 300, 150}, 
+{575, 910, 300, 150}, {1195, 510, 300, 150}, {1195, 710, 300, 150}, 
+{1170, 910, 335, 150}, {1810, 510, 300, 150}, {1750, 710, 450, 150}, 
+{1800, 910, 335, 150}};
+int languageButtonPressed = 0;
+boolean languageSelected = false;
+
 void draw()
 {
   //just to check bottom side of window, comment out after use
-  if (mousePressed == true) {
+  /*if (mousePressed == true) {
   centerX = mouseX-offsetX;
   centerY = mouseY-offsetY;
   }   
-  translate(centerX,centerY);
+  translate(centerX,centerY);*/
 
   //Draw the mirror base Image
-  //background(0);
   noStroke();
   baseImage.resize(2732, 1536);
   image(baseImage, 0, 0);
@@ -546,6 +555,69 @@ void draw()
   {
     //language screen
     drawLanguageScreen();
+    
+    if(languageSelected)
+      image(forwardArrowIcon, 1250, 1150);
+    else
+      image(unavailableArrowIcon, 1250, 1150);
+    
+    switch(languageButtonPressed)
+    {
+      case 1:
+        //English
+        fill(255, 128);
+        rect(585, 510, 300, 150, 30);
+        fill(255, 255);
+        break;
+      case 2:
+        //Spanish
+        fill(255, 128);
+        rect(580, 710, 300, 150, 30);
+        fill(255, 255);
+        break;
+      case 3:
+        //Japanese
+        fill(255, 128);
+        rect(575, 910, 300, 150, 30);
+        fill(255, 255);
+        break;
+      case 4:
+        //Chinese
+        fill(255, 128);
+        rect(1195, 510, 300, 150, 30);
+        fill(255, 255);
+        break;
+      case 5:
+        //Arabic
+        fill(255, 128);
+        rect(1195, 710, 300, 150, 30);
+        fill(255, 255);
+        break;
+      case 6:
+        //Portuguese
+        fill(255, 128);
+        rect(1170, 910, 335, 150, 30);
+        fill(255, 255);
+        break;
+      case 7:
+        //French
+        fill(255, 128);
+        rect(1810, 510, 300, 150, 30);
+        fill(255, 255);
+        break;
+      case 8:
+        //Russian
+        fill(255, 128);
+        rect(1750, 710, 450, 150, 30);
+        fill(255, 255);
+        break;
+      case 9:
+        //German
+        fill(255, 128);
+        rect(1800, 910, 335, 150, 30);
+        fill(255, 255);
+        break;
+    }
   }
   else if(mirrorMode == 1)
   {
@@ -619,8 +691,22 @@ void draw()
   }
 }
 
+void mouseReleased()
+{
+  if (mirrorMode == 0)
+  {
+    for (int i=0; i < languageScreenButtons.length; i++){
+        if ((mouseX > languageScreenButtons[i][0]) && (mouseX < languageScreenButtons[i][0]+languageScreenButtons[i][2])
+        && (mouseY > languageScreenButtons[i][1]) && (mouseY < languageScreenButtons[i][1]+languageScreenButtons[i][3])){
+          languageButtonPressed = i+1;
+          languageSelected = true;
+        }
+    }
+  }
+}
+
 //just to check bottom side of window, comment out after use
-void mousePressed(){
+/*void mousePressed(){
   offsetX = mouseX-centerX;
   offsetY = mouseY-centerY;
-}
+}*/
