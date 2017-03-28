@@ -533,9 +533,14 @@ void drawTopInterface()
 int[][] languageScreenButtons = {{585, 510, 300, 150} ,{580, 710, 300, 150}, 
 {575, 910, 300, 150}, {1195, 510, 300, 150}, {1195, 710, 300, 150}, 
 {1170, 910, 335, 150}, {1810, 510, 300, 150}, {1750, 710, 450, 150}, 
-{1800, 910, 335, 150}};
+{1800, 910, 335, 150}, {1250, 1150, 200, 200}};
 int languageButtonPressed = 0;
 boolean languageSelected = false;
+
+//wi-fi network screen variables
+int[][] wifiNetworkScreenButtons;
+int wifiNetworkButtonPressed = 0;
+boolean wifiNetworkSelected = false;
 
 void draw()
 {
@@ -617,6 +622,10 @@ void draw()
         rect(1800, 910, 335, 150, 30);
         fill(255, 255);
         break;
+      case 10:
+        //Forward Arrow
+        mirrorMode++;
+        break;
     }
   }
   else if(mirrorMode == 1)
@@ -693,14 +702,16 @@ void draw()
 
 void mouseReleased()
 {
-  if (mirrorMode == 0)
-  {
-    for (int i=0; i < languageScreenButtons.length; i++){
-        if ((mouseX > languageScreenButtons[i][0]) && (mouseX < languageScreenButtons[i][0]+languageScreenButtons[i][2])
-        && (mouseY > languageScreenButtons[i][1]) && (mouseY < languageScreenButtons[i][1]+languageScreenButtons[i][3])){
-          languageButtonPressed = i+1;
-          languageSelected = true;
-        }
+  for (int i=0; i < languageScreenButtons.length; i++){
+    if ((mouseX > languageScreenButtons[i][0]) && (mouseX < languageScreenButtons[i][0]+languageScreenButtons[i][2])
+    && (mouseY > languageScreenButtons[i][1]) && (mouseY < languageScreenButtons[i][1]+languageScreenButtons[i][3]))
+    {
+      if (mirrorMode == 0)
+      {
+        if((i+1) <= 9)
+          languageSelected = true;       
+        languageButtonPressed = i+1;
+      }
     }
   }
 }
