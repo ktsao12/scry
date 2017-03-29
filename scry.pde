@@ -9,8 +9,8 @@ PImage cloudy, partlyCloudy, storm, hail, rain, sunny, night, snow, wind, houseT
 
 //interactable icons
 PImage languageIcon, unavailableArrowIcon, forwardArrowIcon, wifiIcon, backArrowIcon, 
-datetimeIcon, passwordIcon, powerIcon, leftArrowIcon, rightArrowIcon, lockIcon, 
-gridIcon, guestIcon;
+whiteCheckmarkIcon, datetimeIcon, passwordIcon, powerIcon, leftArrowIcon, rightArrowIcon, 
+lockIcon, gridIcon, guestIcon;
 
 //primary app icons
 PImage timerIcon, backgroundIcon, weatherIcon, calendarIcon, lightIcon, utilitiesIcon, settingsIcon;
@@ -30,7 +30,7 @@ String woeid = "12784261";
 
 int temp = 0;
 int code = 3200;
-int mirrorMode = 0;
+int mirrorMode = 1;
 
 //just to check bottom side of window, comment out after use
 //int centerX = 0, centerY = 0, offsetX = 0, offsetY = 0;
@@ -114,6 +114,9 @@ void setup()
   
   backArrowIcon = loadImage("backArrowIcon.png");
   backArrowIcon.loadPixels();
+  
+  whiteCheckmarkIcon = loadImage("whiteCheckmarkIcon.png");
+  whiteCheckmarkIcon.loadPixels();
   
   datetimeIcon = loadImage("datetimeIcon.png");
   datetimeIcon.loadPixels();
@@ -267,7 +270,6 @@ void drawWifiScreen()
     ellipse(2025, 700, 50, 50);
     rect(600, 675, 1425, 50); 
     
-    text("Password: ", 575, 800);
     text("Show Password?", 1500, 800);
     
     image(backArrowIcon, 575, 850);
@@ -538,9 +540,11 @@ int languageButtonPressed = 0;
 boolean languageSelected = false;
 
 //wi-fi network screen variables
-int[][] wifiNetworkScreenButtons;
+int[][] wifiNetworkScreenButtons = {{700, 490, 1250, 100},{700, 595, 1250, 80}, 
+{1100,890, 450, 75}};
 int wifiNetworkButtonPressed = 0;
 boolean wifiNetworkSelected = false;
+int wifiNetworkChecked = 0;
 
 void draw()
 {
@@ -632,6 +636,25 @@ void draw()
   {
     //wi-fi network screen
     drawWifiScreen();
+    
+    if(wifiNetworkSelected)
+    {
+      //Potato wifi
+      if(wifiNetworkChecked == 1)
+        image(whiteCheckmarkIcon, 615, 500);
+        
+      //Cat wifi  
+      if(wifiNetworkChecked == 2)
+        image(whiteCheckmarkIcon, 615, 595);
+      
+      text("Password: ", 575, 800);
+    }
+    
+    switch(wifiNetworkButtonPressed)
+    {
+    
+    }
+    
     //need keyboard
   }
   else if(mirrorMode == 2)
@@ -702,15 +725,37 @@ void draw()
 
 void mouseReleased()
 {
-  for (int i=0; i < languageScreenButtons.length; i++){
-    if ((mouseX > languageScreenButtons[i][0]) && (mouseX < languageScreenButtons[i][0]+languageScreenButtons[i][2])
-    && (mouseY > languageScreenButtons[i][1]) && (mouseY < languageScreenButtons[i][1]+languageScreenButtons[i][3]))
-    {
-      if (mirrorMode == 0)
+  if (mirrorMode == 0)
+  {
+    for (int i=0; i < languageScreenButtons.length; i++){
+      if ((mouseX > languageScreenButtons[i][0]) && (mouseX < languageScreenButtons[i][0]+languageScreenButtons[i][2])
+      && (mouseY > languageScreenButtons[i][1]) && (mouseY < languageScreenButtons[i][1]+languageScreenButtons[i][3]))
       {
         if((i+1) <= 9)
           languageSelected = true;       
         languageButtonPressed = i+1;
+      }
+    }
+  }
+  
+  if (mirrorMode == 1)
+  {
+    for (int i=0; i < wifiNetworkScreenButtons.length; i++){
+      if ((mouseX > wifiNetworkScreenButtons[i][0]) && (mouseX < wifiNetworkScreenButtons[i][0]+wifiNetworkScreenButtons[i][2])
+      && (mouseY > wifiNetworkScreenButtons[i][1]) && (mouseY < wifiNetworkScreenButtons[i][1]+wifiNetworkScreenButtons[i][3]))
+      {
+        if((i+1) <= 2)
+        {
+          if((i+1) == 1)
+            wifiNetworkChecked = 1;
+            
+          if((i+1) == 2)
+            wifiNetworkChecked = 2;
+          
+          wifiNetworkSelected = true;
+        }
+        
+        wifiNetworkButtonPressed = i+1;
       }
     }
   }
