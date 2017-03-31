@@ -554,7 +554,8 @@ boolean wifiNetworkSelected = false;
 int wifiNetworkChecked = 0;
 
 //date and time screen variables
-int[][] dateAndTimeScreenButtons;
+int[][] dateAndTimeScreenButtons = {{1580, 550, 200, 125}, {1830, 550, 200, 125}, 
+{650, 780, 75, 75}, {600, 900, 200, 200}, {1900, 900, 200, 200}};
 int dateAndTimeButtonPressed = 0;
 boolean locationServices = false;
 
@@ -641,6 +642,7 @@ void draw()
       case 10:
         //Forward Arrow
         mirrorMode++;
+        languageButtonPressed = 0;
         break;
     }
   }
@@ -671,15 +673,20 @@ void draw()
       case 4:
         //back arrow
         mirrorMode--;
+        wifiNetworkButtonPressed = 0;
         break;
       case 5:
         //skip this step
         mirrorMode++;
+        wifiNetworkButtonPressed = 0;
         break;
       case 6:
         //unavailable/forward arrow
         if(wifiNetworkSelected)
+        {
           mirrorMode++;
+          wifiNetworkButtonPressed = 0;
+        }
         break;
     }
     
@@ -690,34 +697,41 @@ void draw()
     //date and time screen
     drawDateAndTimeScreen();
     
+    if(locationServices == true)
+      image(forwardArrowIcon, 1900, 900); 
+    
     switch(dateAndTimeButtonPressed)
     {
       case 1:
         //AM
+        fill(255, 128);
+        rect(1580, 550, 200, 125, 30);
+        fill(255, 255);
         break;
       case 2:
         //PM
+        fill(255, 128);
+        rect(1830, 550, 200, 125, 30);
+        fill(255, 255);
         break;
       case 3:
         //checkmarkBox
-        if(locationServices == false)
-        {
-          locationServices = true;
-        }
-        else
-        {
-          locationServices = false;
-        }
-        
+        if(locationServices == true)
+          image(blackCheckmarkIcon, 650, 790);
         break;
       case 4:
         //back arrow
         mirrorMode--;
+        dateAndTimeButtonPressed = 0;
         break;
       case 5:
         //forwardArrow
         //need some sort of check for arrow to be available
-        mirrorMode++;
+        if(locationServices == true)
+        {
+          mirrorMode++;
+          dateAndTimeButtonPressed = 0;
+        }
         break;
     }
   
@@ -824,7 +838,15 @@ void mouseReleased()
     for (int i=0; i < dateAndTimeScreenButtons.length; i++){
       if ((mouseX > dateAndTimeScreenButtons[i][0]) && (mouseX < dateAndTimeScreenButtons[i][0]+dateAndTimeScreenButtons[i][2])
       && (mouseY > dateAndTimeScreenButtons[i][1]) && (mouseY < dateAndTimeScreenButtons[i][1]+dateAndTimeScreenButtons[i][3]))
-      {  
+      {
+        if((i+1) == 3)
+        {
+          if(locationServices == true)
+            locationServices = false;
+          else if(locationServices == false)
+            locationServices = true;
+        }
+        
         dateAndTimeButtonPressed = i+1;
       }
     }
