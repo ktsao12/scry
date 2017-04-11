@@ -24,7 +24,7 @@ PImage tumblrIcon, instagramIcon, pinterestIcon, linkedinIcon, twitterIcon, goog
 //app screen images
 PImage leftScreenArrow, fullScreenArrow, rightScreenArrow;
 PImage waterUtility, heatUtility, electricUtility, utilitiesFullScreen;
-
+PImage calendarBig, calendarSmall;
 
 PImage drawScreen, eraseScreen;
 boolean drawnArea[][];
@@ -250,6 +250,12 @@ void setup()
 
   eraseScreen = loadImage("erase.png") ;
   eraseScreen.loadPixels();
+
+  calendarBig = loadImage("calendarBig.png") ;
+  calendarBig.loadPixels();
+
+  calendarSmall = loadImage("calendarSmall.png") ;
+  calendarSmall.loadPixels();
 
   drawnArea = new boolean[2732][1536];
 }
@@ -954,7 +960,7 @@ void drawSettings() {
   } else if (fullScreen) {
     image(fullScreenArrow, 500, 340);
   } else if (rightScreen) {
-    image(rightScreenArrow, 2070, 340);
+    image(rightScreenArrow, 500, 340);
   }
 }
 
@@ -1007,9 +1013,14 @@ void drawLight() {
 
 void drawCalendar() {
   if (leftScreen) {
+    image(leftScreenArrow, 500, 340);
+    image(calendarSmall, 40, 340);
   } else if (fullScreen) {
     image(fullScreenArrow, 500, 340);
+    image(calendarBig, 500, 340);
   } else if (rightScreen) {
+    image(rightScreenArrow, 500, 340);
+    image(calendarSmall, 2140, 340);
   }
 }
 
@@ -1082,30 +1093,27 @@ boolean drawMode = true, eraseMode = false;
 boolean blackPaint = true, redPaint = false, greenPaint = false, bluePaint = false, yellowPaint = false;
 
 void drawDrawMode() {
-
+  //if mode is set to draw
   if (drawMode) {
-    //choose brush color
-    if (blackPaint){
-      rect(1390,1070,130,130);
+    //choose brush color to draw with
+    if (blackPaint) {
+      rect(1390, 1070, 130, 130);
       fill(0);
-    }
-    else if (redPaint){
-      rect(1250,1070,130,130);
+    } else if (redPaint) {
+      rect(1250, 1070, 130, 130);
       fill(255, 51, 51);
-    }
-    else if (greenPaint){
-      rect(1100,1070,130,130);
-      fill(102,255,102);
-    }
-    else if (bluePaint){
-      rect(960,1070,130,130);
-      fill(0,128,255);
-    }
-    else if (yellowPaint){
-      rect(820,1070,130,130);
-      fill(255,255,102);
+    } else if (greenPaint) {
+      rect(1100, 1070, 130, 130);
+      fill(102, 255, 102);
+    } else if (bluePaint) {
+      rect(960, 1070, 130, 130);
+      fill(0, 128, 255);
+    } else if (yellowPaint) {
+      rect(820, 1070, 130, 130);
+      fill(255, 255, 102);
     }
 
+    //color the mirror in all the drawn areas
     for (int i = 0; i < 2732; i++) {
       for (int j = 0; j < 1536; j++) {
         if (drawnArea[i][j]) {
@@ -1113,9 +1121,10 @@ void drawDrawMode() {
         }
       }
     }
-     //draw button chosen image
+    //draw button chosen image
     image(drawScreen, 500, 340);
   } else if (eraseMode) {
+    //erase all the areas drawn
     for (int i = 0; i < 2732; i++) {
       for (int j = 0; j < 1536; j++) {
         drawnArea[i][j] = false;
@@ -1125,7 +1134,7 @@ void drawDrawMode() {
     //eraser button chosen image
     image(eraseScreen, 500, 340);
   }
-  
+
   //make fill color white again
   fill(255);
 }
@@ -1202,6 +1211,111 @@ void unselectApps() {
   appFiveSelected = false;
   appSixSelected = false;
   appSevenSelected = false;
+}
+
+void chooseUtilities() {
+  if (leftScreen)
+  {
+    //if water is chosen
+    if ((mouseX > 40) && (mouseX < 200)
+      && (mouseY > 1050) && (mouseY < 1190)) {
+      waterChosen = true;
+      heatChosen = false;
+      electricChosen = false;
+    } 
+    //if heat is chosen
+    else if ((mouseX > 200) && (mouseX < 380)
+      && (mouseY > 1050) && (mouseY < 1190)) {
+      waterChosen = false;
+      heatChosen = true;
+      electricChosen = false;
+    }
+    //if electricity is chosen
+    else if ((mouseX > 385) && (mouseX < 550)
+      && (mouseY > 1050) && (mouseY < 1190)) {
+      waterChosen = false;
+      heatChosen = false;
+      electricChosen = true;
+    }
+  } else if (rightScreen)
+  {
+    //if water is chosen
+    if ((mouseX > 2130) && (mouseX < 2290)
+      && (mouseY > 1050) && (mouseY < 1190)) {
+      waterChosen = true;
+      heatChosen = false;
+      electricChosen = false;
+    }
+    //if heat is chosen
+    else if ((mouseX > 2290) && (mouseX < 2470)
+      && (mouseY > 1050) && (mouseY < 1190)) {
+      waterChosen = false;
+      heatChosen = true;
+      electricChosen = false;
+    } 
+    //if electricity is chosen
+    else if ((mouseX > 2475) && (mouseX < 2640)
+      && (mouseY > 1050) && (mouseY < 1190)) {
+      waterChosen = false;
+      heatChosen = false;
+      electricChosen = true;
+    }
+  }
+}
+
+void chooseDrawModeApp() {
+  //choose draw mode
+  if ((mouseX > 1600) && (mouseX < 1720)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    drawMode = true;
+    eraseMode = false;
+  }
+  //choose eraser mode
+  else if ((mouseX > 1720) && (mouseX < 1840)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    drawMode = false;
+    eraseMode = true;
+  } 
+  /*Choose colors for draw */
+  //if black is chosen
+  else if ((mouseX > 1400) && (mouseX < 1650)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    blackPaint = true;
+    redPaint = false;
+    greenPaint = false;
+    bluePaint = false;
+    yellowPaint = false;
+  } 
+  //if red is chosen
+  else if ((mouseX > 1250) && (mouseX < 1400)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    blackPaint = false;
+    redPaint = true;
+    greenPaint = false;
+    bluePaint = false;
+    yellowPaint = false;
+  } else if ((mouseX > 1100) && (mouseX < 1250)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    blackPaint = false;
+    redPaint = false;
+    greenPaint = true;
+    bluePaint = false;
+    yellowPaint = false;
+  } else if ((mouseX > 960) && (mouseX < 1100)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    blackPaint = false;
+    redPaint = false;
+    greenPaint = false;
+    bluePaint = true;
+    yellowPaint = false;
+  } else if ((mouseX > 820) && (mouseX < 960)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    blackPaint = false;
+    redPaint = false;
+    greenPaint = false;
+    bluePaint = false;
+    yellowPaint = true;
+  }
 }
 
 void mouseReleased()
@@ -1293,108 +1407,13 @@ void mouseReleased()
     }
 
     /* Choose utilities for minimized screen */
-    if (leftScreen)
-    {
-      //if water is chosen
-      if ((mouseX > 40) && (mouseX < 200)
-        && (mouseY > 1050) && (mouseY < 1190)) {
-        waterChosen = true;
-        heatChosen = false;
-        electricChosen = false;
-      } 
-      //if heat is chosen
-      else if ((mouseX > 200) && (mouseX < 380)
-        && (mouseY > 1050) && (mouseY < 1190)) {
-        waterChosen = false;
-        heatChosen = true;
-        electricChosen = false;
-      }
-      //if electricity is chosen
-      else if ((mouseX > 385) && (mouseX < 550)
-        && (mouseY > 1050) && (mouseY < 1190)) {
-        waterChosen = false;
-        heatChosen = false;
-        electricChosen = true;
-      }
-    } else if (rightScreen)
-    {
-      //if water is chosen
-      if ((mouseX > 2130) && (mouseX < 2290)
-        && (mouseY > 1050) && (mouseY < 1190)) {
-        waterChosen = true;
-        heatChosen = false;
-        electricChosen = false;
-      }
-      //if heat is chosen
-      else if ((mouseX > 2290) && (mouseX < 2470)
-        && (mouseY > 1050) && (mouseY < 1190)) {
-        waterChosen = false;
-        heatChosen = true;
-        electricChosen = false;
-      } 
-      //if electricity is chosen
-      else if ((mouseX > 2475) && (mouseX < 2640)
-        && (mouseY > 1050) && (mouseY < 1190)) {
-        waterChosen = false;
-        heatChosen = false;
-        electricChosen = true;
-      }
-    }
+    chooseUtilities();
 
     /* Draw app buttons */
-    //choose draw mode
-    if ((mouseX > 1600) && (mouseX < 1720)
-      && (mouseY > 1050) && (mouseY < 1190)) {
-      drawMode = true;
-      eraseMode = false;
-    }
-    //choose eraser mode
-    else if ((mouseX > 1720) && (mouseX < 1840)
-      && (mouseY > 1050) && (mouseY < 1190)) {
-      drawMode = false;
-      eraseMode = true;
-    } 
-    /*Choose colors for draw */
-    //if black is chosen
-    else if ((mouseX > 1400) && (mouseX < 1650)
-      && (mouseY > 1050) && (mouseY < 1190)) {
-      blackPaint = true;
-      redPaint = false;
-      greenPaint = false;
-      bluePaint = false;
-      yellowPaint = false;
-    } 
-    //if red is chosen
-    else if ((mouseX > 1250) && (mouseX < 1400)
-      && (mouseY > 1050) && (mouseY < 1190)) {
-      blackPaint = false;
-      redPaint = true;
-      greenPaint = false;
-      bluePaint = false;
-      yellowPaint = false;
-    } else if ((mouseX > 1100) && (mouseX < 1250)
-      && (mouseY > 1050) && (mouseY < 1190)) {
-      blackPaint = false;
-      redPaint = false;
-      greenPaint = true;
-      bluePaint = false;
-      yellowPaint = false;
-    } else if ((mouseX > 960) && (mouseX < 1100)
-      && (mouseY > 1050) && (mouseY < 1190)) {
-      blackPaint = false;
-      redPaint = false;
-      greenPaint = false;
-      bluePaint = true;
-      yellowPaint = false;
-    } else if ((mouseX > 820) && (mouseX < 960)
-      && (mouseY > 1050) && (mouseY < 1190)) {
-      blackPaint = false;
-      redPaint = false;
-      greenPaint = false;
-      bluePaint = false;
-      yellowPaint = true;
-    } 
+    chooseDrawModeApp();
 
+
+    //Select Apps
     for (int i=0; i < appScreenButtons.length; i++) {
       if ((mouseX > appScreenButtons[i][0]) && (mouseX < appScreenButtons[i][0]+appScreenButtons[i][2])
         && (mouseY > appScreenButtons[i][1]) && (mouseY < appScreenButtons[i][1]+appScreenButtons[i][3]))
