@@ -25,9 +25,15 @@ PImage tumblrIcon, instagramIcon, pinterestIcon, linkedinIcon, twitterIcon, goog
 PImage leftScreenArrow, fullScreenArrow, rightScreenArrow;
 PImage waterUtility, heatUtility, electricUtility, utilitiesFullScreen;
 PImage calendarBig, calendarSmall;
+PImage notePad;
+PImage write;
+PImage erase;
+PImage list;
 
 PImage drawScreen, eraseScreen;
+PImage drawScreen2, eraseScreen2;
 boolean drawnArea[][];
+boolean drawnArea2[][];
 
 PFont font;
 
@@ -71,9 +77,9 @@ void setup()
 
   //THE FOLLOWING HAS BEEN COMMENTED OUT BECAUSE IT 
   //DOES NOT ALLOW THE MIRROR TO SHOW UP ONLINE
-
+/*
   //retreives yahoo url, loads weather data into xml file
-  /*String url = "http://query.yahooapis.com/v1/public/yql?format=xml&q=select+*+from+weather.forecast+where+woeid=" + woeid + "+and+u='F'";
+  String url = "http://xml.weather.yahoo.com/v1/public/yql?format=xml&q=select+*+from+weather.forecast+where+woeid=" + woeid + "+and+u='F'";
    XML xml = loadXML(url);
    //XML forecast = xml.getChild("results/channel/item/yweather:forecast");
    XML forecast2 = xml.getChild("results/channel/item/yweather:condition");
@@ -82,8 +88,8 @@ void setup()
    temp = forecast2.getInt("temp");
    weather = forecast2.getString("text");
    code = forecast2.getInt("code");
-   */
-
+   
+*/
 
   //initialize images for forecast
   cloudy = loadImage("cloudy.png");
@@ -250,14 +256,36 @@ void setup()
 
   eraseScreen = loadImage("erase.png") ;
   eraseScreen.loadPixels();
+  
+  drawScreen2 = loadImage("draw.png") ;
+  drawScreen2.loadPixels();
+
+  eraseScreen2 = loadImage("erase.png") ;
+  eraseScreen2.loadPixels();
 
   calendarBig = loadImage("calendarBig.png") ;
   calendarBig.loadPixels();
 
   calendarSmall = loadImage("calendarSmall.png") ;
   calendarSmall.loadPixels();
+  
+  list = loadImage("notes2.0.jpg");
+  list.loadPixels();
 
   drawnArea = new boolean[2732][1536];
+  drawnArea2 = new boolean[2732][1536];
+  
+  //notepad image
+  notePad = loadImage("notePad.png");
+  notePad.loadPixels();
+  
+  //eraser png
+  //erase = loadImage("erase.png");
+  //erase.loadPixels();
+  
+  //drawbrush
+  //write = loadImage("draw.png");
+  //write.loadPixels();
 }
 
 //draw elements for language choosing screen
@@ -1080,17 +1108,67 @@ void drawVideo() {
   }
 }
 
-void drawNotes() {
-  if (leftScreen) {
-  } else if (fullScreen) {
-    image(fullScreenArrow, 500, 340);
-  } else if (rightScreen) {
-  }
-}
 
 //Draw buttons
-boolean drawMode = true, eraseMode = false;
+boolean drawMode = true, drawMode2 = true, eraseMode = false, eraseMode2 = false;
 boolean blackPaint = true, redPaint = false, greenPaint = false, bluePaint = false, yellowPaint = false;
+
+void drawNotes() {
+  
+    //image(fullScreenArrow, 500, 340);
+    image(notePad, 950, 120);
+
+    image(list, 1730, 825, 380, 250);
+    
+    if (drawMode2) {
+    //choose brush color to draw with
+    if (blackPaint) {
+      rect(1390, 1090, 130, 130);
+      fill(0);
+    } else if (redPaint) {
+      rect(1250, 1090, 130, 130);
+      fill(255, 51, 51);
+    } else if (greenPaint) {
+      rect(1100, 1090, 130, 130);
+      fill(102, 255, 102);
+    } else if (bluePaint) {
+      rect(960, 1090, 130, 130);
+      fill(0, 128, 255);
+    } else if (yellowPaint) {
+      rect(820, 1090, 130, 130);
+      fill(255, 255, 102);
+    }
+
+    //color the mirror in all the drawn areas
+    for (int i = 0; i < 2732; i++) {
+      for (int j = 0; j < 1536; j++) {
+        if (drawnArea2[i][j]) {
+          ellipse(i, j, 40, 40);
+        }
+      }
+    }
+    //draw button chosen image
+    image(drawScreen2, 500, 360);
+  } 
+  else if (eraseMode2) 
+  {
+    //erase all the areas drawn
+    for (int i = 0; i < 2732; i++) {
+      for (int j = 0; j < 1536; j++) {
+        drawnArea2[i][j] = false;
+      }
+    }
+
+    //eraser button chosen image
+    image(eraseScreen2, 500, 360);
+  }
+
+  //make fill color white again
+  fill(255);
+
+}
+
+
 
 void drawDrawMode() {
   //if mode is set to draw
@@ -1123,7 +1201,9 @@ void drawDrawMode() {
     }
     //draw button chosen image
     image(drawScreen, 500, 340);
-  } else if (eraseMode) {
+  } 
+  else if (eraseMode) 
+  {
     //erase all the areas drawn
     for (int i = 0; i < 2732; i++) {
       for (int j = 0; j < 1536; j++) {
@@ -1261,6 +1341,71 @@ void chooseUtilities() {
       electricChosen = true;
     }
   }
+}
+//*
+//*
+//*/**
+//*
+//*
+//
+//
+//
+//
+//
+
+void chooseNotesModeApp()
+{
+if ((mouseX > 1600) && (mouseX < 1720)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    drawMode2 = true;
+    eraseMode2 = false;
+  }
+  //choose eraser mode
+  else if ((mouseX > 1720) && (mouseX < 1840)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    drawMode2 = false;
+    eraseMode2 = true;
+  } 
+  /*Choose colors for draw */
+  //if black is chosen
+  else if ((mouseX > 1400) && (mouseX < 1650)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    blackPaint = true;
+    redPaint = false;
+    greenPaint = false;
+    bluePaint = false;
+    yellowPaint = false;
+  } 
+  //if red is chosen
+  else if ((mouseX > 1250) && (mouseX < 1400)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    blackPaint = false;
+    redPaint = true;
+    greenPaint = false;
+    bluePaint = false;
+    yellowPaint = false;
+  } else if ((mouseX > 1100) && (mouseX < 1250)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    blackPaint = false;
+    redPaint = false;
+    greenPaint = true;
+    bluePaint = false;
+    yellowPaint = false;
+  } else if ((mouseX > 960) && (mouseX < 1100)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    blackPaint = false;
+    redPaint = false;
+    greenPaint = false;
+    bluePaint = true;
+    yellowPaint = false;
+  } else if ((mouseX > 820) && (mouseX < 960)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    blackPaint = false;
+    redPaint = false;
+    greenPaint = false;
+    bluePaint = false;
+    yellowPaint = true;
+  } 
 }
 
 void chooseDrawModeApp() {
@@ -1411,6 +1556,8 @@ void mouseReleased()
 
     /* Draw app buttons */
     chooseDrawModeApp();
+    
+    chooseNotesModeApp();
 
 
     //Select Apps
@@ -1517,6 +1664,10 @@ void mouseDragged() {
   //draw when mouse dragged and draw app on
   if (appTwoSelected && appPage == 2 && drawMode) {
     drawnArea[mouseX][mouseY] = true;
+  }
+  if(appThreeSelected && appPage == 2 && drawMode2)
+  {
+    drawnArea2[mouseX][mouseY] = true;
   }
 }
 
