@@ -1366,6 +1366,11 @@ if ((mouseX > 1600) && (mouseX < 1720)
     drawMode2 = false;
     eraseMode2 = true;
   } 
+  else if ((mouseX > 1730) && (mouseX < 2110)
+    && (mouseY > 825) && (mouseY < 1075)) {
+    drawMode2 = false;
+    eraseMode2 = true;
+  } 
   /*Choose colors for draw */
   //if black is chosen
   else if ((mouseX > 1400) && (mouseX < 1650)
