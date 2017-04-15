@@ -25,6 +25,13 @@ PImage tumblrIcon, instagramIcon, pinterestIcon, linkedinIcon, twitterIcon, goog
 PImage leftScreenArrow, fullScreenArrow, rightScreenArrow;
 PImage waterUtility, heatUtility, electricUtility, utilitiesFullScreen;
 PImage calendarBig, calendarSmall;
+PImage tumblrBig, tumblrLeft, tumblrRight;
+PImage instagramBig, instagramLeft, instagramRight;
+PImage pinterestBig, pinterestLeft, pinterestRight;
+PImage linkedinBig, linkedinLeft, linkedinRight;
+PImage twitterBig, twitterLeft, twitterRight;
+PImage googleplusBig, googleplusLeft, googleplusRight;
+PImage facebookBig, facebookLeft, facebookRight;
 PImage notePad;
 PImage write;
 PImage erase;
@@ -211,24 +218,66 @@ void setup()
   //tertiary app icons
   tumblrIcon = loadImage("tumblrIcon.png");
   tumblrIcon.loadPixels();
+  tumblrBig = loadImage("tumblrBig.png");
+  tumblrBig.loadPixels();
+  tumblrLeft = loadImage("tumblrLeft.png");
+  tumblrLeft.loadPixels();
+  tumblrRight = loadImage("tumblrRight.png");
+  tumblrRight.loadPixels();
 
   instagramIcon = loadImage("instagramIcon.png");
   instagramIcon.loadPixels();
+  instagramBig = loadImage("instagramBig.png");
+  instagramBig.loadPixels();
+  instagramLeft = loadImage("instagramLeft.png");
+  instagramLeft.loadPixels();
+  instagramRight = loadImage("instagramRight.png");
+  instagramRight.loadPixels();
 
   pinterestIcon = loadImage("pinterestIcon.png");
   pinterestIcon.loadPixels();
+  pinterestBig = loadImage("pinterestBig.png");
+  pinterestBig.loadPixels();
+  pinterestLeft = loadImage("pinterestLeft.png");
+  pinterestLeft.loadPixels();
+  pinterestRight = loadImage("pinterestRight.png");
+  pinterestRight.loadPixels();
 
   linkedinIcon = loadImage("linkedinIcon.png");
   linkedinIcon.loadPixels();
+  linkedinBig = loadImage("linkedinBig.png");
+  linkedinBig.loadPixels();
+  linkedinLeft = loadImage("linkedinLeft.png");
+  linkedinLeft.loadPixels();
+  linkedinRight = loadImage("linkedinRight.png");
+  linkedinRight.loadPixels();
 
   twitterIcon = loadImage("twitterIcon.png");
   twitterIcon.loadPixels();
+  twitterBig = loadImage("twitterBig.png");
+  twitterBig.loadPixels();
+  twitterLeft = loadImage("twitterLeft.png");
+  twitterLeft.loadPixels();
+  twitterRight = loadImage("twitterRight.png");
+  twitterRight.loadPixels();
 
   googleplusIcon = loadImage("googleplusIcon.png");
   googleplusIcon.loadPixels();
+  googleplusBig = loadImage("googleplusBig.png");
+  googleplusBig.loadPixels();
+  googleplusLeft = loadImage("googleplusLeft.png");
+  googleplusLeft.loadPixels();
+  googleplusRight = loadImage("googleplusRight.png");
+  googleplusRight.loadPixels();
 
   facebookIcon = loadImage("facebookIcon.png");
   facebookIcon.loadPixels();
+  facebookBig = loadImage("facebookBig.png");
+  facebookBig.loadPixels();
+  facebookLeft = loadImage("facebookLeft.png");
+  facebookLeft.loadPixels();
+  facebookRight = loadImage("facebookRight.png");
+  facebookRight.loadPixels();
 
   leftScreenArrow = loadImage("leftScreenArrow.png") ;
   leftScreenArrow.loadPixels();
@@ -1229,57 +1278,92 @@ void drawAppStore() {
 
 void drawFacebook() {
   if (leftScreen) {
+    image(leftScreenArrow, 500, 340);
+    image(facebookLeft, 60, 370);
   } else if (fullScreen) {
     image(fullScreenArrow, 500, 340);
+    image(facebookBig, 590, 370);
   } else if (rightScreen) {
+    image(rightScreenArrow, 500, 340);
+    image(facebookRight, 2140, 370);
   }
 }
 
 void drawGoogleplus() {
   if (leftScreen) {
+    image(leftScreenArrow, 500, 340);
+    image(googleplusLeft, 60, 370);
   } else if (fullScreen) {
     image(fullScreenArrow, 500, 340);
+    image(googleplusBig, 590, 370);
   } else if (rightScreen) {
+    image(rightScreenArrow, 500, 340);
+    image(googleplusRight, 2140, 370);
   }
 }
 
 void drawTwitter() {
   if (leftScreen) {
+    image(leftScreenArrow, 500, 340);
+    image(twitterLeft, 60, 370);
   } else if (fullScreen) {
     image(fullScreenArrow, 500, 340);
+    image(twitterBig, 590, 370);
   } else if (rightScreen) {
+    image(rightScreenArrow, 500, 340);
+    image(twitterRight, 2140, 370);
   }
 }
 
 void drawLinkedin() {
   if (leftScreen) {
+    image(leftScreenArrow, 500, 340);
+    image(linkedinLeft, 60, 370);
   } else if (fullScreen) {
     image(fullScreenArrow, 500, 340);
+    image(linkedinBig, 590, 370);
   } else if (rightScreen) {
+    image(rightScreenArrow, 500, 340);
+    image(linkedinRight, 2140, 370);
   }
 }
 
 void drawPinterest() {
   if (leftScreen) {
+    image(leftScreenArrow, 500, 340);
+    image(pinterestLeft, 60, 370);
   } else if (fullScreen) {
     image(fullScreenArrow, 500, 340);
+    image(pinterestBig, 590, 370);
   } else if (rightScreen) {
+    image(rightScreenArrow, 500, 340);
+    image(pinterestRight, 2140, 370);
   }
 }
 
 void drawInstagram() {
   if (leftScreen) {
+    image(leftScreenArrow, 500, 340);
+    image(instagramLeft, 60, 370);
   } else if (fullScreen) {
     image(fullScreenArrow, 500, 340);
+    image(instagramBig, 590, 370);
   } else if (rightScreen) {
+    image(rightScreenArrow, 500, 340);
+    image(instagramRight, 2140, 370);
   }
 }
 
 void drawTumblr() {
   if (leftScreen) {
+    image(leftScreenArrow, 500, 340);
+    image(tumblrLeft, 60, 370);
   } else if (fullScreen) {
     image(fullScreenArrow, 500, 340);
+    image(tumblrBig, 590, 370);
   } else if (rightScreen) {
+    image(rightScreenArrow, 500, 340);
+    image(tumblrRight, 2140, 370);
   }
 }
 
