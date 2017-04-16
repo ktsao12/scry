@@ -48,6 +48,8 @@ PImage notePad;
 PImage write;
 PImage erase;
 PImage list;
+PImage timer;
+PImage newsSmall, newsBig;
 
 PFont font;
 
@@ -441,6 +443,15 @@ void setup()
 
   eraseScreen2 = loadImage("erase.png") ;
   eraseScreen2.loadPixels();
+  
+  timer = loadImage("timer.png");
+  timer.loadPixels();
+  
+  newsSmall = loadImage("newSmall.jpg");
+  newsSmall.loadPixels();
+  
+  newsBig = loadImage("bignews.png");
+  newsBig.loadPixels();
 }
 
 //draw elements for language choosing screen
@@ -466,6 +477,8 @@ void drawLanguageScreen()
   text("Русский язык", 1750, 800);
   text("Deutsche", 1815, 1000);
 }
+
+
 
 //draw elements for wi-fi network choosing screen
 void drawWifiScreen()
@@ -512,6 +525,8 @@ void drawWifiScreen()
   text("Skip this step.", 1100, 950);
   image(unavailableArrowIcon, 1850, 850);
 }
+
+
 
 //draw elements for date and time setting screen
 void drawDateAndTimeScreen()
@@ -928,7 +943,8 @@ void draw()
       languageButtonPressed = 0;
       break;
     }
-  } else if (mirrorMode == 1)
+  } 
+  else if (mirrorMode == 1)
   {
     //wi-fi network screen
     drawWifiScreen();
@@ -973,7 +989,8 @@ void draw()
     }
 
     //need keyboard
-  } else if (mirrorMode == 2)
+  } 
+  else if (mirrorMode == 2)
   {
     //date and time screen
     drawDateAndTimeScreen();
@@ -1017,7 +1034,8 @@ void draw()
     }
 
     //need numpad
-  } else if (mirrorMode == 3)
+  } 
+  else if (mirrorMode == 3)
   {
     //password screen
     drawPasswordScreen();
@@ -1027,7 +1045,8 @@ void draw()
     drawTopInterface();
     image(powerIcon, 50, 1275);
     image(guestIcon, 2425, 1250);
-  } else if (mirrorMode == 5)
+  } 
+  else if (mirrorMode == 5)
   {
     //user screen 
     drawTopInterface();
@@ -1339,44 +1358,9 @@ void drawBackground()
   image(forwardArrowIcon, 1868, 1120);
 }
 
-void chooseBackground()
-{
-  if ((mouseX > 1867) && (mouseX < 2056) && (mouseY > 1119) && (mouseY < 1283))
-  {
-    if (backgroundDefault == true)
-    {
-      backgroundDefault = false;
-      backgroundSelect1 = true;
-    }
-    else if (backgroundSelect1 == true)
-    {
-      backgroundSelect1 = false;
-      backgroundSelect2 = true;
-    }
-    else if (backgroundSelect2 == true)
-    {
-      backgroundSelect2 = false;
-      backgroundSelect3 = true;
-    }
-    else if (backgroundSelect3 == true)
-    {
-      backgroundSelect3 = false;
-      backgroundSelect4 = true;
-    }
-    else 
-    {
-      backgroundSelect4 = false;
-      backgroundDefault = true;
-    }
-  }
-}
 
 void drawTimer() {
-  if (leftScreen) {
-  } else if (fullScreen) {
-    image(fullScreenArrow, 500, 340);
-  } else if (rightScreen) {
-  }
+ image(timer, 1024, 600);
 }
 
 boolean weightChosen = true;
@@ -1418,10 +1402,20 @@ void drawHealth() {
 }
 
 void drawNews() {
-  if (leftScreen) {
-  } else if (fullScreen) {
+  if (leftScreen) 
+  {
+    image(leftScreenArrow, 500, 340);
+    image(newsSmall, 40, 370, 490, 820);
+  } 
+  else if (fullScreen) 
+  {
     image(fullScreenArrow, 500, 340);
-  } else if (rightScreen) {
+    image(newsBig, 580, 370, 1490, 820);
+  } 
+  else if (rightScreen) 
+  {
+    image(rightScreenArrow, 500, 340);
+    image(newsSmall, 2120, 370, 520, 820);
   }
 }
 
@@ -1928,67 +1922,76 @@ void chooseLightColor() {
     whiteLight = false;
   }
 }
+}
 
 void chooseNotesModeApp()
 {
-if ((mouseX > 1600) && (mouseX < 1720)
-    && (mouseY > 1050) && (mouseY < 1190)) {
-    drawMode2 = true;
-    eraseMode2 = false;
-  }
-  //choose eraser mode
-  else if ((mouseX > 1720) && (mouseX < 1840)
-    && (mouseY > 1050) && (mouseY < 1190)) {
-    drawMode2 = false;
-    eraseMode2 = true;
-  } 
-  else if ((mouseX > 1730) && (mouseX < 2110)
-    && (mouseY > 825) && (mouseY < 1075)) {
-    drawMode2 = false;
-    eraseMode2 = true;
-  } 
-  /*Choose colors for draw */
-  //if black is chosen
-  else if ((mouseX > 1400) && (mouseX < 1650)
-    && (mouseY > 1050) && (mouseY < 1190)) {
-    blackPaint = true;
-    redPaint = false;
-    greenPaint = false;
-    bluePaint = false;
-    yellowPaint = false;
-  } 
-  //if red is chosen
-  else if ((mouseX > 1250) && (mouseX < 1400)
-    && (mouseY > 1050) && (mouseY < 1190)) {
-    blackPaint = false;
-    redPaint = true;
-    greenPaint = false;
-    bluePaint = false;
-    yellowPaint = false;
-  } else if ((mouseX > 1100) && (mouseX < 1250)
-    && (mouseY > 1050) && (mouseY < 1190)) {
-    blackPaint = false;
-    redPaint = false;
-    greenPaint = true;
-    bluePaint = false;
-    yellowPaint = false;
-  } else if ((mouseX > 960) && (mouseX < 1100)
-    && (mouseY > 1050) && (mouseY < 1190)) {
-    blackPaint = false;
-    redPaint = false;
-    greenPaint = false;
-    bluePaint = true;
-    yellowPaint = false;
-  } else if ((mouseX > 820) && (mouseX < 960)
-    && (mouseY > 1050) && (mouseY < 1190)) {
-    blackPaint = false;
-    redPaint = false;
-    greenPaint = false;
-    bluePaint = false;
-    yellowPaint = true;
-  } 
-  }
+  if ((mouseX > 1600) && (mouseX < 1720) && (mouseY > 1050) && (mouseY < 1190)) 
+  {
+      drawMode2 = true;
+      eraseMode2 = false;
+    }
+    //choose eraser mode
+    else if ((mouseX > 1720) && (mouseX < 1840) && (mouseY > 1050) && (mouseY < 1190)) 
+    {
+      drawMode2 = false;
+      eraseMode2 = true;
+    } 
+    else if ((mouseX > 1730) && (mouseX < 2110) && (mouseY > 825) && (mouseY < 1075)) 
+    {
+      drawMode2 = false;
+      eraseMode2 = true;
+    } 
+    /*Choose colors for draw */
+    //if black is chosen
+    else if ((mouseX > 1400) && (mouseX < 1650)
+      && (mouseY > 1050) && (mouseY < 1190)) 
+    {
+      blackPaint = true;
+      redPaint = false;
+      greenPaint = false;
+      bluePaint = false;
+      yellowPaint = false;
+    } 
+    //if red is chosen
+    else if ((mouseX > 1250) && (mouseX < 1400)
+      && (mouseY > 1050) && (mouseY < 1190)) 
+    {
+      blackPaint = false;
+      redPaint = true;
+      greenPaint = false;
+      bluePaint = false;
+      yellowPaint = false;
+    } 
+    else if ((mouseX > 1100) && (mouseX < 1250)
+      && (mouseY > 1050) && (mouseY < 1190)) 
+    {
+      blackPaint = false;
+      redPaint = false;
+      greenPaint = true;
+      bluePaint = false;
+      yellowPaint = false;
+    } 
+    else if ((mouseX > 960) && (mouseX < 1100)
+      && (mouseY > 1050) && (mouseY < 1190)) 
+    {
+      blackPaint = false;
+      redPaint = false;
+      greenPaint = false;
+      bluePaint = true;
+      yellowPaint = false;
+    } 
+    else if ((mouseX > 820) && (mouseX < 960)
+      && (mouseY > 1050) && (mouseY < 1190)) 
+    {
+      blackPaint = false;
+      redPaint = false;
+      greenPaint = false;
+      bluePaint = false;
+      yellowPaint = true;
+    } 
 }
+
 
 void chooseDrawModeApp() {
   //choose draw mode
@@ -2312,7 +2315,7 @@ void mouseReleased()
     /*Choose Music Modes */
     chooseMusicMode();
     
-    /*Choose Video Modes */
+    /*Choose Music Modes */
     chooseVideoMode();
 
     /*Choose Health App Display */
@@ -2320,9 +2323,6 @@ void mouseReleased()
 
     /*Choose Settings Display */
     chooseSettingsDisplay();
-    
-    /*Choose Background Image */
-    chooseBackground();
 
     //Select Apps
     for (int i=0; i < appScreenButtons.length; i++) {
