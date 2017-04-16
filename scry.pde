@@ -2,7 +2,7 @@
 import java.util.Calendar;
 
 //mirror background image
-PImage baseImage;
+PImage baseImage, backgroundOne, backgroundTwo, backgroundThree, backgroundFour, backgroundSelect;
 
 //non-interactable icons
 PImage cloudy, partlyCloudy, storm, hail, rain, sunny, night, snow, wind, houseTemp;
@@ -184,6 +184,16 @@ void setup()
 
   backgroundIcon = loadImage("backgroundIcon.png");
   backgroundIcon.loadPixels();
+  backgroundSelect = loadImage("backgroundSelect.png");
+  backgroundSelect.loadPixels();
+  backgroundOne = loadImage("background1.png");
+  backgroundOne.loadPixels();
+  backgroundTwo = loadImage("background2.png");
+  backgroundTwo.loadPixels();
+  backgroundThree = loadImage("background3.png");
+  backgroundThree.loadPixels();
+  backgroundFour = loadImage("background4.png");
+  backgroundFour.loadPixels();
 
   weatherIcon = loadImage("weatherIcon.png");
   weatherIcon.loadPixels();
@@ -797,6 +807,12 @@ boolean leftScreen = false;
 boolean fullScreen = true;
 boolean rightScreen = false;
 
+boolean backgroundDefault = true;
+boolean backgroundSelect1 = false;
+boolean backgroundSelect2 = false;
+boolean backgroundSelect3 = false;
+boolean backgroundSelect4 = false;
+
 void draw()
 {
   //just to check bottom side of window, comment out after use
@@ -808,8 +824,37 @@ void draw()
 
   //Draw the mirror base Image
   noStroke();
-  baseImage.resize(2732, 1536);
-  image(baseImage, 0, 0);
+  if (backgroundDefault == true)
+  {
+    baseImage.resize(2732, 1536);
+    image(baseImage, 0, 0);
+  }
+  else {
+    if (backgroundSelect1 == true)
+    {
+      backgroundOne.resize(2732, 1536);
+      image(backgroundOne, 0, 0);
+    }
+    else if (backgroundSelect2 == true)
+    {
+      backgroundTwo.resize(2732, 1536);
+      image(backgroundTwo, 0, 0);
+    }
+    else if (backgroundSelect3 == true)
+    {
+      backgroundThree.resize(2732, 1536);
+      image(backgroundThree, 0, 0);
+    }
+    else if (backgroundSelect4 == true)
+    {
+      backgroundFour.resize(2732, 1536);
+      image(backgroundFour, 0, 0);
+    }
+    else {
+      baseImage.resize(2732, 1536);
+      image(baseImage, 0, 0);
+    }
+  }
 
   if (mirrorMode == 0)
   {
@@ -1288,7 +1333,10 @@ void drawWeather() {
   }
 }
 
-void drawBackground() {
+void drawBackground() 
+{
+  image(backgroundSelect, 590, 300);
+  image(forwardArrowIcon, 1868, 1120);
 }
 
 void drawTimer() {
