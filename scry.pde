@@ -2,7 +2,7 @@
 import java.util.Calendar;
 
 //mirror background image
-PImage baseImage, backgroundOne, backgroundTwo, backgroundThree, backgroundFour;
+PImage baseImage;
 
 //non-interactable icons
 PImage cloudy, partlyCloudy, storm, hail, rain, sunny, night, snow, wind, houseTemp;
@@ -20,12 +20,6 @@ PImage appstoreIcon, drawIcon, notesIcon, videosIcon, musicIcon, newsIcon, healt
 
 //tertiary app icons
 PImage tumblrIcon, instagramIcon, pinterestIcon, linkedinIcon, twitterIcon, googleplusIcon, facebookIcon;
-
-//app screen images
-PImage leftScreenArrow, fullScreenArrow, rightScreenArrow, cancelIcon;
-PImage backgroundSelect;
-PImage waterUtility, heatUtility, electricUtility, utilitiesFullScreen;
-PImage calendarBig, calendarSmall;
 PImage tumblrBig, tumblrLeft, tumblrRight;
 PImage instagramBig, instagramLeft, instagramRight;
 PImage pinterestBig, pinterestLeft, pinterestRight;
@@ -33,15 +27,27 @@ PImage linkedinBig, linkedinLeft, linkedinRight;
 PImage twitterBig, twitterLeft, twitterRight;
 PImage googleplusBig, googleplusLeft, googleplusRight;
 PImage facebookBig, facebookLeft, facebookRight;
+ 
+//app screen images
+PImage leftScreenArrow, fullScreenArrow, rightScreenArrow, keyboard;
+PImage waterUtility, heatUtility, electricUtility, utilitiesFullScreen;
+PImage weightScreen, sleepScreen, stepsScreen, healthFullScreen;
+PImage calendarBig, calendarSmall, weatherBig, weatherSmall;
+PImage settingsScreen, settingsWifiScreen, settingsWifiChosenScreen;
+PImage settingsDateScreen, settingsDateChosenScreen, settingsLangScreen, settingsLangChosenScreen;
+PImage lightScreen, purpleLightOn, redLightOn, whiteLightOn, blueLightOn, yellowLightOn;
+PImage musicScreenBig, musicScreenPlay, musicScreenStop, musicScreenScrollPlay, musicScreenScrollStop;
+PImage videoScreenBig, videoScreenPlay, videoScreenStop, videoScreenScrollPlay, videoScreenScrollStop;
+PImage drawScreen, eraseScreen;
+PImage drawScreen2, eraseScreen2;
+boolean drawnArea2[][];
+boolean drawnArea[][];
+
+PImage appStoreScreen;
 PImage notePad;
 PImage write;
 PImage erase;
 PImage list;
-
-PImage drawScreen, eraseScreen;
-PImage drawScreen2, eraseScreen2;
-boolean drawnArea[][];
-boolean drawnArea2[][];
 
 PFont font;
 
@@ -85,9 +91,9 @@ void setup()
 
   //THE FOLLOWING HAS BEEN COMMENTED OUT BECAUSE IT 
   //DOES NOT ALLOW THE MIRROR TO SHOW UP ONLINE
-/*
+
   //retreives yahoo url, loads weather data into xml file
-  String url = "http://xml.weather.yahoo.com/v1/public/yql?format=xml&q=select+*+from+weather.forecast+where+woeid=" + woeid + "+and+u='F'";
+  /*String url = "http://query.yahooapis.com/v1/public/yql?format=xml&q=select+*+from+weather.forecast+where+woeid=" + woeid + "+and+u='F'";
    XML xml = loadXML(url);
    //XML forecast = xml.getChild("results/channel/item/yweather:forecast");
    XML forecast2 = xml.getChild("results/channel/item/yweather:condition");
@@ -96,8 +102,8 @@ void setup()
    temp = forecast2.getInt("temp");
    weather = forecast2.getString("text");
    code = forecast2.getInt("code");
-   
-*/
+   */
+
 
   //initialize images for forecast
   cloudy = loadImage("cloudy.png");
@@ -171,9 +177,6 @@ void setup()
 
   guestIcon = loadImage("guestIcon.png");
   guestIcon.loadPixels();
-  
-  cancelIcon = loadImage("cancel.png");
-  cancelIcon.loadPixels();
 
   //primary app icons
   timerIcon = loadImage("timerIcon.png");
@@ -181,16 +184,6 @@ void setup()
 
   backgroundIcon = loadImage("backgroundIcon.png");
   backgroundIcon.loadPixels();
-  backgroundSelect = loadImage("backgroundSelect.png");
-  backgroundSelect.loadPixels();
-  backgroundOne = loadImage("background1.png");
-  backgroundOne.loadPixels();
-  backgroundTwo = loadImage("background2.png");
-  backgroundTwo.loadPixels();
-  backgroundThree = loadImage("background3.png");
-  backgroundThree.loadPixels();
-  backgroundFour = loadImage("background4.png");
-  backgroundFour.loadPixels();
 
   weatherIcon = loadImage("weatherIcon.png");
   weatherIcon.loadPixels();
@@ -232,6 +225,7 @@ void setup()
   //tertiary app icons
   tumblrIcon = loadImage("tumblrIcon.png");
   tumblrIcon.loadPixels();
+  
   tumblrBig = loadImage("tumblrBig.png");
   tumblrBig.loadPixels();
   tumblrLeft = loadImage("tumblrLeft.png");
@@ -247,7 +241,7 @@ void setup()
   instagramLeft.loadPixels();
   instagramRight = loadImage("instagramRight.png");
   instagramRight.loadPixels();
-
+  
   pinterestIcon = loadImage("pinterestIcon.png");
   pinterestIcon.loadPixels();
   pinterestBig = loadImage("pinterestBig.png");
@@ -319,19 +313,109 @@ void setup()
 
   eraseScreen = loadImage("erase.png") ;
   eraseScreen.loadPixels();
-  
-  drawScreen2 = loadImage("draw.png") ;
-  drawScreen2.loadPixels();
-
-  eraseScreen2 = loadImage("erase.png") ;
-  eraseScreen2.loadPixels();
 
   calendarBig = loadImage("calendarBig.png") ;
   calendarBig.loadPixels();
 
   calendarSmall = loadImage("calendarSmall.png") ;
   calendarSmall.loadPixels();
+
+  lightScreen = loadImage("lightScreen.png") ;
+  lightScreen.loadPixels();
+
+  musicScreenBig = loadImage("musicScreenBig.png") ;
+  musicScreenBig.loadPixels();
+
+  musicScreenPlay = loadImage("musicScreenPlay.png") ;
+  musicScreenPlay.loadPixels();
+
+  musicScreenStop = loadImage("musicScreenStop.png") ;
+  musicScreenStop.loadPixels();
+
+  musicScreenScrollPlay = loadImage("musicScreenScrollPlay.png") ;
+  musicScreenScrollPlay.loadPixels();
+
+  musicScreenScrollStop = loadImage("musicScreenScrollStop.png") ;
+  musicScreenScrollStop.loadPixels();
+
+  whiteLightOn = loadImage("whiteLight.png") ;
+  whiteLightOn.loadPixels();
+
+  redLightOn = loadImage("redLight.png") ;
+  redLightOn.loadPixels();
+
+  blueLightOn = loadImage("blueLight.png") ;
+  blueLightOn.loadPixels();
+
+  yellowLightOn = loadImage("yellowLight.png") ;
+  yellowLightOn.loadPixels();
+
+  purpleLightOn = loadImage("purpleLight.png") ;
+  purpleLightOn.loadPixels();
+
+  weatherBig = loadImage("weatherScreenBig.png") ;
+  weatherBig.loadPixels();
+
+  weatherSmall = loadImage("weatherScreenSmall.png") ;
+  weatherSmall.loadPixels();
+
+  settingsScreen = loadImage("settingsScreen.png") ;
+  settingsScreen.loadPixels();
+
+  keyboard = loadImage("keyboardScreen.png");
+  keyboard.loadPixels();
+
+  healthFullScreen = loadImage("healthScreenBig.png") ;
+  healthFullScreen.loadPixels();
+
+  weightScreen = loadImage("weightScreen.png") ;
+  weightScreen.loadPixels();
+
+  sleepScreen = loadImage("sleepScreen.png") ;
+  sleepScreen.loadPixels();
+
+  stepsScreen = loadImage("stepsScreen.png") ;
+  stepsScreen.loadPixels();
+
+  appStoreScreen = loadImage("appStore.png") ;
+  appStoreScreen.loadPixels();
   
+  settingsWifiScreen = loadImage("settingsWifi.png") ;
+  settingsWifiScreen.loadPixels();
+  
+  settingsWifiScreen = loadImage("settingsWifi.png") ;
+  settingsWifiScreen.loadPixels();
+  
+  settingsWifiChosenScreen = loadImage("settingsWifiChosen.png") ;
+  settingsWifiChosenScreen.loadPixels();
+  
+  settingsDateScreen = loadImage("settingsDateTime.png") ;
+  settingsDateScreen.loadPixels();
+  
+  settingsDateChosenScreen = loadImage("settingsDateTimeChosen.png") ;
+  settingsDateChosenScreen.loadPixels();
+  
+  settingsLangScreen = loadImage("settingsLanguage.png") ;
+  settingsLangScreen.loadPixels();
+  
+  settingsLangChosenScreen = loadImage("settingsLanguageChosen.png") ;
+  settingsLangChosenScreen.loadPixels();
+  
+  videoScreenBig = loadImage("videoScreenBig.png") ;
+  videoScreenBig.loadPixels();
+
+  videoScreenPlay = loadImage("videoPlay.png") ;
+  videoScreenPlay.loadPixels();
+
+  videoScreenStop = loadImage("videoStop.png") ;
+  videoScreenStop.loadPixels();
+
+  videoScreenScrollPlay = loadImage("videoScrollPlay.png") ;
+  videoScreenScrollPlay.loadPixels();
+
+  videoScreenScrollStop = loadImage("videoScrollStop.png") ;
+  videoScreenScrollStop.loadPixels();
+
   list = loadImage("notes2.0.jpg");
   list.loadPixels();
 
@@ -341,14 +425,6 @@ void setup()
   //notepad image
   notePad = loadImage("notePad.png");
   notePad.loadPixels();
-  
-  //eraser png
-  //erase = loadImage("erase.png");
-  //erase.loadPixels();
-  
-  //drawbrush
-  //write = loadImage("draw.png");
-  //write.loadPixels();
 }
 
 //draw elements for language choosing screen
@@ -396,6 +472,8 @@ void drawWifiScreen()
   text("CatWifi", 700, 650);
   image(lockIcon, 1850, 500, 75, 75);
   image(lockIcon, 1850, 600, 75, 75);
+
+  image(keyboard, 0, 0);
 
   //scroll bar
   rect(1990, 510, 50, 130); 
@@ -456,7 +534,7 @@ void drawPasswordScreen()
   text("Choose your Password", 840, 325);
 
   textFont(font, 72);
-  text("Invent a swip pattern to lock and access your account. Simply drag", 300, 500);
+  text("Invent a swipe pattern to lock and access your account. Simply drag", 300, 500);
   text("your finger across the mirror to create your swipe password.", 400, 600);
 
   text("Choose Your Swipe", 425, 750);
@@ -699,6 +777,7 @@ int[][] appScreenButtons = {{300, 1290, 200, 200},
   {1550, 1275, 200, 200}, 
   {1750, 1275, 200, 200}, 
   {2000, 1275, 200, 200}};
+
 int appPage = 1;
 boolean appOneSelected = false;
 boolean appTwoSelected = false;
@@ -712,12 +791,6 @@ boolean leftScreen = false;
 boolean fullScreen = true;
 boolean rightScreen = false;
 
-boolean backgroundDefault = true;
-boolean backgroundSelect1 = false;
-boolean backgroundSelect2 = false;
-boolean backgroundSelect3 = false;
-boolean backgroundSelect4 = false;
-
 void draw()
 {
   //just to check bottom side of window, comment out after use
@@ -729,37 +802,8 @@ void draw()
 
   //Draw the mirror base Image
   noStroke();
-  if (backgroundDefault == true)
-  {
-    baseImage.resize(2732, 1536);
-    image(baseImage, 0, 0);
-  }
-  else {
-    if (backgroundSelect1 == true)
-    {
-      backgroundOne.resize(2732, 1536);
-      image(backgroundOne, 0, 0);
-    }
-    else if (backgroundSelect2 == true)
-    {
-      backgroundTwo.resize(2732, 1536);
-      image(backgroundTwo, 0, 0);
-    }
-    else if (backgroundSelect3 == true)
-    {
-      backgroundThree.resize(2732, 1536);
-      image(backgroundThree, 0, 0);
-    }
-    else if (backgroundSelect4 == true)
-    {
-      backgroundFour.resize(2732, 1536);
-      image(backgroundFour, 0, 0);
-    }
-    else {
-      baseImage.resize(2732, 1536);
-      image(baseImage, 0, 0);
-    }
-  }
+  baseImage.resize(2732, 1536);
+  image(baseImage, 0, 0);
 
   if (mirrorMode == 0)
   {
@@ -1077,16 +1121,74 @@ void draw()
       image(rightArrowIcon, 2000, 1290);
     }
   }
+
+  //Draw light around mirror
+  if (whiteLight) {
+    image(whiteLightOn, 0, 0);
+  } else if (redLight) {
+    image(redLightOn, 0, 0);
+  } else if (blueLight) {
+    image(blueLightOn, 0, 0);
+  } else if (yellowLight) {
+    image(yellowLightOn, 0, 0);
+  } else if (purpleLight) {
+    image(purpleLightOn, 0, 0);
+  }
 }
+
+//lazy variabe to skip full screen 
+boolean previousSettingLeft = false; 
+//choosing settings options
+boolean wifiChosen = false, dateTimeChosen = false, languageChosen = false;
 
 void drawSettings() {
 
+  //draw settings on the left
   if (leftScreen) {
     image(leftScreenArrow, 500, 340);
-  } else if (fullScreen) {
-    image(fullScreenArrow, 500, 340);
-  } else if (rightScreen) {
+    previousSettingLeft = true;
+    
+    if(wifiChosen){
+      image(settingsWifiScreen, 40, 340);
+    }
+    else if(dateTimeChosen){
+      image(settingsDateScreen, 40, 340);
+    }
+    else if(languageChosen){
+      image(settingsLangScreen, 40, 340);
+    }
+    else{
+      image(settingsScreen, 40, 340);
+    }
+  } 
+  //no full screen mode, switch to eithe left or right
+  else if (fullScreen) {
+    if (!previousSettingLeft) {
+      previousSettingLeft = true;
+      fullScreen = false;
+      leftScreen = true;
+    } else {
+      previousSettingLeft = false;
+      fullScreen = false;
+      rightScreen = true;
+    }
+  } 
+  //draw settings on the right
+  else if (rightScreen) {
     image(rightScreenArrow, 500, 340);
+    
+    if(wifiChosen){
+      image(settingsWifiScreen, 2140, 340);
+    }
+    else if(dateTimeChosen){
+      image(settingsDateScreen, 2140, 340);
+    }
+    else if(languageChosen){
+      image(settingsLangScreen, 2140, 340);
+    }
+    else{
+      image(settingsScreen, 2140, 340);
+    }
   }
 }
 
@@ -1129,12 +1231,29 @@ void drawUtilities() {
   }
 }
 
+boolean purpleLight = false, yellowLight = false, blueLight = false, redLight = false, whiteLight = false;
+
 void drawLight() {
-  if (leftScreen) {
-  } else if (fullScreen) {
-    image(fullScreenArrow, 500, 340);
-  } else if (rightScreen) {
-  }
+  //choose light color 
+  if (whiteLight) {
+    rect(1530, 1070, 130, 130);
+    fill(255, 255, 102);
+  } else if (redLight) {
+    rect(1390, 1070, 130, 130);
+    fill(0);
+  } else if (blueLight) {
+    rect(1250, 1070, 130, 130);
+    fill(255, 51, 51);
+  } else if (yellowLight) {
+    rect(1100, 1070, 130, 130);
+    fill(102, 255, 102);
+  } else if (purpleLight) {
+    rect(960, 1070, 130, 130);
+    fill(0, 128, 255);
+  } 
+
+  image(lightScreen, 500, 340);
+  fill(255);
 }
 
 void drawCalendar() {
@@ -1152,16 +1271,18 @@ void drawCalendar() {
 
 void drawWeather() {
   if (leftScreen) {
+    image(leftScreenArrow, 500, 340);
+    image(weatherSmall, 40, 340);
   } else if (fullScreen) {
     image(fullScreenArrow, 500, 340);
+    image(weatherBig, 500, 340);
   } else if (rightScreen) {
+    image(rightScreenArrow, 500, 340);
+    image(weatherSmall, 2110, 340);
   }
 }
 
-void drawBackground() 
-{
-  image(backgroundSelect, 590, 300);
-  image(forwardArrowIcon, 1868, 1120);
+void drawBackground() {
 }
 
 void drawTimer() {
@@ -1172,11 +1293,41 @@ void drawTimer() {
   }
 }
 
+boolean weightChosen = true;
+boolean sleepChosen = false;
+boolean stepsChosen = false;
+
 void drawHealth() {
+  //left minimized screen
   if (leftScreen) {
-  } else if (fullScreen) {
+    image(leftScreenArrow, 500, 340);
+
+    //utility to be shown
+    if (weightChosen) {
+      image(weightScreen, 40, 340);
+    } else if (sleepChosen) {
+      image(sleepScreen, 40, 340);
+    } else if (stepsChosen) {
+      image(stepsScreen, 40, 340);
+    }
+  }
+  //full screen mode
+  else if (fullScreen) {
     image(fullScreenArrow, 500, 340);
-  } else if (rightScreen) {
+    image(healthFullScreen, 500, 340);
+  }
+  //right minimized screen
+  else if (rightScreen) {
+    image(rightScreenArrow, 500, 340);
+
+    //utility to be shown
+    if (weightChosen) {
+      image(weightScreen, 2140, 340);
+    } else if (sleepChosen) {
+      image(sleepScreen, 2140, 340);
+    } else if (stepsChosen) {
+      image(stepsScreen, 2140, 340);
+    }
   }
 }
 
@@ -1188,29 +1339,137 @@ void drawNews() {
   }
 }
 
+boolean stop = true, play = false, scroll = false;
+
 void drawMusic() {
+  /*Left Small Music Screen Functions */
   if (leftScreen) {
-  } else if (fullScreen) {
+    image(leftScreenArrow, 500, 340);
+
+    //display stopped screen
+    if (stop) {
+      //choose the scrolled stopped screen
+      if (scroll) { 
+        image(musicScreenScrollStop, 40, 340);
+      }
+      //choose the un-scrolled stopped screen
+      else {
+        image(musicScreenStop, 40, 340);
+      }
+    }
+    //if the user chose play
+    else if (play) {
+      //choose the scrolled play screen
+      if (scroll) {
+        image(musicScreenScrollPlay, 40, 340);
+      }
+      //choose the un-scrolled play screen
+      else {
+        image(musicScreenPlay, 40, 340);
+      }
+    }
+  }
+  //show the full-screen image of music (it is non-functional)
+  else if (fullScreen) {
     image(fullScreenArrow, 500, 340);
-  } else if (rightScreen) {
+    image(musicScreenBig, 500, 340);
+  } 
+  //choose the right screen small version of music
+  else if (rightScreen) {
+    image(rightScreenArrow, 500, 340);
+
+    //choose the stopped screen
+    if (stop) {
+      //choose the scrolled stopped screen
+      if (scroll) {
+        image(musicScreenScrollStop, 2140, 340);
+      }
+      //choose the un-scrolled stopped screen
+      else {
+        image(musicScreenStop, 2140, 340);
+      }
+    }
+    //choose the play screen
+    else if (play) {
+      //choose the scrolled play screen
+      if (scroll) {
+        image(musicScreenScrollPlay, 2140, 340);
+      }
+      //choose the un-scrolled play screen
+      else {
+        image(musicScreenPlay, 2140, 340);
+      }
+    }
   }
 }
 
 void drawVideo() {
+  /*Left Small Video Screen Functions */
   if (leftScreen) {
-  } else if (fullScreen) {
+    image(leftScreenArrow, 500, 340);
+
+    //display stopped screen
+    if (stop) {
+      //choose the scrolled stopped screen
+      if (scroll) { 
+        image(videoScreenScrollStop, 40, 340);
+      }
+      //choose the un-scrolled stopped screen
+      else {
+        image(videoScreenStop, 40, 340);
+      }
+    }
+    //if the user chose play
+    else if (play) {
+      //choose the scrolled play screen
+      if (scroll) {
+        image(videoScreenScrollPlay, 40, 340);
+      }
+      //choose the un-scrolled play screen
+      else {
+        image(videoScreenPlay, 40, 340);
+      }
+    }
+  }
+  //show the full-screen image of video (it is non-functional)
+  else if (fullScreen) {
     image(fullScreenArrow, 500, 340);
-  } else if (rightScreen) {
+    image(videoScreenBig, 500, 340);
+  } 
+  //choose the right screen small version of video
+  else if (rightScreen) {
+    image(rightScreenArrow, 500, 340);
+
+    //choose the stopped screen
+    if (stop) {
+      //choose the scrolled stopped screen
+      if (scroll) {
+        image(videoScreenScrollStop, 2140, 340);
+      }
+      //choose the un-scrolled stopped screen
+      else {
+        image(videoScreenStop, 2140, 340);
+      }
+    }
+    //choose the play screen
+    else if (play) {
+      //choose the scrolled play screen
+      if (scroll) {
+        image(videoScreenScrollPlay, 2140, 340);
+      }
+      //choose the un-scrolled play screen
+      else {
+        image(videoScreenPlay, 2140, 340);
+      }
+    }
   }
 }
-
 
 //Draw buttons
 boolean drawMode = true, drawMode2 = true, eraseMode = false, eraseMode2 = false;
 boolean blackPaint = true, redPaint = false, greenPaint = false, bluePaint = false, yellowPaint = false;
 
 void drawNotes() {
-  
     //image(fullScreenArrow, 500, 340);
     image(notePad, 950, 120);
 
@@ -1264,8 +1523,6 @@ void drawNotes() {
 
 }
 
-
-
 void drawDrawMode() {
   //if mode is set to draw
   if (drawMode) {
@@ -1297,9 +1554,7 @@ void drawDrawMode() {
     }
     //draw button chosen image
     image(drawScreen, 500, 340);
-  } 
-  else if (eraseMode) 
-  {
+  } else if (eraseMode) {
     //erase all the areas drawn
     for (int i = 0; i < 2732; i++) {
       for (int j = 0; j < 1536; j++) {
@@ -1316,17 +1571,14 @@ void drawDrawMode() {
 }
 
 void drawAppStore() {
-  if (leftScreen) {
-  } else if (fullScreen) {
-    image(fullScreenArrow, 500, 340);
-  } else if (rightScreen) {
-  }
+
+  image(appStoreScreen, 500, 340);
 }
 
 void drawFacebook() {
   if (leftScreen) {
-    image(leftScreenArrow, 500, 340);
-    image(facebookLeft, 60, 370);
+   image(leftScreenArrow, 500, 340);
+   image(facebookLeft, 60, 370);
   } else if (fullScreen) {
     image(fullScreenArrow, 500, 340);
     image(facebookBig, 590, 370);
@@ -1414,16 +1666,7 @@ void drawTumblr() {
   }
 }
 
-void unselectApps() {
-  appOneSelected = false;
-  appTwoSelected = false;
-  appThreeSelected = false;
-  appFourSelected = false;
-  appFiveSelected = false;
-  appSixSelected = false;
-  appSevenSelected = false;
-}
-
+//To change which utility to display
 void chooseUtilities() {
   if (leftScreen)
   {
@@ -1473,16 +1716,132 @@ void chooseUtilities() {
     }
   }
 }
-//*
-//*
-//*/**
-//*
-//*
-//
-//
-//
-//
-//
+
+//To change which health info to show
+void chooseHealthDisplay() {
+  if (leftScreen)
+  {
+    //if weight is chosen
+    if ((mouseX > 40) && (mouseX < 200)
+      && (mouseY > 1050) && (mouseY < 1190)) {
+      weightChosen = true;
+      sleepChosen = false;
+      stepsChosen = false;
+    } 
+    //if sleep is chosen
+    else if ((mouseX > 200) && (mouseX < 380)
+      && (mouseY > 1050) && (mouseY < 1190)) {
+      weightChosen = false;
+      sleepChosen = true;
+      stepsChosen = false;
+    }
+    //if steps is chosen
+    else if ((mouseX > 385) && (mouseX < 550)
+      && (mouseY > 1050) && (mouseY < 1190)) {
+      weightChosen = false;
+      sleepChosen = false;
+      stepsChosen = true;
+    }
+  } else if (rightScreen)
+  {
+    //if weight is chosen
+    if ((mouseX > 2130) && (mouseX < 2290)
+      && (mouseY > 1050) && (mouseY < 1190)) {
+      weightChosen = true;
+      sleepChosen = false;
+      stepsChosen = false;
+    }
+    //if sleep is chosen
+    else if ((mouseX > 2290) && (mouseX < 2470)
+      && (mouseY > 1050) && (mouseY < 1190)) {
+      weightChosen = false;
+      sleepChosen = true;
+      stepsChosen = false;
+    } 
+    //if steps is chosen
+    else if ((mouseX > 2475) && (mouseX < 2640)
+      && (mouseY > 1050) && (mouseY < 1190)) {
+      weightChosen = false;
+      sleepChosen = false;
+      stepsChosen = true;
+    }
+  }
+}
+
+//Choose light colors
+void chooseLightColor() {
+
+  //if white light is chosen
+  if ((mouseX > 1550) && (mouseX < 1700)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    //if chosen color was already on, turn it off
+    if (!whiteLight)
+      whiteLight = true;
+    else
+      whiteLight = false;
+
+    redLight = false;
+    blueLight = false;
+    yellowLight = false;
+    purpleLight = false;
+  }
+  //if red light is chosen
+  else if ((mouseX > 1400) && (mouseX < 1550)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    //if chosen color was already on, turn it off
+    if (!redLight)
+      redLight = true;
+    else
+      redLight = false;
+
+    whiteLight = false;
+    blueLight = false;
+    yellowLight = false;
+    purpleLight = false;
+  } 
+  //if blue light is chosen
+  else if ((mouseX > 1250) && (mouseX < 1400)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    //if chosen color was already on, turn it off
+    if (!blueLight)
+      blueLight = true;
+    else
+      blueLight = false;
+
+    redLight = false;
+    whiteLight = false;
+    yellowLight = false;
+    purpleLight = false;
+  }
+  //if yellow light is chosen
+  else if ((mouseX > 1100) && (mouseX < 1250)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    //if chosen color was already on, turn it off
+    if (!yellowLight)
+      yellowLight = true;
+    else
+      yellowLight = false;
+
+    redLight = false;
+    blueLight = false;
+    whiteLight = false;
+    purpleLight = false;
+  } 
+  //if purple light is chosen
+  else if ((mouseX > 960) && (mouseX < 1100)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    //if chosen color was already on, turn it off
+    if (!purpleLight)
+      purpleLight = true;
+    else
+      purpleLight = false;
+
+    redLight = false;
+    blueLight = false;
+    yellowLight = false;
+    whiteLight = false;
+  }
+}
 
 void chooseNotesModeApp()
 {
@@ -1599,6 +1958,172 @@ void chooseDrawModeApp() {
   }
 }
 
+void chooseMusicMode() {
+  /* Left Screen */
+  //change music to play
+  if ((mouseX > 200) && (mouseX < 270)
+    && (mouseY > 1050) && (mouseY < 1140)) {
+    play = true;
+    stop = false;
+  }
+  //change music to stop
+  else if ((mouseX > 350) && (mouseX < 420)
+    && (mouseY > 1050) && (mouseY < 1140)) {
+    play = false;
+    stop = true;
+  } 
+  //see if user scrolled
+  //scrolled up
+  if ((mouseX > 480) && (mouseX < 520)
+    && (mouseY > 770) && (mouseY < 820)) {
+    scroll = false;
+  }
+  //scrolled down
+  else if ((mouseX > 480) && (mouseX < 520)
+    && (mouseY > 1000) && (mouseY < 1060)) {
+    scroll = true;
+  }
+
+  /* Right Screen */
+  //change music to play
+  if ((mouseX > 2280) && (mouseX < 2340)
+    && (mouseY > 1050) && (mouseY < 1140)) {
+    play = true;
+    stop = false;
+  }
+  //change music to stop
+  else if ((mouseX > 2450) && (mouseX < 2510)
+    && (mouseY > 1050) && (mouseY < 1140)) {
+    play = false;
+    stop = true;
+  } 
+  //see if user scrolled
+  //scrolled up
+  if ((mouseX > 2530) && (mouseX < 2700)
+    && (mouseY > 770) && (mouseY < 820)) {
+    scroll = false;
+  }
+  //scrolled down
+  else if ((mouseX > 2530) && (mouseX < 2700)
+    && (mouseY > 1000) && (mouseY < 1060)) {
+    scroll = true;
+  }
+}
+
+void chooseVideoMode() {
+  /* Left Screen */
+  //change video to play
+  if ((mouseX > 200) && (mouseX < 270)
+    && (mouseY > 1050) && (mouseY < 1140)) {
+    play = true;
+    stop = false;
+  }
+  //change video to stop
+  else if ((mouseX > 350) && (mouseX < 420)
+    && (mouseY > 1050) && (mouseY < 1140)) {
+    play = false;
+    stop = true;
+  } 
+  //see if user scrolled
+  //scrolled up
+  if ((mouseX > 480) && (mouseX < 520)
+    && (mouseY > 830) && (mouseY < 890)) {
+    scroll = false;
+  }
+  //scrolled down
+  else if ((mouseX > 480) && (mouseX < 520)
+    && (mouseY > 1000) && (mouseY < 1060)) {
+    scroll = true;
+  }
+
+  /* Right Screen */
+  //change video to play
+  if ((mouseX > 2280) && (mouseX < 2340)
+    && (mouseY > 1050) && (mouseY < 1140)) {
+    play = true;
+    stop = false;
+  }
+  //change video to stop
+  else if ((mouseX > 2450) && (mouseX < 2510)
+    && (mouseY > 1050) && (mouseY < 1140)) {
+    play = false;
+    stop = true;
+  } 
+  //see if user scrolled
+  //scrolled up
+  if ((mouseX > 2530) && (mouseX < 2700)
+    && (mouseY > 830) && (mouseY < 890)) {
+    scroll = false;
+  }
+  //scrolled down
+  else if ((mouseX > 2530) && (mouseX < 2700)
+    && (mouseY > 1000) && (mouseY < 1060)) {
+    scroll = true;
+  }
+}
+
+void unselectApps() {
+  appOneSelected = false;
+  appTwoSelected = false;
+  appThreeSelected = false;
+  appFourSelected = false;
+  appFiveSelected = false;
+  appSixSelected = false;
+  appSevenSelected = false;
+}
+
+/*Choose Settings Diplay*/
+void chooseSettingsDisplay() {
+
+  if (leftScreen) {
+    if ((mouseX > 40) && (mouseX < 550)
+      && (mouseY > 470) && (mouseY < 550)) {
+      wifiChosen = true;
+      dateTimeChosen = false;
+      languageChosen = false;
+    }
+    //if user chosen date/time
+    else if ((mouseX > 40) && (mouseX < 550)
+      && (mouseY > 550) && (mouseY < 650)) {
+      wifiChosen = false;
+      dateTimeChosen = true;
+      languageChosen = false;
+    } 
+    //if user chose language
+    else if ((mouseX > 40) && (mouseX < 550)
+      && (mouseY > 650) && (mouseY < 730)) {
+      wifiChosen = false;
+      dateTimeChosen = false;
+      languageChosen = true;
+    }
+  } 
+  //if settings on the right
+  else if (rightScreen) {
+    //if user chose wifi
+    if ((mouseX > 2130) && (mouseX < 2640)
+      && (mouseY > 470) && (mouseY < 550)) {
+      wifiChosen = true;
+      dateTimeChosen = false;
+      languageChosen = false;
+    }
+    //if user chosen date/time
+    else if ((mouseX > 2130) && (mouseX < 2640)
+      && (mouseY > 550) && (mouseY < 650)) {
+      wifiChosen = false;
+      dateTimeChosen = true;
+      languageChosen = false;
+    } 
+    //if user chose language
+    else if ((mouseX > 2130) && (mouseX < 2640)
+      && (mouseY > 650) && (mouseY < 730)) {
+      wifiChosen = false;
+      dateTimeChosen = false;
+      languageChosen = true;
+    }
+  }
+}
+
+
 void mouseReleased()
 {
   if (mirrorMode == 0)
@@ -1690,11 +2215,24 @@ void mouseReleased()
     /* Choose utilities for minimized screen */
     chooseUtilities();
 
-    /* Draw app buttons */
+    /* Draw App Buttons */
     chooseDrawModeApp();
-    
     chooseNotesModeApp();
 
+    /*Choose Light Colors*/
+    chooseLightColor();
+
+    /*Choose Music Modes */
+    chooseMusicMode();
+    
+    /*Choose Music Modes */
+    chooseVideoMode();
+
+    /*Choose Health App Display */
+    chooseHealthDisplay();
+
+    /*Choose Settings Display */
+    chooseSettingsDisplay();
 
     //Select Apps
     for (int i=0; i < appScreenButtons.length; i++) {
@@ -1800,10 +2338,6 @@ void mouseDragged() {
   //draw when mouse dragged and draw app on
   if (appTwoSelected && appPage == 2 && drawMode) {
     drawnArea[mouseX][mouseY] = true;
-  }
-  if(appThreeSelected && appPage == 2 && drawMode2)
-  {
-    drawnArea2[mouseX][mouseY] = true;
   }
 }
 
