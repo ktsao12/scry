@@ -10,7 +10,7 @@ PImage cloudy, partlyCloudy, storm, hail, rain, sunny, night, snow, wind, houseT
 //interactable icons
 PImage languageIcon, unavailableArrowIcon, forwardArrowIcon, wifiIcon, backArrowIcon, 
   whiteCheckmarkIcon, datetimeIcon, blackCheckmarkIcon, passwordIcon, powerIcon, 
-  leftArrowIcon, rightArrowIcon, lockIcon, gridIcon, guestIcon;
+  leftArrowIcon, rightArrowIcon, lockIcon, unlockIcon, gridIcon, guestIcon;
 
 //primary app icons
 PImage timerIcon, backgroundIcon, weatherIcon, calendarIcon, lightIcon, utilitiesIcon, settingsIcon;
@@ -27,7 +27,7 @@ PImage linkedinBig, linkedinLeft, linkedinRight;
 PImage twitterBig, twitterLeft, twitterRight;
 PImage googleplusBig, googleplusLeft, googleplusRight;
 PImage facebookBig, facebookLeft, facebookRight;
- 
+
 //app screen images
 PImage leftScreenArrow, fullScreenArrow, rightScreenArrow, keyboard;
 PImage waterUtility, heatUtility, electricUtility, utilitiesFullScreen;
@@ -42,6 +42,7 @@ PImage drawScreen, eraseScreen;
 PImage drawScreen2, eraseScreen2;
 boolean drawnArea2[][];
 boolean drawnArea[][];
+boolean locked = false, hidden = false;
 
 PImage appStoreScreen;
 PImage notePad;
@@ -173,6 +174,9 @@ void setup()
 
   lockIcon = loadImage("lockIcon.png");
   lockIcon.loadPixels();
+  
+  unlockIcon = loadImage("unlockIcon.png");
+  unlockIcon.loadPixels();
 
   gridIcon = loadImage("gridIcon.png");
   gridIcon.loadPixels();
@@ -237,7 +241,7 @@ void setup()
   //tertiary app icons
   tumblrIcon = loadImage("tumblrIcon.png");
   tumblrIcon.loadPixels();
-  
+
   tumblrBig = loadImage("tumblrBig.png");
   tumblrBig.loadPixels();
   tumblrLeft = loadImage("tumblrLeft.png");
@@ -253,7 +257,7 @@ void setup()
   instagramLeft.loadPixels();
   instagramRight = loadImage("instagramRight.png");
   instagramRight.loadPixels();
-  
+
   pinterestIcon = loadImage("pinterestIcon.png");
   pinterestIcon.loadPixels();
   pinterestBig = loadImage("pinterestBig.png");
@@ -391,28 +395,28 @@ void setup()
 
   appStoreScreen = loadImage("appStore.png") ;
   appStoreScreen.loadPixels();
-  
+
   settingsWifiScreen = loadImage("settingsWifi.png") ;
   settingsWifiScreen.loadPixels();
-  
+
   settingsWifiScreen = loadImage("settingsWifi.png") ;
   settingsWifiScreen.loadPixels();
-  
+
   settingsWifiChosenScreen = loadImage("settingsWifiChosen.png") ;
   settingsWifiChosenScreen.loadPixels();
-  
+
   settingsDateScreen = loadImage("settingsDateTime.png") ;
   settingsDateScreen.loadPixels();
-  
+
   settingsDateChosenScreen = loadImage("settingsDateTimeChosen.png") ;
   settingsDateChosenScreen.loadPixels();
-  
+
   settingsLangScreen = loadImage("settingsLanguage.png") ;
   settingsLangScreen.loadPixels();
-  
+
   settingsLangChosenScreen = loadImage("settingsLanguageChosen.png") ;
   settingsLangChosenScreen.loadPixels();
-  
+
   videoScreenBig = loadImage("videoScreenBig.png") ;
   videoScreenBig.loadPixels();
 
@@ -433,11 +437,11 @@ void setup()
 
   drawnArea = new boolean[2732][1536];
   drawnArea2 = new boolean[2732][1536];
-  
+
   //notepad image
   notePad = loadImage("notePad.png");
   notePad.loadPixels();
-  
+
   drawScreen2 = loadImage("draw.png") ;
   drawScreen2.loadPixels();
 
@@ -477,8 +481,6 @@ void drawLanguageScreen()
   text("Русский язык", 1750, 800);
   text("Deutsche", 1815, 1000);
 }
-
-
 
 //draw elements for wi-fi network choosing screen
 void drawWifiScreen()
@@ -525,8 +527,6 @@ void drawWifiScreen()
   text("Skip this step.", 1100, 950);
   image(unavailableArrowIcon, 1850, 850);
 }
-
-
 
 //draw elements for date and time setting screen
 void drawDateAndTimeScreen()
@@ -843,29 +843,24 @@ void draw()
   {
     baseImage.resize(2732, 1536);
     image(baseImage, 0, 0);
-  }
-  else {
+  } else {
     if (backgroundSelect1 == true)
     {
       backgroundOne.resize(2732, 1536);
       image(backgroundOne, 0, 0);
-    }
-    else if (backgroundSelect2 == true)
+    } else if (backgroundSelect2 == true)
     {
       backgroundTwo.resize(2732, 1536);
       image(backgroundTwo, 0, 0);
-    }
-    else if (backgroundSelect3 == true)
+    } else if (backgroundSelect3 == true)
     {
       backgroundThree.resize(2732, 1536);
       image(backgroundThree, 0, 0);
-    }
-    else if (backgroundSelect4 == true)
+    } else if (backgroundSelect4 == true)
     {
       backgroundFour.resize(2732, 1536);
       image(backgroundFour, 0, 0);
-    }
-    else {
+    } else {
       baseImage.resize(2732, 1536);
       image(baseImage, 0, 0);
     }
@@ -943,8 +938,7 @@ void draw()
       languageButtonPressed = 0;
       break;
     }
-  } 
-  else if (mirrorMode == 1)
+  } else if (mirrorMode == 1)
   {
     //wi-fi network screen
     drawWifiScreen();
@@ -989,8 +983,7 @@ void draw()
     }
 
     //need keyboard
-  } 
-  else if (mirrorMode == 2)
+  } else if (mirrorMode == 2)
   {
     //date and time screen
     drawDateAndTimeScreen();
@@ -1034,8 +1027,7 @@ void draw()
     }
 
     //need numpad
-  } 
-  else if (mirrorMode == 3)
+  } else if (mirrorMode == 3)
   {
     //password screen
     drawPasswordScreen();
@@ -1045,22 +1037,28 @@ void draw()
     drawTopInterface();
     image(powerIcon, 50, 1275);
     image(guestIcon, 2425, 1250);
-  } 
-  else if (mirrorMode == 5)
+  } else if (mirrorMode == 5)
   {
     //user screen 
     drawTopInterface();
 
     //The following Implements the interactable icons and icon bar
     image(powerIcon, 50, 1275);
-    image(lockIcon, 2275, 1290);
+    if(!locked){
+      image(unlockIcon, 2275, 1290);
+    }
+    else{
+      image(lockIcon, 2275, 1290);
+    }
     image(gridIcon, 2475, 1275);
 
     /*draw the selected app, if one is selected */
     //if the first (leftmost) app is selected
     if (appOneSelected) {
+      if(!hidden){
       ellipse(635, 1355, 200, 200);
       fill(255, 255);
+      }
 
       //draw the app for the correct page
       if (appPage == 1) {
@@ -1073,8 +1071,10 @@ void draw()
     } 
     //if the second app is selected
     else if (appTwoSelected) {
+      if(!hidden){
       ellipse(835, 1355, 200, 200);
       fill(255, 255);
+      }
 
       //draw the app for the correct page
       if (appPage == 1) {
@@ -1087,8 +1087,10 @@ void draw()
     } 
     //if the third app is selected
     else if (appThreeSelected) {
+      if(!hidden){
       ellipse(1035, 1355, 200, 200);
       fill(255, 255);
+      }
 
       //draw the app for the correct page
       if (appPage == 1) {
@@ -1101,8 +1103,10 @@ void draw()
     } 
     //if the fourth app is selected    
     else if (appFourSelected) {
+      if(!hidden){
       ellipse(1235, 1355, 200, 200);
       fill(255, 255);
+      }
 
       //draw the app for the correct page
       if (appPage == 1) {
@@ -1115,8 +1119,10 @@ void draw()
     } 
     //if the fifth app is selected    
     else if (appFiveSelected) {
+      if(!hidden){
       ellipse(1435, 1355, 200, 200);
       fill(255, 255);
+      }
 
       //draw the app for the correct page
       if (appPage == 1) {
@@ -1129,8 +1135,10 @@ void draw()
     } 
     //if the sixth app is selected    
     else if (appSixSelected) {
+      if(!hidden){
       ellipse(1635, 1355, 200, 200);
       fill(255, 255);
+      }
 
       //draw the app for the correct page
       if (appPage == 1) {
@@ -1143,8 +1151,10 @@ void draw()
     } 
     //if the seventh (rightmost) app is selected    
     else if (appSevenSelected) {
+      if(!hidden){
       ellipse(1835, 1355, 200, 200);
       fill(255, 255);
+      }
 
       //draw the app for the correct page
       if (appPage == 1) {
@@ -1156,39 +1166,41 @@ void draw()
       }
     }
 
-    //primary app icon set
-    if (appPage == 1) {
-      image(leftArrowIcon, 300, 1290);
-      image(timerIcon, 550, 1275);
-      image(backgroundIcon, 750, 1275);
-      image(weatherIcon, 950, 1275);
-      image(calendarIcon, 1150, 1275);
-      image(lightIcon, 1350, 1275);
-      image(utilitiesIcon, 1550, 1275);
-      image(settingsIcon, 1750, 1275);
-    }
-    //secondary icon set
-    else if (appPage == 2) {
-      image(leftArrowIcon, 300, 1290);
-      image(appstoreIcon, 550, 1275);
-      image(drawIcon, 750, 1275);
-      image(notesIcon, 950, 1275);
-      image(videosIcon, 1150, 1275);
-      image(musicIcon, 1350, 1275);
-      image(newsIcon, 1550, 1275);
-      image(healthIcon, 1750, 1275);
-      image(rightArrowIcon, 2000, 1290);
-    }
-    //tertiary icon set
-    else if (appPage == 3) {
-      image(tumblrIcon, 550, 1275);
-      image(instagramIcon, 750, 1275);
-      image(pinterestIcon, 950, 1275);
-      image(linkedinIcon, 1150, 1275);
-      image(twitterIcon, 1350, 1275);
-      image(googleplusIcon, 1550, 1275);
-      image(facebookIcon, 1750, 1275);
-      image(rightArrowIcon, 2000, 1290);
+    if (!hidden) {
+      //primary app icon set
+      if (appPage == 1) {
+        image(leftArrowIcon, 300, 1290);
+        image(timerIcon, 550, 1275);
+        image(backgroundIcon, 750, 1275);
+        image(weatherIcon, 950, 1275);
+        image(calendarIcon, 1150, 1275);
+        image(lightIcon, 1350, 1275);
+        image(utilitiesIcon, 1550, 1275);
+        image(settingsIcon, 1750, 1275);
+      }
+      //secondary icon set
+      else if (appPage == 2) {
+        image(leftArrowIcon, 300, 1290);
+        image(appstoreIcon, 550, 1275);
+        image(drawIcon, 750, 1275);
+        image(notesIcon, 950, 1275);
+        image(videosIcon, 1150, 1275);
+        image(musicIcon, 1350, 1275);
+        image(newsIcon, 1550, 1275);
+        image(healthIcon, 1750, 1275);
+        image(rightArrowIcon, 2000, 1290);
+      }
+      //tertiary icon set
+      else if (appPage == 3) {
+        image(tumblrIcon, 550, 1275);
+        image(instagramIcon, 750, 1275);
+        image(pinterestIcon, 950, 1275);
+        image(linkedinIcon, 1150, 1275);
+        image(twitterIcon, 1350, 1275);
+        image(googleplusIcon, 1550, 1275);
+        image(facebookIcon, 1750, 1275);
+        image(rightArrowIcon, 2000, 1290);
+      }
     }
   }
 
@@ -1217,17 +1229,14 @@ void drawSettings() {
   if (leftScreen) {
     image(leftScreenArrow, 500, 340);
     previousSettingLeft = true;
-    
-    if(wifiChosen){
+
+    if (wifiChosen) {
       image(settingsWifiScreen, 40, 340);
-    }
-    else if(dateTimeChosen){
+    } else if (dateTimeChosen) {
       image(settingsDateScreen, 40, 340);
-    }
-    else if(languageChosen){
+    } else if (languageChosen) {
       image(settingsLangScreen, 40, 340);
-    }
-    else{
+    } else {
       image(settingsScreen, 40, 340);
     }
   } 
@@ -1246,17 +1255,14 @@ void drawSettings() {
   //draw settings on the right
   else if (rightScreen) {
     image(rightScreenArrow, 500, 340);
-    
-    if(wifiChosen){
+
+    if (wifiChosen) {
       image(settingsWifiScreen, 2140, 340);
-    }
-    else if(dateTimeChosen){
+    } else if (dateTimeChosen) {
       image(settingsDateScreen, 2140, 340);
-    }
-    else if(languageChosen){
+    } else if (languageChosen) {
       image(settingsLangScreen, 2140, 340);
-    }
-    else{
+    } else {
       image(settingsScreen, 2140, 340);
     }
   }
@@ -1358,9 +1364,40 @@ void drawBackground()
   image(forwardArrowIcon, 1868, 1120);
 }
 
+void chooseBackground()
+ {
+   if ((mouseX > 1867) && (mouseX < 2056) && (mouseY > 1119) && (mouseY < 1283))
+   {
+     if (backgroundDefault == true)
+     {
+       backgroundDefault = false;
+       backgroundSelect1 = true;
+     }
+     else if (backgroundSelect1 == true)
+     {
+       backgroundSelect1 = false;
+       backgroundSelect2 = true;
+     }
+     else if (backgroundSelect2 == true)
+     {
+       backgroundSelect2 = false;
+       backgroundSelect3 = true;
+     }
+     else if (backgroundSelect3 == true)
+     {
+       backgroundSelect3 = false;
+       backgroundSelect4 = true;
+     }
+     else 
+     {
+       backgroundSelect4 = false;
+       backgroundDefault = true;
+     }
+   }
+ }
 
 void drawTimer() {
- image(timer, 1024, 600);
+  image(timer, 1024, 600);
 }
 
 boolean weightChosen = true;
@@ -1402,18 +1439,13 @@ void drawHealth() {
 }
 
 void drawNews() {
-  if (leftScreen) 
-  {
+  if (leftScreen) {
     image(leftScreenArrow, 500, 340);
     image(newsSmall, 40, 370, 490, 820);
-  } 
-  else if (fullScreen) 
-  {
+  } else if (fullScreen) {
     image(fullScreenArrow, 500, 340);
     image(newsBig, 580, 370, 1490, 820);
-  } 
-  else if (rightScreen) 
-  {
+  } else if (rightScreen) {
     image(rightScreenArrow, 500, 340);
     image(newsSmall, 2120, 370, 520, 820);
   }
@@ -1550,12 +1582,12 @@ boolean drawMode = true, drawMode2 = true, eraseMode = false, eraseMode2 = false
 boolean blackPaint = true, redPaint = false, greenPaint = false, bluePaint = false, yellowPaint = false;
 
 void drawNotes() {
-    //image(fullScreenArrow, 500, 340);
-    image(notePad, 950, 120);
+  //image(fullScreenArrow, 500, 340);
+  image(notePad, 950, 120);
 
-    image(list, 1730, 825, 380, 250);
-    
-    if (drawMode2) {
+  image(list, 1730, 825, 380, 250);
+
+  if (drawMode2) {
     //choose brush color to draw with
     if (blackPaint) {
       rect(1390, 1090, 130, 130);
@@ -1584,8 +1616,7 @@ void drawNotes() {
     }
     //draw button chosen image
     image(drawScreen2, 500, 360);
-  } 
-  else if (eraseMode2) 
+  } else if (eraseMode2) 
   {
     //erase all the areas drawn
     for (int i = 0; i < 2732; i++) {
@@ -1600,7 +1631,6 @@ void drawNotes() {
 
   //make fill color white again
   fill(255);
-
 }
 
 void drawDrawMode() {
@@ -1657,8 +1687,8 @@ void drawAppStore() {
 
 void drawFacebook() {
   if (leftScreen) {
-   image(leftScreenArrow, 500, 340);
-   image(facebookLeft, 60, 370);
+    image(leftScreenArrow, 500, 340);
+    image(facebookLeft, 60, 370);
   } else if (fullScreen) {
     image(fullScreenArrow, 500, 340);
     image(facebookBig, 590, 370);
@@ -1850,148 +1880,138 @@ void chooseHealthDisplay() {
 
 //Choose light colors
 void chooseLightColor() {
-  if(appPage == 1){
-  //if white light is chosen
-  if ((mouseX > 1550) && (mouseX < 1700)
-    && (mouseY > 1050) && (mouseY < 1190)) {
-    //if chosen color was already on, turn it off
-    if (!whiteLight)
-      whiteLight = true;
-    else
-      whiteLight = false;
+  if (appPage == 1) {
+    //if white light is chosen
+    if ((mouseX > 1550) && (mouseX < 1700)
+      && (mouseY > 1050) && (mouseY < 1190)) {
+      //if chosen color was already on, turn it off
+      if (!whiteLight)
+        whiteLight = true;
+      else
+        whiteLight = false;
 
-    redLight = false;
-    blueLight = false;
-    yellowLight = false;
-    purpleLight = false;
-  }
-  //if red light is chosen
-  else if ((mouseX > 1400) && (mouseX < 1550)
-    && (mouseY > 1050) && (mouseY < 1190)) {
-    //if chosen color was already on, turn it off
-    if (!redLight)
-      redLight = true;
-    else
       redLight = false;
-
-    whiteLight = false;
-    blueLight = false;
-    yellowLight = false;
-    purpleLight = false;
-  } 
-  //if blue light is chosen
-  else if ((mouseX > 1250) && (mouseX < 1400)
-    && (mouseY > 1050) && (mouseY < 1190)) {
-    //if chosen color was already on, turn it off
-    if (!blueLight)
-      blueLight = true;
-    else
       blueLight = false;
-
-    redLight = false;
-    whiteLight = false;
-    yellowLight = false;
-    purpleLight = false;
-  }
-  //if yellow light is chosen
-  else if ((mouseX > 1100) && (mouseX < 1250)
-    && (mouseY > 1050) && (mouseY < 1190)) {
-    //if chosen color was already on, turn it off
-    if (!yellowLight)
-      yellowLight = true;
-    else
       yellowLight = false;
-
-    redLight = false;
-    blueLight = false;
-    whiteLight = false;
-    purpleLight = false;
-  } 
-  //if purple light is chosen
-  else if ((mouseX > 960) && (mouseX < 1100)
-    && (mouseY > 1050) && (mouseY < 1190)) {
-    //if chosen color was already on, turn it off
-    if (!purpleLight)
-      purpleLight = true;
-    else
       purpleLight = false;
+    }
+    //if red light is chosen
+    else if ((mouseX > 1400) && (mouseX < 1550)
+      && (mouseY > 1050) && (mouseY < 1190)) {
+      //if chosen color was already on, turn it off
+      if (!redLight)
+        redLight = true;
+      else
+        redLight = false;
 
-    redLight = false;
-    blueLight = false;
-    yellowLight = false;
-    whiteLight = false;
+      whiteLight = false;
+      blueLight = false;
+      yellowLight = false;
+      purpleLight = false;
+    } 
+    //if blue light is chosen
+    else if ((mouseX > 1250) && (mouseX < 1400)
+      && (mouseY > 1050) && (mouseY < 1190)) {
+      //if chosen color was already on, turn it off
+      if (!blueLight)
+        blueLight = true;
+      else
+        blueLight = false;
+
+      redLight = false;
+      whiteLight = false;
+      yellowLight = false;
+      purpleLight = false;
+    }
+    //if yellow light is chosen
+    else if ((mouseX > 1100) && (mouseX < 1250)
+      && (mouseY > 1050) && (mouseY < 1190)) {
+      //if chosen color was already on, turn it off
+      if (!yellowLight)
+        yellowLight = true;
+      else
+        yellowLight = false;
+
+      redLight = false;
+      blueLight = false;
+      whiteLight = false;
+      purpleLight = false;
+    } 
+    //if purple light is chosen
+    else if ((mouseX > 960) && (mouseX < 1100)
+      && (mouseY > 1050) && (mouseY < 1190)) {
+      //if chosen color was already on, turn it off
+      if (!purpleLight)
+        purpleLight = true;
+      else
+        purpleLight = false;
+
+      redLight = false;
+      blueLight = false;
+      yellowLight = false;
+      whiteLight = false;
+    }
   }
-}
 }
 
 void chooseNotesModeApp()
 {
-  if ((mouseX > 1600) && (mouseX < 1720) && (mouseY > 1050) && (mouseY < 1190)) 
-  {
-      drawMode2 = true;
-      eraseMode2 = false;
-    }
-    //choose eraser mode
-    else if ((mouseX > 1720) && (mouseX < 1840) && (mouseY > 1050) && (mouseY < 1190)) 
-    {
-      drawMode2 = false;
-      eraseMode2 = true;
-    } 
-    else if ((mouseX > 1730) && (mouseX < 2110) && (mouseY > 825) && (mouseY < 1075)) 
-    {
-      drawMode2 = false;
-      eraseMode2 = true;
-    } 
-    /*Choose colors for draw */
-    //if black is chosen
-    else if ((mouseX > 1400) && (mouseX < 1650)
-      && (mouseY > 1050) && (mouseY < 1190)) 
-    {
-      blackPaint = true;
-      redPaint = false;
-      greenPaint = false;
-      bluePaint = false;
-      yellowPaint = false;
-    } 
-    //if red is chosen
-    else if ((mouseX > 1250) && (mouseX < 1400)
-      && (mouseY > 1050) && (mouseY < 1190)) 
-    {
-      blackPaint = false;
-      redPaint = true;
-      greenPaint = false;
-      bluePaint = false;
-      yellowPaint = false;
-    } 
-    else if ((mouseX > 1100) && (mouseX < 1250)
-      && (mouseY > 1050) && (mouseY < 1190)) 
-    {
-      blackPaint = false;
-      redPaint = false;
-      greenPaint = true;
-      bluePaint = false;
-      yellowPaint = false;
-    } 
-    else if ((mouseX > 960) && (mouseX < 1100)
-      && (mouseY > 1050) && (mouseY < 1190)) 
-    {
-      blackPaint = false;
-      redPaint = false;
-      greenPaint = false;
-      bluePaint = true;
-      yellowPaint = false;
-    } 
-    else if ((mouseX > 820) && (mouseX < 960)
-      && (mouseY > 1050) && (mouseY < 1190)) 
-    {
-      blackPaint = false;
-      redPaint = false;
-      greenPaint = false;
-      bluePaint = false;
-      yellowPaint = true;
-    } 
+  if ((mouseX > 1600) && (mouseX < 1720)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    drawMode2 = true;
+    eraseMode2 = false;
+  }
+  //choose eraser mode
+  else if ((mouseX > 1720) && (mouseX < 1840)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    drawMode2 = false;
+    eraseMode2 = true;
+  } else if ((mouseX > 1730) && (mouseX < 2110)
+    && (mouseY > 825) && (mouseY < 1075)) {
+    drawMode2 = false;
+    eraseMode2 = true;
+  } 
+  /*Choose colors for draw */
+  //if black is chosen
+  else if ((mouseX > 1400) && (mouseX < 1650)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    blackPaint = true;
+    redPaint = false;
+    greenPaint = false;
+    bluePaint = false;
+    yellowPaint = false;
+  } 
+  //if red is chosen
+  else if ((mouseX > 1250) && (mouseX < 1400)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    blackPaint = false;
+    redPaint = true;
+    greenPaint = false;
+    bluePaint = false;
+    yellowPaint = false;
+  } else if ((mouseX > 1100) && (mouseX < 1250)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    blackPaint = false;
+    redPaint = false;
+    greenPaint = true;
+    bluePaint = false;
+    yellowPaint = false;
+  } else if ((mouseX > 960) && (mouseX < 1100)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    blackPaint = false;
+    redPaint = false;
+    greenPaint = false;
+    bluePaint = true;
+    yellowPaint = false;
+  } else if ((mouseX > 820) && (mouseX < 960)
+    && (mouseY > 1050) && (mouseY < 1190)) {
+    blackPaint = false;
+    redPaint = false;
+    greenPaint = false;
+    bluePaint = false;
+    yellowPaint = true;
+  }
 }
-
 
 void chooseDrawModeApp() {
   //choose draw mode
@@ -2213,6 +2233,27 @@ void chooseSettingsDisplay() {
   }
 }
 
+void checkIfLocked() {
+  if (!locked && (mouseX > 2275) && (mouseX < 2435)
+    && (mouseY > 1290) && (mouseY < 1455)) {
+    locked = true;
+  } else if (locked && (mouseX > 2275) && (mouseX < 2435)
+    && (mouseY > 1290) && (mouseY < 1455)) {
+    locked = false;
+  }
+}
+
+void checkIfHidden() {
+  if (!hidden && (mouseX > 2475) && (mouseX < 2735)
+    && (mouseY > 1275) && (mouseY < 1455)) {
+    hidden = true;
+  } else if (hidden && (mouseX > 2475) && (mouseX < 2735)
+    && (mouseY > 1275) && (mouseY < 1455)) {
+    hidden = false;
+  }
+}
+
+
 
 void mouseReleased()
 {
@@ -2272,171 +2313,183 @@ void mouseReleased()
 
   if (mirrorMode == 5) {
 
-    /* Code to resize screen */
-    //resize full screen to the left
-    if (fullScreen && (mouseX > 520) && (mouseX < 570)
-      && (mouseY > 340) && (mouseY < 1200))
+    checkIfLocked();
+
+    if (!locked)
     {
-      leftScreen = true;
-      fullScreen = false;
-    }
-    //resize full screen to the right
-    else if (fullScreen && (mouseX > 2070) && (mouseX < 2120)
-      && (mouseY > 340) && (mouseY < 1200))
-    {
-      rightScreen = true;
-      fullScreen = false;
-    }
-    //resize left screen to full
-    else if (leftScreen &&(mouseX > 520) && (mouseX < 570)
-      && (mouseY > 340) && (mouseY < 1200))
-    {
-      leftScreen = false;
-      fullScreen = true;
-    }
-    //resize right screen to full
-    else if (rightScreen && (mouseX > 2070) && (mouseX < 2120)
-      && (mouseY > 340) && (mouseY < 1200))
-    {
-      rightScreen = false;
-      fullScreen = true;
-    }
+      checkIfHidden();
 
-    /* Choose utilities for minimized screen */
-    chooseUtilities();
-
-    /* Draw App Buttons */
-    chooseDrawModeApp();
-    chooseNotesModeApp();
-
-    /*Choose Light Colors*/
-    chooseLightColor();
-
-    /*Choose Music Modes */
-    chooseMusicMode();
-    
-    /*Choose Music Modes */
-    chooseVideoMode();
-
-    /*Choose Health App Display */
-    chooseHealthDisplay();
-
-    /*Choose Settings Display */
-    chooseSettingsDisplay();
-
-    //Select Apps
-    for (int i=0; i < appScreenButtons.length; i++) {
-      if ((mouseX > appScreenButtons[i][0]) && (mouseX < appScreenButtons[i][0]+appScreenButtons[i][2])
-        && (mouseY > appScreenButtons[i][1]) && (mouseY < appScreenButtons[i][1]+appScreenButtons[i][3]))
-      {
-        //left arrow button
-        if (i==0 && appPage < 3) {
-          //go to next page
-          appPage++;
-          unselectApps();
+      if (!hidden) {
+        /* Code to resize screen */
+        //resize full screen to the left
+        if (fullScreen && (mouseX > 520) && (mouseX < 570)
+          && (mouseY > 340) && (mouseY < 1200))
+        {
+          leftScreen = true;
+          fullScreen = false;
         }
-        //first app
-        else if (i == 1) {
-          //save state for selected app
-          boolean appSelected = appOneSelected;
-
-          //unselect any app that may be open
-          unselectApps();
-
-          if (!appSelected)
-            appOneSelected = true;
+        //resize full screen to the right
+        else if (fullScreen && (mouseX > 2070) && (mouseX < 2120)
+          && (mouseY > 340) && (mouseY < 1200))
+        {
+          rightScreen = true;
+          fullScreen = false;
         }
-        //second app
-        else if (i == 2) {
-          //save state for selected app
-          boolean appSelected = appTwoSelected;
-
-          //unselect any app that may be open
-          unselectApps();
-
-          if (!appSelected)
-            appTwoSelected = true;
+        //resize left screen to full
+        else if (leftScreen &&(mouseX > 520) && (mouseX < 570)
+          && (mouseY > 340) && (mouseY < 1200))
+        {
+          leftScreen = false;
+          fullScreen = true;
         }
-        //third app
-        else if (i == 3) {
-          //save state for selected app
-          boolean appSelected = appThreeSelected;
-
-          //unselect any app that may be open
-          unselectApps();
-
-          if (!appSelected)
-            appThreeSelected = true;
+        //resize right screen to full
+        else if (rightScreen && (mouseX > 2070) && (mouseX < 2120)
+          && (mouseY > 340) && (mouseY < 1200))
+        {
+          rightScreen = false;
+          fullScreen = true;
         }
-        //fourth app
-        else if (i == 4) {
-          //save state for selected app
-          boolean appSelected = appFourSelected;
 
-          //unselect any app that may be open
-          unselectApps();
+        /* Choose utilities for minimized screen */
+        chooseUtilities();
 
-          if (!appSelected)
-            appFourSelected = true;
-        }
-        //fifth app
-        else if (i == 5) {
-          //save state for selected app
-          boolean appSelected = appFiveSelected;
+        /* Draw App Buttons */
+        chooseDrawModeApp();
+        chooseNotesModeApp();
 
-          //unselect any app that may be open
-          unselectApps();
+        /*Choose Light Colors*/
+        chooseLightColor();
 
-          if (!appSelected)
-            appFiveSelected = true;
-        }
-        //sixth app
-        else if (i == 6) {
-          //save state for selected app
-          boolean appSelected = appSixSelected;
+        /*Choose Music Modes */
+        chooseMusicMode();
 
-          //unselect any app that may be open
-          unselectApps();
+        /*Choose Video Modes */
+        chooseVideoMode();
 
-          if (!appSelected)
-            appSixSelected = true;
-        }
-        //seventh app
-        else if (i == 7) {
-          //save state for selected app
-          boolean appSelected = appSevenSelected;
+        /*Choose Health App Display */
+        chooseHealthDisplay();
 
-          //unselect any app that may be open
-          unselectApps();
+        /*Choose Settings Display */
+        chooseSettingsDisplay();
+        
+        /*Choose Background Image */
+        chooseBackground();
 
-          if (!appSelected)
-            appSevenSelected = true;
-        }
-        //right arrow button
-        else if (i == 8 && appPage > 1) {
-          //go to previous page
-          appPage--;
-          unselectApps();
+        //Select Apps
+        for (int i=0; i < appScreenButtons.length; i++) {
+          if ((mouseX > appScreenButtons[i][0]) && (mouseX < appScreenButtons[i][0]+appScreenButtons[i][2])
+            && (mouseY > appScreenButtons[i][1]) && (mouseY < appScreenButtons[i][1]+appScreenButtons[i][3]))
+          {
+            //left arrow button
+            if (i==0 && appPage < 3) {
+              //go to next page
+              appPage++;
+              unselectApps();
+            }
+            //first app
+            else if (i == 1) {
+              //save state for selected app
+              boolean appSelected = appOneSelected;
+
+              //unselect any app that may be open
+              unselectApps();
+
+              if (!appSelected)
+                appOneSelected = true;
+            }
+            //second app
+            else if (i == 2) {
+              //save state for selected app
+              boolean appSelected = appTwoSelected;
+
+              //unselect any app that may be open
+              unselectApps();
+
+              if (!appSelected)
+                appTwoSelected = true;
+            }
+            //third app
+            else if (i == 3) {
+              //save state for selected app
+              boolean appSelected = appThreeSelected;
+
+              //unselect any app that may be open
+              unselectApps();
+
+              if (!appSelected)
+                appThreeSelected = true;
+            }
+            //fourth app
+            else if (i == 4) {
+              //save state for selected app
+              boolean appSelected = appFourSelected;
+
+              //unselect any app that may be open
+              unselectApps();
+
+              if (!appSelected)
+                appFourSelected = true;
+            }
+            //fifth app
+            else if (i == 5) {
+              //save state for selected app
+              boolean appSelected = appFiveSelected;
+
+              //unselect any app that may be open
+              unselectApps();
+
+              if (!appSelected)
+                appFiveSelected = true;
+            }
+            //sixth app
+            else if (i == 6) {
+              //save state for selected app
+              boolean appSelected = appSixSelected;
+
+              //unselect any app that may be open
+              unselectApps();
+
+              if (!appSelected)
+                appSixSelected = true;
+            }
+            //seventh app
+            else if (i == 7) {
+              //save state for selected app
+              boolean appSelected = appSevenSelected;
+
+              //unselect any app that may be open
+              unselectApps();
+              
+
+              if (!appSelected)
+                appSevenSelected = true;
+            }
+            //right arrow button
+            else if (i == 8 && appPage > 1) {
+              //go to previous page
+              appPage--;
+              unselectApps();
+            }
+          }
         }
       }
+    }}
+  }
+
+  void mouseDragged() {
+
+    //draw when mouse dragged and draw app on
+    if (appTwoSelected && appPage == 2 && drawMode) {
+      drawnArea[mouseX][mouseY] = true;
+    }
+    if (appThreeSelected && appPage == 2 && drawMode2)
+    {
+      drawnArea2[mouseX][mouseY] = true;
     }
   }
-}
 
-void mouseDragged() {
-
-  //draw when mouse dragged and draw app on
-  if (appTwoSelected && appPage == 2 && drawMode) {
-    drawnArea[mouseX][mouseY] = true;
-  }
-  if(appThreeSelected && appPage == 2 && drawMode2)
-  {
-    drawnArea2[mouseX][mouseY] = true;
-  }
-}
-
-//just to check bottom side of window, comment out after use
-/*void mousePressed(){
- offsetX = mouseX-centerX;
- offsetY = mouseY-centerY;
- }*/
+  //just to check bottom side of window, comment out after use
+  /*void mousePressed(){
+   offsetX = mouseX-centerX;
+   offsetY = mouseY-centerY;
+   }*/
