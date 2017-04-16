@@ -43,6 +43,7 @@ PImage drawScreen2, eraseScreen2;
 boolean drawnArea2[][];
 boolean drawnArea[][];
 boolean locked = false, hidden = false;
+boolean keyboardClicked = false, showPassword = false;
 
 PImage appStoreScreen;
 PImage notePad;
@@ -520,6 +521,18 @@ void drawWifiScreen()
   ellipse(600, 700, 50, 50);
   ellipse(2025, 700, 50, 50);
   rect(600, 675, 1425, 50); 
+  
+  if(!keyboardClicked){
+    text("Password: ", 575, 800);
+  }
+  else{
+    if(showPassword){
+      text("Password: spongebob123", 575, 800);
+    }
+    else{
+      text("Password: •••••••••••", 575, 800);
+    }
+  }
 
   text("Show Password?", 1500, 800);
 
@@ -953,7 +966,6 @@ void draw()
       if (wifiNetworkChecked == 2)
         image(whiteCheckmarkIcon, 615, 595);
 
-      text("Password: ", 575, 800);
       image(forwardArrowIcon, 1850, 850);
     }
 
@@ -2272,6 +2284,19 @@ void mouseReleased()
 
   if (mirrorMode == 1)
   {
+  
+  //if wifi keyboard clicked
+    if (wifiNetworkSelected && (mouseX > 950) && (mouseX < 1800)
+      && (mouseY > 1000) && (mouseY < 1450)) {
+      keyboardClicked = true;
+    }
+    
+    //if show password is clicked
+    if ((mouseX > 1500) && (mouseX < 1700)
+      && (mouseY > 700) && (mouseY < 800)) {
+      showPassword = !showPassword;
+    }
+    
     for (int i=0; i < wifiNetworkScreenButtons.length; i++) {
       if ((mouseX > wifiNetworkScreenButtons[i][0]) && (mouseX < wifiNetworkScreenButtons[i][0]+wifiNetworkScreenButtons[i][2])
         && (mouseY > wifiNetworkScreenButtons[i][1]) && (mouseY < wifiNetworkScreenButtons[i][1]+wifiNetworkScreenButtons[i][3]))
