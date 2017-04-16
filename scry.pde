@@ -425,6 +425,12 @@ void setup()
   //notepad image
   notePad = loadImage("notePad.png");
   notePad.loadPixels();
+  
+  drawScreen2 = loadImage("draw.png") ;
+  drawScreen2.loadPixels();
+
+  eraseScreen2 = loadImage("erase.png") ;
+  eraseScreen2.loadPixels();
 }
 
 //draw elements for language choosing screen
@@ -2338,6 +2344,10 @@ void mouseDragged() {
   //draw when mouse dragged and draw app on
   if (appTwoSelected && appPage == 2 && drawMode) {
     drawnArea[mouseX][mouseY] = true;
+  }
+  if(appThreeSelected && appPage == 2 && drawMode2)
+  {
+    drawnArea2[mouseX][mouseY] = true;
   }
 }
 
