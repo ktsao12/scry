@@ -1339,6 +1339,38 @@ void drawBackground()
   image(forwardArrowIcon, 1868, 1120);
 }
 
+void chooseBackground()
+{
+  if ((mouseX > 1867) && (mouseX < 2056) && (mouseY > 1119) && (mouseY < 1283))
+  {
+    if (backgroundDefault == true)
+    {
+      backgroundDefault = false;
+      backgroundSelect1 = true;
+    }
+    else if (backgroundSelect1 == true)
+    {
+      backgroundSelect1 = false;
+      backgroundSelect2 = true;
+    }
+    else if (backgroundSelect2 == true)
+    {
+      backgroundSelect2 = false;
+      backgroundSelect3 = true;
+    }
+    else if (backgroundSelect3 == true)
+    {
+      backgroundSelect3 = false;
+      backgroundSelect4 = true;
+    }
+    else 
+    {
+      backgroundSelect4 = false;
+      backgroundDefault = true;
+    }
+  }
+}
+
 void drawTimer() {
   if (leftScreen) {
   } else if (fullScreen) {
@@ -2280,7 +2312,7 @@ void mouseReleased()
     /*Choose Music Modes */
     chooseMusicMode();
     
-    /*Choose Music Modes */
+    /*Choose Video Modes */
     chooseVideoMode();
 
     /*Choose Health App Display */
@@ -2288,6 +2320,9 @@ void mouseReleased()
 
     /*Choose Settings Display */
     chooseSettingsDisplay();
+    
+    /*Choose Background Image */
+    chooseBackground();
 
     //Select Apps
     for (int i=0; i < appScreenButtons.length; i++) {
