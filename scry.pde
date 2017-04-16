@@ -1824,7 +1824,7 @@ void chooseHealthDisplay() {
 
 //Choose light colors
 void chooseLightColor() {
-
+  if(appPage == 1){
   //if white light is chosen
   if ((mouseX > 1550) && (mouseX < 1700)
     && (mouseY > 1050) && (mouseY < 1190)) {
@@ -1955,6 +1955,7 @@ if ((mouseX > 1600) && (mouseX < 1720)
     bluePaint = false;
     yellowPaint = true;
   } 
+  }
 }
 
 void chooseDrawModeApp() {
