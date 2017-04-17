@@ -548,6 +548,7 @@ void drawWifiScreen()
 void drawDateAndTimeScreen()
 {
   image(datetimeIcon, 600, 200);
+  image(numpad, 0, 0);
 
   textFont(font, 108);
   text("Choose Date and Time", 840, 300);
