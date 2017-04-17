@@ -108,7 +108,6 @@ void setup()
    code = forecast2.getInt("code");
    */
 
-
   //initialize images for forecast
   cloudy = loadImage("cloudy.png");
   cloudy.loadPixels();
@@ -800,6 +799,18 @@ void drawTopInterface()
   //displayWeather();
 }
 
+//check if a given value is in a given array
+boolean inArray(int[] givenArray, int value)
+{
+  for(int i = 0; i < givenArray.length; i++)
+  {
+    if(givenArray[i] == value)
+      return true;
+  }
+  
+  return false;
+}
+
 //language screen variables
 int[][] languageScreenButtons = {{585, 510, 300, 150}, {580, 710, 300, 150}, 
   {575, 910, 300, 150}, {1195, 510, 300, 150}, {1195, 710, 300, 150}, 
@@ -820,6 +831,19 @@ int[][] dateAndTimeScreenButtons = {{1580, 550, 200, 125}, {1830, 550, 200, 125}
   {650, 780, 75, 75}, {600, 900, 200, 200}, {1900, 900, 200, 200}};
 int dateAndTimeButtonPressed = 0;
 boolean locationServices = false;
+
+//password screen variables
+int[][] passwordScreenButtons = {{412, 862, 75, 75},{712, 862, 75, 75},
+{987, 862, 75, 75},{412, 1012, 75, 75},{712, 1012, 75, 75},
+{987, 1012, 75, 75},{412, 1162, 75, 75},{712, 1162, 75, 75},
+{987, 1162, 75, 75},{1687, 862, 75, 75},{1987, 862, 75, 75},
+{2262, 862, 75, 75},{1687, 1012, 75, 75},{1987, 1012, 75, 75},
+{2262, 1012, 75, 75},{1687, 1162, 75, 75},{1987, 1162, 75, 75},
+{2262, 1162, 75, 75},{675, 1275, 200, 200},{1925, 1275, 200, 200}};
+int[] createPasswordGrid = {};
+int[] confirmPasswordGrid = {};
+int passwordButtonPressed = 0;
+int gridsSelected = 0;
 
 //app screen variables
 int[][] appScreenButtons = {{300, 1290, 200, 200}, 
@@ -1053,6 +1077,793 @@ void draw()
   {
     //password screen
     drawPasswordScreen();
+    
+    switch(passwordButtonPressed)
+    {
+      case 1:
+        if(inArray(createPasswordGrid, 1) == false)
+          createPasswordGrid = append(createPasswordGrid, 1);
+        break;
+      case 2:
+        if(inArray(createPasswordGrid, 2) == false)
+          createPasswordGrid = append(createPasswordGrid, 2);
+        break;
+      case 3:
+        if(inArray(createPasswordGrid, 3) == false)
+          createPasswordGrid = append(createPasswordGrid, 3);
+        break;
+      case 4:
+        if(inArray(createPasswordGrid, 4) == false)
+          createPasswordGrid = append(createPasswordGrid, 4);
+        break;
+      case 5:
+        if(inArray(createPasswordGrid, 5) == false)
+          createPasswordGrid = append(createPasswordGrid, 5);
+        break;
+      case 6:
+        if(inArray(createPasswordGrid, 6) == false)
+          createPasswordGrid = append(createPasswordGrid, 6);
+        break;
+      case 7:
+        if(inArray(createPasswordGrid, 7) == false)
+          createPasswordGrid = append(createPasswordGrid, 7);
+        break;
+      case 8:
+        if(inArray(createPasswordGrid, 8) == false)
+          createPasswordGrid = append(createPasswordGrid, 8);
+        break;
+      case 9:
+        if(inArray(createPasswordGrid, 9) == false)
+          createPasswordGrid = append(createPasswordGrid, 9);
+        break;
+      case 10:
+        if(inArray(confirmPasswordGrid, 10) == false)
+          confirmPasswordGrid = append(confirmPasswordGrid, 10);
+        break;
+      case 11:
+        if(inArray(confirmPasswordGrid, 11) == false)
+          confirmPasswordGrid = append(confirmPasswordGrid, 11);
+        break;
+      case 12:
+        if(inArray(confirmPasswordGrid, 12) == false)
+          confirmPasswordGrid = append(confirmPasswordGrid, 12);
+        break;
+      case 13:
+        if(inArray(confirmPasswordGrid, 13) == false)
+          confirmPasswordGrid = append(confirmPasswordGrid, 13);
+        break;
+      case 14:
+        if(inArray(confirmPasswordGrid, 14) == false)
+          confirmPasswordGrid = append(confirmPasswordGrid, 14);
+        break;
+      case 15:
+        if(inArray(confirmPasswordGrid, 15) == false)
+          confirmPasswordGrid = append(confirmPasswordGrid, 15);
+        break;
+      case 16:
+        if(inArray(confirmPasswordGrid, 16) == false)
+          confirmPasswordGrid = append(confirmPasswordGrid, 16);
+        break;
+      case 17:
+        if(inArray(confirmPasswordGrid, 17) == false)
+          confirmPasswordGrid = append(confirmPasswordGrid, 17);
+        break;
+      case 18:
+        if(inArray(confirmPasswordGrid, 18) == false)
+          confirmPasswordGrid = append(confirmPasswordGrid, 18);
+        break;
+      case 19:
+        //back arrow button
+        mirrorMode--;
+        passwordButtonPressed = 0;
+        break;
+      case 20:
+        //forward arrow button
+        if (gridsSelected == 1)
+        {
+          if(createPasswordGrid.length == confirmPasswordGrid.length && (createPasswordGrid.length > 0 && confirmPasswordGrid.length > 0))
+          {
+            for(int i = 0; i < createPasswordGrid.length; i++)
+            {
+                if(createPasswordGrid[i] == confirmPasswordGrid[i] && i == createPasswordGrid.length)
+                {
+                  mirrorMode++;
+                  passwordButtonPressed = 0;
+                }
+                else if(createPasswordGrid[i] != confirmPasswordGrid[i])
+                {
+                  break;
+                }
+            }
+          }
+        }
+        break;
+    }
+    
+    //check the connections between buttons and draw them for first/left grid
+    for(int i = 0; i < createPasswordGrid.length; i++)
+    {
+      if(createPasswordGrid.length >= i+2)
+      {
+        switch(createPasswordGrid[i])
+        {
+          case 1:
+            //1 to 2
+            if(createPasswordGrid[i+1] == 2)
+              rect(450, 881, 300, 37);
+            
+            //1 to 4
+            if(createPasswordGrid[i+1] == 4)
+              rect(431, 900, 37, 150);
+            
+            //1 to 5
+            if(createPasswordGrid[i+1] == 5)
+            {
+              //1 to 5
+              pushMatrix();
+              translate(735, 1035);
+              rotate(radians(117));
+              rect(-12, 0, 37, 300);
+              popMatrix();
+            }
+            
+            break;
+          case 2:  
+            //2 to 1
+            if(createPasswordGrid[i+1] == 1)
+              rect(450, 881, 300, 37);
+              
+            //2 to 4
+            if(createPasswordGrid[i+1] == 4)
+            {
+              pushMatrix();
+              translate(470, 1050);
+              rotate(radians(243));
+              rect(-12, 0, 37, 300);
+              popMatrix();
+            }
+            
+            //2 to 5
+            if(createPasswordGrid[i+1] == 5)
+              rect(731, 900, 37, 150);
+            
+            //2 to 6
+            if(createPasswordGrid[i+1] == 6)
+            {
+              pushMatrix();
+              translate(1020, 1035);
+              rotate(radians(117));
+              rect(-12, 0, 37, 300);
+              popMatrix();  
+            }
+            
+            //2 to 3
+            if(createPasswordGrid[i+1] == 3)
+              rect(725, 881, 300, 37);
+              
+            break;
+          case 3:
+            //3 to 2
+            if(createPasswordGrid[i+1] == 2)
+              rect(725, 881, 300, 37);
+            
+            //3 to 5
+            if(createPasswordGrid[i+1] == 5)
+            {
+              pushMatrix();
+              translate(765, 1050);
+              rotate(radians(241));
+              rect(-12, 0, 37, 300);
+              popMatrix();
+            }
+            
+            //3 to 6
+            if(createPasswordGrid[i+1] == 6)
+              rect(1006, 900, 37, 150);
+              
+            break;
+          case 4:
+            //4 to 1
+            if(createPasswordGrid[i+1] == 1)
+              rect(431, 900, 37, 150);
+              
+            //4 to 2
+            if(createPasswordGrid[i+1] == 2)
+            {
+              pushMatrix();
+              translate(470, 1050);
+              rotate(radians(243));
+              rect(-12, 0, 37, 300);
+              popMatrix();
+            }
+            
+            //4 to 5
+            if(createPasswordGrid[i+1] == 5)
+              rect(450, 1031, 300, 37);
+            
+            //4 to 7
+            if(createPasswordGrid[i+1] == 7)
+              rect(431, 1050, 37, 150);
+            
+            //4 to 8
+            if(createPasswordGrid[i+1] == 8)
+            {
+              pushMatrix();
+              translate(735, 1185);
+              rotate(radians(117));
+              rect(-12, 0, 37, 300);
+              popMatrix();
+            }
+            
+            break;
+          case 5:
+            //5 to 1
+            if(createPasswordGrid[i+1] == 1)
+            {
+              pushMatrix();
+              translate(735, 1035);
+              rotate(radians(117));
+              rect(-12, 0, 37, 300);
+              popMatrix();
+            }
+            
+            //5 to 2
+            if(createPasswordGrid[i+1] == 2)
+              rect(731, 900, 37, 150);
+              
+            //5 to 3
+            if(createPasswordGrid[i+1] == 3)
+            {
+              pushMatrix();
+              translate(765, 1050);
+              rotate(radians(241));
+              rect(-12, 0, 37, 300);
+              popMatrix();
+            }
+            
+            //5 to 4
+            if(createPasswordGrid[i+1] == 4)
+              rect(450, 1031, 300, 37);
+              
+            //5 to 6
+            if(createPasswordGrid[i+1] == 6)
+              rect(725, 1031, 300, 37);
+              
+            //5 to 7
+            if(createPasswordGrid[i+1] == 7)
+            {
+              pushMatrix();
+              translate(735, 1050);
+              rotate(radians(63));
+              rect(-12, 0, 37, 300);
+              popMatrix(); 
+            }
+            
+            //5 to 8
+            if(createPasswordGrid[i+1] == 8)
+              rect(731, 1050, 37, 150);
+              
+            //5 to 9
+            if(createPasswordGrid[i+1] == 9)
+            {
+              pushMatrix();
+              translate(765, 1060);
+              rotate(radians(300));
+              rect(-12, 0, 37, 300);
+              popMatrix();
+            }
+            
+            break;
+          case 6:
+            //6 to 3
+            if(createPasswordGrid[i+1] == 3)
+              rect(1006, 900, 37, 150);
+            
+            //6 to 2
+            if(createPasswordGrid[i+1] == 2)
+            {
+              pushMatrix();
+              translate(1020, 1035);
+              rotate(radians(117));
+              rect(-12, 0, 37, 300);
+              popMatrix();  
+            }
+            
+            //6 to 5
+            if(createPasswordGrid[i+1] == 5)
+              rect(725, 1031, 300, 37);
+              
+            //6 to 8
+            if(createPasswordGrid[i+1] == 8)
+            {
+              pushMatrix();
+              translate(765, 1200);
+              rotate(radians(241));
+              rect(-12, 0, 37, 300);
+              popMatrix();
+            }
+            
+            //6 to 9
+            if(createPasswordGrid[i+1] == 9)
+              rect(1006, 1050, 37, 150);
+            
+            break;
+          case 7:
+            //7 to 4
+            if(createPasswordGrid[i+1] == 4)
+              rect(431, 1050, 37, 150);
+              
+            //7 to 5
+            if(createPasswordGrid[i+1] == 5)
+            {
+              pushMatrix();
+              translate(735, 1050);
+              rotate(radians(63));
+              rect(-12, 0, 37, 300);
+              popMatrix(); 
+            }
+            
+            //7 to 8
+            if(createPasswordGrid[i+1] == 8)
+              rect(450, 1181, 300, 37);
+              
+            break;
+          case 8:
+            //8 to 7
+            if(createPasswordGrid[i+1] == 7)
+              rect(450, 1181, 300, 37);
+            
+            //8 to 4
+            if(createPasswordGrid[i+1] == 4)
+            {
+              pushMatrix();
+              translate(735, 1185);
+              rotate(radians(117));
+              rect(-12, 0, 37, 300);
+              popMatrix();
+            }
+            
+            //8 to 5
+            if(createPasswordGrid[i+1] == 5)
+              rect(731, 1050, 37, 150);
+            
+            //8 to 6
+            if(createPasswordGrid[i+1] == 6)
+            {
+              pushMatrix();
+              translate(765, 1200);
+              rotate(radians(241));
+              rect(-12, 0, 37, 300);
+              popMatrix();
+            }
+            
+            //8 to 9
+            if(createPasswordGrid[i+1] == 9)
+              rect(725, 1181, 300, 37);
+            
+            break;
+         case 9:
+            //9 to 8
+            if(createPasswordGrid[i+1] == 8)
+              rect(725, 1181, 300, 37);
+            
+            //9 to 5
+            if(createPasswordGrid[i+1] == 5)
+            {
+              pushMatrix();
+              translate(765, 1060);
+              rotate(radians(300));
+              rect(-12, 0, 37, 300);
+              popMatrix();
+            }
+            
+            //9 to 6
+            if(createPasswordGrid[i+1] == 6)
+              rect(1006, 1050, 37, 150);
+              
+            break;
+        }
+      }
+    }
+    
+    //check which buttons have been pressed and highlight them for first/left grid
+    for(int i = 0; i < createPasswordGrid.length; i++)
+    {
+      switch(createPasswordGrid[i])
+      {
+        case 1:
+          fill(63,121,190);
+          ellipse(450, 900, 75, 75);
+          fill(255,255, 255);
+          break;
+        case 2: 
+            fill(63,121,190);
+            ellipse(750, 900, 75, 75);
+            fill(255,255, 255);
+          break;
+        case 3:
+          fill(63,121,190);
+          ellipse(1025, 900, 75, 75);
+          fill(255,255, 255);
+          break;
+        case 4:
+          fill(63,121,190);
+          ellipse(450, 1050, 75, 75);
+          fill(255,255, 255);
+          break;
+        case 5:
+          fill(63,121,190);
+          ellipse(750, 1050, 75, 75);
+          fill(255,255, 255);
+          break;
+        case 6:
+          fill(63,121,190);
+          ellipse(1025, 1050, 75, 75);
+          fill(255,255, 255);
+          break;
+        case 7:
+          fill(63,121,190);
+          ellipse(450, 1200, 75, 75);
+          fill(255,255, 255);
+          break;
+        case 8:
+          fill(63,121,190);
+          ellipse(750, 1200, 75, 75);
+          fill(255,255, 255);
+          break;
+        case 9:
+          fill(63,121,190);
+          ellipse(1025, 1200, 75, 75);
+          fill(255,255, 255);
+          break;
+      }
+    }
+    
+    //check the connections between buttons and draw them for second/right grid
+    for(int i = 0; i < confirmPasswordGrid.length; i++)
+    {
+      if(confirmPasswordGrid.length >= i+2)
+      {
+        switch(confirmPasswordGrid[i])
+        {
+          case 10:
+            //10 to 11
+            if(confirmPasswordGrid[i+1] == 11)
+              rect(1720, 881, 300, 37);
+            
+            //10 to 13
+            if(confirmPasswordGrid[i+1] == 13)
+              rect(1707, 900, 37, 150);
+            
+            //10 to 14
+            if(confirmPasswordGrid[i+1] == 14)
+            {
+              pushMatrix();
+              translate(2007, 1035);
+              rotate(radians(117));
+              rect(-12, 0, 37, 300);
+              popMatrix();  
+            }
+            
+            break;
+          case 11:  
+            //11 to 10
+            if(confirmPasswordGrid[i+1] == 10)
+              rect(1720, 881, 300, 37);
+              
+            //11 to 13
+            if(confirmPasswordGrid[i+1] == 13)
+            {
+              pushMatrix();
+              translate(1745, 1050);
+              rotate(radians(243));
+              rect(-12, 0, 37, 300);
+              popMatrix(); 
+            }
+              
+            //11 to 14
+            if(confirmPasswordGrid[i+1] == 14)
+              rect(2007, 900, 37, 150);
+            
+            //11 to 15
+            if(confirmPasswordGrid[i+1] == 15)
+            {
+              pushMatrix();
+              translate(2290, 1035);
+              rotate(radians(119));
+              rect(-12, 0, 37, 300);
+              popMatrix(); 
+            }
+            
+            //11 to 12
+            if(confirmPasswordGrid[i+1] == 12)
+              rect(2020, 881, 300, 37);
+              
+            break;
+          case 12:
+            //12 to 11
+            if(confirmPasswordGrid[i+1] == 11)
+              rect(2020, 881, 300, 37);
+            
+            //12 to 14
+            if(confirmPasswordGrid[i+1] == 14)
+            {
+              pushMatrix();
+              translate(2043, 1050);
+              rotate(radians(241));
+              rect(-12, 0, 37, 300);
+              popMatrix();  
+            }
+            
+            //12 to 15
+            if(confirmPasswordGrid[i+1] == 15)
+              rect(2283, 900, 37, 150);
+              
+            break;
+          case 13:
+            //13 to 10
+            if(confirmPasswordGrid[i+1] == 10)
+              rect(1707, 900, 37, 150);
+              
+            //13 to 11
+            if(confirmPasswordGrid[i+1] == 11)
+            {
+              pushMatrix();
+              translate(1745, 1050);
+              rotate(radians(243));
+              rect(-12, 0, 37, 300);
+              popMatrix(); 
+            }
+            
+            //13 to 14
+            if(confirmPasswordGrid[i+1] == 14)
+              rect(1720, 1031, 300, 37);
+            
+            //13 to 16
+            if(confirmPasswordGrid[i+1] == 16)
+              rect(2283, 900, 37, 150);
+            
+            //13 to 17
+            if(confirmPasswordGrid[i+1] == 17)
+            {
+              pushMatrix();
+              translate(2007, 1185);
+              rotate(radians(117));
+              rect(-12, 0, 37, 300);
+              popMatrix(); 
+            }
+              
+            break;
+          case 14:
+            //14 to 10
+            if(confirmPasswordGrid[i+1] == 10)
+            {
+              pushMatrix();
+              translate(2007, 1035);
+              rotate(radians(117));
+              rect(-12, 0, 37, 300);
+              popMatrix();     
+            }
+            
+            //14 to 11
+            if(confirmPasswordGrid[i+1] == 11)
+              rect(2007, 900, 37, 150);
+              
+            //14 to 12
+            if(confirmPasswordGrid[i+1] == 12)
+            {
+              pushMatrix();
+              translate(2043, 1050);
+              rotate(radians(241));
+              rect(-12, 0, 37, 300);
+              popMatrix();  
+            }
+            
+            //14 to 13
+            if(confirmPasswordGrid[i+1] == 13)
+              rect(1720, 1031, 300, 37);
+              
+            //14 to 15
+            if(confirmPasswordGrid[i+1] == 15)
+              rect(2020, 1031, 300, 37);
+              
+            //14 to 16
+            if(confirmPasswordGrid[i+1] == 16)
+            {    
+              pushMatrix();
+              translate(2007, 1050);
+              rotate(radians(63));
+              rect(-12, 0, 37, 300);
+              popMatrix();
+            }
+            
+            //14 to 17
+            if(confirmPasswordGrid[i+1] == 17)
+              rect(1707, 1050, 37, 150);
+              
+            //14 to 18
+            if(confirmPasswordGrid[i+1] == 18)
+            {
+              pushMatrix();
+              translate(2043, 1060);
+              rotate(radians(300));
+              rect(-12, 0, 37, 300);
+              popMatrix(); 
+            }
+            
+            break;
+          case 15:
+            //15 to 12
+            if(confirmPasswordGrid[i+1] == 12)
+              rect(2283, 900, 37, 150);
+              
+            //15 to 11
+            if(confirmPasswordGrid[i+1] == 11)
+            {
+              pushMatrix();
+              translate(2290, 1035);
+              rotate(radians(119));
+              rect(-12, 0, 37, 300);
+              popMatrix(); 
+            }
+            
+            //15 to 14
+            if(confirmPasswordGrid[i+1] == 14)
+              rect(2020, 1031, 300, 37);
+              
+            //15 to 17
+            if(confirmPasswordGrid[i+1] == 17)
+            {
+              pushMatrix();
+              translate(2043, 1200);
+              rotate(radians(241));
+              rect(-12, 0, 37, 300);
+              popMatrix();  
+            }
+            
+            //15 to 18
+            if(confirmPasswordGrid[i+1] == 18)
+              rect(2007, 1050, 37, 150);
+            
+            break;
+          case 16:
+            //16 to 13
+            if(confirmPasswordGrid[i+1] == 13)
+              rect(2283, 900, 37, 150);
+              
+            //16 to 14
+            if(confirmPasswordGrid[i+1] == 14)
+            {    
+              pushMatrix();
+              translate(2007, 1050);
+              rotate(radians(63));
+              rect(-12, 0, 37, 300);
+              popMatrix();
+            }
+            
+            //16 to 17
+            if(confirmPasswordGrid[i+1] == 17)
+              rect(1720, 1181, 300, 37);
+              
+            break;
+          case 17:
+            //17 to 16
+            if(confirmPasswordGrid[i+1] == 16)
+              rect(1720, 1181, 300, 37);
+            
+            //17 to 13
+            if(confirmPasswordGrid[i+1] == 13)
+            {
+              pushMatrix();
+              translate(2007, 1185);
+              rotate(radians(117));
+              rect(-12, 0, 37, 300);
+              popMatrix(); 
+            }
+            
+            //17 to 14
+            if(confirmPasswordGrid[i+1] == 14)
+              rect(1707, 1050, 37, 150);
+              
+            //17 to 15
+            if(confirmPasswordGrid[i+1] == 15)
+            {
+              pushMatrix();
+              translate(2043, 1200);
+              rotate(radians(241));
+              rect(-12, 0, 37, 300);
+              popMatrix();  
+            }
+            
+            //17 to 18
+            if(confirmPasswordGrid[i+1] == 18)
+              rect(2020, 1181, 300, 37);
+            
+            break;
+         case 18:
+            //18 to 17
+            if(confirmPasswordGrid[i+1] == 17)
+              rect(2020, 1181, 300, 37);
+            
+            //18 to 14
+            if(confirmPasswordGrid[i+1] == 14)
+            {
+              pushMatrix();
+              translate(2043, 1060);
+              rotate(radians(300));
+              rect(-12, 0, 37, 300);
+              popMatrix(); 
+            }
+            
+            //18 to 15
+            if(confirmPasswordGrid[i+1] == 15)
+              rect(2283, 1050, 37, 150);            
+              
+            break;
+        }
+      }
+    }
+    
+    //check which buttons have been pressed and highlight them for second/right grid
+    for(int i = 0; i < confirmPasswordGrid.length; i++)
+    {
+      switch(confirmPasswordGrid[i])
+      {
+        case 10:
+          fill(63,121,190);
+          ellipse(1725, 900, 75, 75);
+          fill(255,255, 255);
+          break;
+        case 11:  
+          fill(63,121,190);
+          ellipse(2025, 900, 75, 75);
+          fill(255,255, 255);
+          break;
+        case 12:
+          fill(63,121,190);
+          ellipse(2300, 900, 75, 75);
+          fill(255,255, 255);
+          break;
+        case 13:
+          fill(63,121,190);
+          ellipse(1725, 1050, 75, 75);
+          fill(255,255, 255);
+          break;
+        case 14:
+          fill(63,121,190);
+          ellipse(2025, 1050, 75, 75);
+          fill(255,255, 255);
+          break;
+        case 15:
+          fill(63,121,190);
+          ellipse(2300, 1050, 75, 75);
+          fill(255,255, 255);
+          break;
+        case 16:
+          fill(63,121,190);
+          ellipse(1725, 1200, 75, 75);
+          fill(255,255, 255);
+          break;
+        case 17:
+          fill(63,121,190);
+          ellipse(2025, 1200, 75, 75);
+          fill(255,255, 255);
+          break;
+        case 18:
+          fill(63,121,190);
+          ellipse(2300, 1200, 75, 75);
+          fill(255,255, 255);
+          break;
+      }
+    }
+    
+    if(createPasswordGrid.length > 0 && confirmPasswordGrid.length > 0)
+    {
+      //make arrow available
+      image(forwardArrowIcon, 1925, 1275); 
+      gridsSelected = 1;
+    }    
+    
   } else if (mirrorMode == 4)
   {
     //guest screen
