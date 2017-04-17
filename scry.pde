@@ -60,9 +60,9 @@ String weather = "";
 String zip = "60607";
 String woeid = "12784261";
 
-int temp = 0;
-int code = 3200;
-int mirrorMode = 3; 
+int temp = 72;
+int code = 3;
+int mirrorMode = 5; 
 
 //just to check bottom side of window, comment out after use
 //int centerX = 0, centerY = 0, offsetX = 0, offsetY = 0;
@@ -102,11 +102,11 @@ void setup()
    //XML forecast = xml.getChild("results/channel/item/yweather:forecast");
    XML forecast2 = xml.getChild("results/channel/item/yweather:condition");
    
-   //retreive temperature/forecast description/forecast code
-   temp = forecast2.getInt("temp");
-   weather = forecast2.getString("text");
-   code = forecast2.getInt("code");
-   */
+   //retreive temperature/forecast description/forecast code*/
+   temp = 72;
+   weather = "Partly Cloudy";
+   code = 29;
+   
 
   //initialize images for forecast
   cloudy = loadImage("cloudy.png");
@@ -631,10 +631,10 @@ void drawPasswordScreen()
 //The following implements the time, date, and greeting
 void displayTime()
 {
-  Calendar c;
+  //Calendar c;
   int dayName;
-  c = Calendar.getInstance();
-  dayName = c.get(Calendar.DAY_OF_WEEK);
+  //c = Calendar.getInstance();
+  dayName = 3;
 
   int mon = month()-1;
   mon = constrain(mon, 0, 11);
@@ -729,7 +729,7 @@ void displayTime()
   textFont(font, 45);
   text("68°F", 2515, 255);
   textFont(font, 50);
-  text(curDate, 2075, 90);
+  text(curDate, 2110, 90);
   //textFont(font, 50);
   //text(greet, 960, 68);
 }
@@ -795,8 +795,8 @@ void displayWeather()
 //draw top half of interface for guest and user screen
 void drawTopInterface()
 {
-  //displayTime();
-  //displayWeather();
+  displayTime();
+  displayWeather();
 }
 
 //check if a given value is in a given array
