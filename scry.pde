@@ -29,7 +29,7 @@ PImage googleplusBig, googleplusLeft, googleplusRight;
 PImage facebookBig, facebookLeft, facebookRight;
 
 //app screen images
-PImage leftScreenArrow, fullScreenArrow, rightScreenArrow, keyboard;
+PImage leftScreenArrow, fullScreenArrow, rightScreenArrow, keyboard, numpad;
 PImage waterUtility, heatUtility, electricUtility, utilitiesFullScreen;
 PImage weightScreen, sleepScreen, stepsScreen, healthFullScreen;
 PImage calendarBig, calendarSmall, weatherBig, weatherSmall;
@@ -43,7 +43,7 @@ PImage drawScreen2, eraseScreen2;
 boolean drawnArea2[][];
 boolean drawnArea[][];
 boolean locked = false, hidden = false;
-boolean keyboardClicked = false, showPassword = false;
+boolean keyboardClicked = false, showPassword = false, numpadClicked = false;;
 
 PImage appStoreScreen;
 PImage notePad;
@@ -457,6 +457,9 @@ void setup()
   
   newsBig = loadImage("bignews.png");
   newsBig.loadPixels();
+  
+  numpad = loadImage("numPad.png");
+  numpad.loadPixels();
 }
 
 //draw elements for language choosing screen
@@ -550,8 +553,14 @@ void drawDateAndTimeScreen()
   text("Choose Date and Time", 840, 300);
 
   textFont(font, 72);
-  text("Date: mm/dd/yy", 600, 500);
-  text("Time: 00:00", 600, 650);
+ if(!numpadClicked){
+    text("Date: mm/dd/yy", 600, 500);
+    text("Time: 00:00", 600, 650);
+  }
+  else{
+    text("Date: 08/27/2017", 600, 500);
+    text("Time: 07:35", 600, 650);
+  }
   text("OR", 1250, 750);
 
   textFont(font, 108);
@@ -2319,6 +2328,12 @@ void mouseReleased()
 
   if (mirrorMode == 2)
   {
+  //if numpad clicked
+    if (wifiNetworkSelected && (mouseX > 1000) && (mouseX < 1700)
+      && (mouseY > 1000) && (mouseY < 1450)) {
+      numpadClicked = true;
+    }
+  
     for (int i=0; i < dateAndTimeScreenButtons.length; i++) {
       if ((mouseX > dateAndTimeScreenButtons[i][0]) && (mouseX < dateAndTimeScreenButtons[i][0]+dateAndTimeScreenButtons[i][2])
         && (mouseY > dateAndTimeScreenButtons[i][1]) && (mouseY < dateAndTimeScreenButtons[i][1]+dateAndTimeScreenButtons[i][3]))
