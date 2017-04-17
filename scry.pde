@@ -3531,6 +3531,12 @@ void mouseReleased()
 
   if (mirrorMode == 5) {
 
+  //check if logout button was chosen
+  if((mouseX > 0) && (mouseX < 250)
+     && (mouseY > 1256) && (mouseY < 1536)){
+      mirrorMode--;
+   }
+
     checkIfLocked();
 
     if (!locked)
