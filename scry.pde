@@ -11,7 +11,7 @@ PImage cloudy, partlyCloudy, storm, hail, rain, sunny, night, snow, wind, houseT
 PImage languageIcon, unavailableArrowIcon, forwardArrowIcon, wifiIcon, backArrowIcon, 
   whiteCheckmarkIcon, datetimeIcon, blackCheckmarkIcon, passwordIcon, powerIcon, 
   leftArrowIcon, rightArrowIcon, lockIcon, unlockIcon, gridIcon, guestIcon, 
-  guestScreenGridButtons;
+  loginButton, cancelButton;
 
 //primary app icons
 PImage timerIcon, backgroundIcon, weatherIcon, calendarIcon, lightIcon, utilitiesIcon, settingsIcon;
@@ -185,8 +185,11 @@ void setup()
   guestIcon = loadImage("guestIcon.png");
   guestIcon.loadPixels();
   
-  guestScreenGridButtons = loadImage("guestScreenGridButtons.png");
-  guestIcon.loadPixels();
+  loginButton = loadImage("loginButton.png");
+  loginButton.loadPixels();
+  
+  cancelButton = loadImage("cancelButton.png");
+  cancelButton.loadPixels();
 
   //primary app icons
   timerIcon = loadImage("timerIcon.png");
@@ -1923,7 +1926,19 @@ void draw()
         break;
       case 12:
         if(gridShown == 1)
+        {
+          for(int i = 0; i < createPasswordGrid.length; i++)
+          {
+            createPasswordGrid = shorten(createPasswordGrid);  
+          }
+          
+          for(int i = 0; i < confirmPasswordGrid.length; i++)
+          {
+            confirmPasswordGrid = shorten(confirmPasswordGrid);  
+          }
+          
           mirrorMode++;
+        }
         break;
       case 13:
         if(gridShown == 1)
@@ -1950,10 +1965,11 @@ void draw()
       ellipse(1615, 1150, 75, 75);
       
       //display try again and cancel button
-      image(guestScreenGridButtons, 977, 1311);
+      image(loginButton, 977, 1311);
+      image(cancelButton, 1410, 1311);
     }
     
-     //check the connections between buttons and draw them for first/left grid
+    //check the connections between buttons and draw them for first/left grid
     for(int i = 0; i < loginPasswordGrid.length; i++)
     {
       if(loginPasswordGrid.length >= i+2)
@@ -1972,7 +1988,11 @@ void draw()
             //1 to 5
             if(loginPasswordGrid[i+1] == 5)
             {
-
+              pushMatrix();
+              translate(1350, 955);
+              rotate(radians(121));
+              rect(-12, 0, 37, 300);
+              popMatrix();
             }
             
             break;
@@ -1984,7 +2004,11 @@ void draw()
             //2 to 4
             if(loginPasswordGrid[i+1] == 4)
             {
-
+              pushMatrix();
+              translate(1105, 975);
+              rotate(radians(238));
+              rect(-12, 0, 37, 300);
+              popMatrix();
             }
             
             //2 to 5
@@ -1994,7 +2018,11 @@ void draw()
             //2 to 6
             if(loginPasswordGrid[i+1] == 6)
             {
-            
+              pushMatrix();
+              translate(1600, 955);
+              rotate(radians(121));
+              rect(-12, 0, 37, 300);
+              popMatrix();
             }
             
             //2 to 3
@@ -2010,7 +2038,11 @@ void draw()
             //3 to 5
             if(loginPasswordGrid[i+1] == 5)
             {
-
+              pushMatrix();
+              translate(1375, 975);
+              rotate(radians(235));
+              rect(-12, 0, 37, 300);
+              popMatrix();
             }
             
             //3 to 6
@@ -2025,7 +2057,11 @@ void draw()
             //4 to 2
             if(loginPasswordGrid[i+1] == 2)
             {
-
+              pushMatrix();
+              translate(1105, 975);
+              rotate(radians(238));
+              rect(-12, 0, 37, 300);
+              popMatrix();
             }
             
             //4 to 5
@@ -2039,7 +2075,11 @@ void draw()
             //4 to 8
             if(loginPasswordGrid[i+1] == 8)
             {
-
+              pushMatrix();
+              translate(1350, 1140);
+              rotate(radians(121));
+              rect(-12, 0, 37, 300);
+              popMatrix();
             }
             
             break;
@@ -2047,16 +2087,24 @@ void draw()
             //5 to 1
             if(loginPasswordGrid[i+1] == 1)
             {
-
+              pushMatrix();
+              translate(1350, 955);
+              rotate(radians(121));
+              rect(-12, 0, 37, 300);
+              popMatrix();
             }
             
             //5 to 2
             if(loginPasswordGrid[i+1] == 2)
-              
+              rect(1080, 791, 38, 170);
             //5 to 3
             if(loginPasswordGrid[i+1] == 3)
             {
-
+              pushMatrix();
+              translate(1375, 975);
+              rotate(radians(235));
+              rect(-12, 0, 37, 300);
+              popMatrix();
             }
             
             //5 to 4
@@ -2070,7 +2118,11 @@ void draw()
             //5 to 7
             if(loginPasswordGrid[i+1] == 7)
             {
-
+              pushMatrix();
+              translate(1105, 1145);
+              rotate(radians(238));
+              rect(-12, 0, 37, 300);
+              popMatrix();
             }
             
             //5 to 8
@@ -2079,7 +2131,11 @@ void draw()
             //5 to 9
             if(loginPasswordGrid[i+1] == 9)
             {
-
+              pushMatrix();
+              translate(1620, 1140);
+              rotate(radians(121));
+              rect(-12, 0, 37, 300);
+              popMatrix();
             }
             
             break;
@@ -2090,7 +2146,11 @@ void draw()
             //6 to 2
             if(loginPasswordGrid[i+1] == 2)
             {
-
+              pushMatrix();
+              translate(1600, 955);
+              rotate(radians(121));
+              rect(-12, 0, 37, 300);
+              popMatrix();
             }
             
             //6 to 5
@@ -2099,7 +2159,11 @@ void draw()
             //6 to 8
             if(loginPasswordGrid[i+1] == 8)
             {
-
+              pushMatrix();
+              translate(1375, 1145);
+              rotate(radians(238));
+              rect(-12, 0, 37, 300);
+              popMatrix();
             }
             
             //6 to 9
@@ -2113,7 +2177,11 @@ void draw()
             //7 to 5
             if(loginPasswordGrid[i+1] == 5)
             {
-
+              pushMatrix();
+              translate(1105, 1145);
+              rotate(radians(238));
+              rect(-12, 0, 37, 300);
+              popMatrix();
             }
             
             //7 to 8
@@ -2127,7 +2195,11 @@ void draw()
             //8 to 4
             if(loginPasswordGrid[i+1] == 4)
             {
-
+              pushMatrix();
+              translate(1350, 1140);
+              rotate(radians(121));
+              rect(-12, 0, 37, 300);
+              popMatrix();
             }
             
             //8 to 5
@@ -2136,7 +2208,11 @@ void draw()
             //8 to 6
             if(loginPasswordGrid[i+1] == 6)
             {
-
+              pushMatrix();
+              translate(1375, 1145);
+              rotate(radians(238));
+              rect(-12, 0, 37, 300);
+              popMatrix();
             }
             
             //8 to 9
@@ -2150,7 +2226,11 @@ void draw()
             //9 to 5
             if(loginPasswordGrid[i+1] == 5)
             {
-
+              pushMatrix();
+              translate(1620, 1140);
+              rotate(radians(121));
+              rect(-12, 0, 37, 300);
+              popMatrix();
             }
             
             //9 to 6
