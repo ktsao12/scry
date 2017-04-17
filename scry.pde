@@ -63,18 +63,18 @@ String woeid = "12784261";
 
 int temp = 72;
 int code = 3;
-int mirrorMode = 3; 
+int mirrorMode = 4; 
 
 //just to check bottom side of window, comment out after use
-//int centerX = 0, centerY = 0, offsetX = 0, offsetY = 0;
+int centerX = 0, centerY = 0, offsetX = 0, offsetY = 0;
 
 void setup()
 {
   //just to check bottom side of window, comment out after use
-  /*centerX = 0;
+   centerX = 0;
    centerY = 0;  
    cursor(HAND);
-   smooth();*/
+   smooth();
 
   //*********************************************
   //**Create size of canvas and load base image
@@ -893,11 +893,11 @@ boolean backgroundSelect4 = false;
 void draw()
 {
   //just to check bottom side of window, comment out after use
-  /*if (mousePressed == true) {
+  if (mousePressed == true) {
    centerX = mouseX-offsetX;
    centerY = mouseY-offsetY;
    }   
-   translate(centerX,centerY);*/
+   translate(centerX,centerY);
 
   //Draw the mirror base Image
   noStroke();
@@ -1933,21 +1933,21 @@ void draw()
     
     if(gridShown == 1)
     {
-      text("Enter Your Swipe", 1060, 675);
+      text("Enter Your Swipe", 1170, 675);
       rect(1050, 700, 600, 15); 
 
       //grid of circles first row, perform swipe to log in    
-      ellipse(1085, 810, 38, 38);
-      ellipse(1360, 810, 38, 38);
-      ellipse(1615, 810, 38, 38);
+      ellipse(1085, 810, 75, 75);
+      ellipse(1360, 810, 75, 75);
+      ellipse(1615, 810, 75, 75);
       
-      ellipse(1085, 980, 38, 38);
-      ellipse(1360, 980, 38, 38);
-      ellipse(1615, 980, 38, 38);
+      ellipse(1085, 980, 75, 75);
+      ellipse(1360, 980, 75, 75);
+      ellipse(1615, 980, 75, 75);
      
-      ellipse(1085, 1150, 38, 38);
-      ellipse(1360, 1150, 38, 38);
-      ellipse(1615, 1150, 38, 38);
+      ellipse(1085, 1150, 75, 75);
+      ellipse(1360, 1150, 75, 75);
+      ellipse(1615, 1150, 75, 75);
       
       //display try again and cancel button
       image(guestScreenGridButtons, 977, 1311);
@@ -1963,11 +1963,11 @@ void draw()
           case 1:
             //1 to 2
             if(loginPasswordGrid[i+1] == 2)
-              rect(1080, 791, 275, 19);
+              rect(1080, 791, 275, 38);
             
             //1 to 4
             if(loginPasswordGrid[i+1] == 4)
-              rect(1080, 791, 19, 170);
+              rect(1080, 791, 38, 170);
             
             //1 to 5
             if(loginPasswordGrid[i+1] == 5)
@@ -1979,7 +1979,7 @@ void draw()
           case 2:  
             //2 to 1
             if(loginPasswordGrid[i+1] == 1)
-              rect(1080, 791, 275, 19);
+              rect(1080, 791, 275, 38);
               
             //2 to 4
             if(loginPasswordGrid[i+1] == 4)
@@ -1989,7 +1989,7 @@ void draw()
             
             //2 to 5
             if(loginPasswordGrid[i+1] == 5)
-              rect(1080, 791, 19, 170);
+              rect(1080, 791, 38, 170);
             
             //2 to 6
             if(loginPasswordGrid[i+1] == 6)
@@ -1999,13 +1999,13 @@ void draw()
             
             //2 to 3
             if(loginPasswordGrid[i+1] == 3)
-              rect(1355, 791, 255, 19);
+              rect(1355, 791, 255, 38);
               
             break;
           case 3:
             //3 to 2
             if(loginPasswordGrid[i+1] == 2)
-              rect(1355, 791, 255, 19);
+              rect(1355, 791, 255, 38);
             
             //3 to 5
             if(loginPasswordGrid[i+1] == 5)
@@ -2015,12 +2015,12 @@ void draw()
             
             //3 to 6
             if(loginPasswordGrid[i+1] == 6)
-              rect(1355, 791, 19, 170);              
+              rect(1355, 791, 38, 170);              
             break;
           case 4:
             //4 to 1
             if(loginPasswordGrid[i+1] == 1)
-              rect(1080, 791, 19, 170);
+              rect(1080, 791, 38, 170);
               
             //4 to 2
             if(loginPasswordGrid[i+1] == 2)
@@ -2030,11 +2030,11 @@ void draw()
             
             //4 to 5
             if(loginPasswordGrid[i+1] == 5)
-              rect(1080, 961, 275, 19);
+              rect(1080, 961, 275, 38);
             
             //4 to 7
             if(loginPasswordGrid[i+1] == 7)
-              rect(1080, 961, 19, 170);
+              rect(1080, 961, 38, 170);
             
             //4 to 8
             if(loginPasswordGrid[i+1] == 8)
@@ -2061,11 +2061,11 @@ void draw()
             
             //5 to 4
             if(loginPasswordGrid[i+1] == 4)
-              rect(1080, 961, 275, 19);
+              rect(1080, 961, 275, 38);
               
             //5 to 6
             if(loginPasswordGrid[i+1] == 6)
-              rect(1355, 961, 255, 19);
+              rect(1355, 961, 255, 38);
               
             //5 to 7
             if(loginPasswordGrid[i+1] == 7)
@@ -2075,7 +2075,7 @@ void draw()
             
             //5 to 8
             if(loginPasswordGrid[i+1] == 8)
-              rect(1355, 961, 19, 170);
+              rect(1355, 961, 38, 170);
             //5 to 9
             if(loginPasswordGrid[i+1] == 9)
             {
@@ -2086,7 +2086,7 @@ void draw()
           case 6:
             //6 to 3
             if(loginPasswordGrid[i+1] == 3)
-              rect(1355, 791, 19, 170);
+              rect(1355, 791, 38, 170);
             //6 to 2
             if(loginPasswordGrid[i+1] == 2)
             {
@@ -2095,7 +2095,7 @@ void draw()
             
             //6 to 5
             if(loginPasswordGrid[i+1] == 5)
-              rect(1355, 961, 255, 19);
+              rect(1355, 961, 255, 38);
             //6 to 8
             if(loginPasswordGrid[i+1] == 8)
             {
@@ -2104,12 +2104,12 @@ void draw()
             
             //6 to 9
             if(loginPasswordGrid[i+1] == 9)
-              rect(1355, 1131, 19, 170);
+              rect(1355, 1131, 38, 170);
             break;
           case 7:
             //7 to 4
             if(loginPasswordGrid[i+1] == 4)
-              rect(1080, 961, 19, 170);
+              rect(1080, 961, 38, 170);
             //7 to 5
             if(loginPasswordGrid[i+1] == 5)
             {
@@ -2118,12 +2118,12 @@ void draw()
             
             //7 to 8
             if(loginPasswordGrid[i+1] == 8)
-              rect(1080, 1131, 275, 19);
+              rect(1080, 1131, 275, 38);
             break;
           case 8:
             //8 to 7
             if(loginPasswordGrid[i+1] == 7)
-              rect(1080, 1131, 275, 19);
+              rect(1080, 1131, 275, 38);
             //8 to 4
             if(loginPasswordGrid[i+1] == 4)
             {
@@ -2132,7 +2132,7 @@ void draw()
             
             //8 to 5
             if(loginPasswordGrid[i+1] == 5)
-              rect(1355, 961, 19, 170);
+              rect(1355, 961, 38, 170);
             //8 to 6
             if(loginPasswordGrid[i+1] == 6)
             {
@@ -2141,12 +2141,12 @@ void draw()
             
             //8 to 9
             if(loginPasswordGrid[i+1] == 9)
-              rect(1355, 1131, 255, 19);
+              rect(1355, 1131, 255, 38);
             break;
          case 9:
             //9 to 8
             if(loginPasswordGrid[i+1] == 8)
-              rect(1355, 1131, 255, 19);
+              rect(1355, 1131, 255, 38);
             //9 to 5
             if(loginPasswordGrid[i+1] == 5)
             {
@@ -2155,7 +2155,7 @@ void draw()
             
             //9 to 6
             if(loginPasswordGrid[i+1] == 6)
-              rect(1355, 1131, 19, 170);
+              rect(1355, 1131, 38, 170);
             break;
         }
       }
@@ -2168,47 +2168,47 @@ void draw()
       {
         case 1:
           fill(63,121,190);
-          ellipse(1085, 810, 38, 38);
+          ellipse(1085, 810, 75, 75);
           fill(255,255, 255);
           break;
         case 2:  
           fill(63,121,190);
-          ellipse(1360, 810, 38, 38);
+          ellipse(1360, 810, 75, 75);
           fill(255,255, 255);
           break;
         case 3:
           fill(63,121,190);
-          ellipse(1615, 810, 38, 38);
+          ellipse(1615, 810, 75, 75);
           fill(255,255, 255);
           break;
         case 4:
           fill(63,121,190);
-          ellipse(1085, 980, 38, 38);
+          ellipse(1085, 980, 75, 75);
           fill(255,255, 255);
           break;
         case 5:
           fill(63,121,190);
-          ellipse(1360, 980, 38, 38);
+          ellipse(1360, 980, 75, 75);
           fill(255,255, 255);
           break;
         case 6:
           fill(63,121,190);
-          ellipse(1615, 980, 38, 38);
+          ellipse(1615, 980, 75, 75);
           fill(255,255, 255);
           break;
         case 7:
           fill(63,121,190);
-          ellipse(1085, 1150, 38, 38);
+          ellipse(1085, 1150, 75, 75);
           fill(255,255, 255);
           break;
         case 8:
           fill(63,121,190);
-          ellipse(1360, 1150, 38, 38);
+          ellipse(1360, 1150, 75, 75);
           fill(255,255, 255);
           break;
         case 9:
           fill(63,121,190);
-          ellipse(1615, 1150, 38, 38);
+          ellipse(1615, 1150, 75, 75);
           fill(255,255, 255);
           break;
       }
@@ -3707,7 +3707,7 @@ void mouseReleased()
   }
 
   //just to check bottom side of window, comment out after use
-  /*void mousePressed(){
+  void mousePressed(){
    offsetX = mouseX-centerX;
    offsetY = mouseY-centerY;
-   }*/
+   }
