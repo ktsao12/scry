@@ -458,7 +458,7 @@ void setup()
   timer = loadImage("timer.png");
   timer.loadPixels();
   
-  newsSmall = loadImage("newSmall.jpg");
+  newsSmall = loadImage("newsSmall.png");
   newsSmall.loadPixels();
   
   newsBig = loadImage("bignews.png");
